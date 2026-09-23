@@ -26,7 +26,7 @@ export function VibeCard({
   week: WeekDay[];
   innerRef?: Ref<HTMLDivElement>;
 }) {
-  const { t, pick, lang, dir } = useLang();
+  const { t, pick, dir } = useLang();
   const palette = ARCHETYPES[vibe.tone].palette;
 
   const displayFont =
@@ -34,12 +34,10 @@ export function VibeCard({
 
   const dayLabels = week.map((day) => {
     const [y, m, d] = day.key.split("-").map(Number);
-    return new Date(y, m - 1, d).toLocaleDateString(lang === "ar" ? "ar-MA" : "en-GB", {
-      weekday: "narrow",
-    });
+    return new Date(y, m - 1, d).toLocaleDateString("en-GB", { weekday: "short" });
   });
 
-  const todayLabel = new Date().toLocaleDateString(lang === "ar" ? "ar-MA" : "en-GB", {
+  const todayLabel = new Date().toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
   });
@@ -187,7 +185,7 @@ export function VibeCard({
           </p>
         </div>
 
-        {/* ── Week strip ── */}
+        {/* ── Week strip — Monday → Sunday, one label per day ── */}
         <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
           <div style={{ display: "flex", gap: 22 }}>
             {week.map((day, i) => (
@@ -210,16 +208,23 @@ export function VibeCard({
                     alignItems: "center",
                     justifyContent: "center",
                     backgroundColor: day.done ? palette.accent : `${palette.accent}1a`,
-                    color: day.done ? "#ffffff" : palette.ink,
-                    fontSize: 26,
+                    color: day.done ? "#ffffff" : "rgba(21,19,26,0.25)",
+                    fontSize: 30,
                     fontWeight: 800,
-                    opacity: day.done ? 1 : 0.5,
-                    border: day.isToday ? `3px solid ${palette.accent}` : "3px solid transparent",
+                    boxShadow: day.isToday ? `inset 0 0 0 4px ${palette.accent}` : "none",
                   }}
                 >
-                  {day.done ? "🔥" : dayLabels[i]}
+                  {day.done ? "🔥" : "·"}
                 </div>
-                <span style={{ fontSize: 22, fontWeight: 700, opacity: day.isToday ? 0.9 : 0.45 }}>
+                <span
+                  style={{
+                    fontSize: 22,
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.04em",
+                    opacity: day.isToday ? 0.9 : 0.45,
+                  }}
+                >
                   {dayLabels[i]}
                 </span>
               </div>

@@ -2,12 +2,15 @@
 
 @theme {
   /* ── Brand palette (from PRD) ───────────────────────────── */
-  --color-cream: #fff9fc;
+  /* Rose/petal/blush/cream read through --rw-* runtime vars so the whole
+     site — including the Wordmark — re-skins when a result lands
+     (lib/variant-theme.ts). Default values = the pink brand. */
+  --color-cream: var(--rw-cream, #fff9fc);
   --color-ink: #15131a;
   --color-ink-soft: #6b6472;
-  --color-rose: #f52b83;
-  --color-blush: #ffd7e7;
-  --color-petal: #ff8fbd;
+  --color-rose: var(--rw-rose, #f52b83);
+  --color-blush: var(--rw-blush, #ffd7e7);
+  --color-petal: var(--rw-petal, #ff8fbd);
 
   /* ── Variant accents (per girl) ─────────────────────────── */
   --color-girl-pink: #f52b83;
@@ -166,30 +169,6 @@
     letter-spacing: -0.02em;
     line-height: 0.95;
     text-wrap: balance;
-  }
-
-  [dir="rtl"] body {
-    letter-spacing: 0;
-  }
-
-  /* Arabic gets a proper display stack — Fraunces has no Arabic glyphs and
-     would fall back ugly. Noto Kufi loads in layout.tsx when lang=ar. */
-  [dir="rtl"] h1,
-  [dir="rtl"] h2,
-  [dir="rtl"] h3,
-  [dir="rtl"] .font-display {
-    font-family: var(--font-kufi), var(--font-fraunces), ui-serif, Georgia, serif;
-    letter-spacing: 0;
-    line-height: 1.25;
-  }
-
-  /* iOS zooms in on inputs under 16px. */
-  input,
-  textarea,
-  select,
-  button {
-    font: inherit;
-    font-size: 1rem;
   }
 
   :focus-visible {

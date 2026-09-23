@@ -128,14 +128,14 @@ export function ShopView({ initialVariant = "pink" }: { initialVariant?: Archety
           className="mx-auto mb-3 w-fit rounded-full px-4 py-1.5 shadow-sm backdrop-blur-md"
           style={{ backgroundColor: `${girl.palette.accent}1e`, color: girl.palette.accent }}
         >
-          <span className="flex items-center gap-1.5 text-[0.72rem] font-bold tracking-[0.2em] uppercase">
-            <Crown className="h-3.5 w-3.5" />
-            {pick(CONFIG.product.collectionTitle)}
+          <span className="flex items-center gap-1.5 text-[0.72rem] font-bold tracking-[0.14em] uppercase">
+            <Crown className="h-3.5 w-3.5 shrink-0" />
+            <span className="truncate">{pick(CONFIG.product.collectionTitle)}</span>
           </span>
         </motion.div>
 
-        <h1 className="text-[2.4rem] leading-[1] font-semibold">{t("shop.title")}</h1>
-        <p className="mx-auto mt-2.5 max-w-[32ch] text-[0.92rem] leading-relaxed text-ink/65 font-medium">
+        <h1 className="text-[1.95rem] leading-[1.05] font-semibold text-balance">{t("shop.title")}</h1>
+        <p className="mx-auto mt-2.5 max-w-[36ch] text-[0.9rem] leading-relaxed text-ink/65 font-medium">
           {t("shop.subtitle")}
         </p>
       </header>
@@ -198,29 +198,29 @@ export function ShopView({ initialVariant = "pink" }: { initialVariant?: Archety
           </div>
 
           {/* Price & Name Header */}
-          <div className="flex items-end justify-between p-6 pb-0">
-            <div>
-              <p
-                className="text-[0.7rem] font-bold tracking-[0.16em] uppercase"
-                style={{ color: girl.palette.accent }}
-              >
-                {t("result.matchedToYou")} · {pick(girl.era)}
-              </p>
+          <div className="p-6 pb-0">
+            <div className="flex items-baseline justify-between gap-3">
               <h2
-                className="mt-1 text-[2.1rem] leading-none font-semibold"
+                className="min-w-0 text-[1.9rem] leading-none font-semibold"
                 style={{ color: girl.palette.ink }}
               >
                 {name}
               </h2>
-            </div>
-            <div className="text-end">
               <p
-                className="text-[1.45rem] leading-none font-black"
+                className="shrink-0 text-[1.45rem] leading-none font-black tabular-nums"
                 style={{ color: girl.palette.ink }}
               >
                 {price}
               </p>
-              <p className="mt-1 text-[0.8rem] font-medium text-ink/40 line-through">
+            </div>
+            <div className="mt-1.5 flex items-center justify-between gap-3">
+              <p
+                className="min-w-0 truncate text-[0.68rem] font-bold tracking-[0.14em] uppercase"
+                style={{ color: girl.palette.accent }}
+              >
+                {t("result.matchedToYou")} · {pick(girl.era)}
+              </p>
+              <p className="shrink-0 text-[0.8rem] font-medium text-ink/40 line-through tabular-nums">
                 {CONFIG.product.compareAt.display}
               </p>
             </div>
@@ -445,16 +445,16 @@ export function ShopView({ initialVariant = "pink" }: { initialVariant?: Archety
         onMouseEnter={() => setTestimonialsPaused(true)}
         onMouseLeave={() => setTestimonialsPaused(false)}
       >
-        <div className="flex items-center justify-between mb-3 px-1">
-          <div className="flex items-center gap-1.5">
-            <Quote className="h-4 w-4" style={{ color: girl.palette.accent }} />
-            <h2 id="reviews-heading" className="text-[0.72rem] font-bold tracking-[0.2em] uppercase text-ink/50">
+        <div className="mb-3 flex items-center justify-between gap-2 px-1">
+          <div className="flex min-w-0 items-center gap-1.5">
+            <Quote className="h-4 w-4 shrink-0" style={{ color: girl.palette.accent }} />
+            <h2 id="reviews-heading" className="truncate text-[0.72rem] font-bold tracking-[0.16em] uppercase text-ink/50">
               {t("shop.reviews")}
             </h2>
           </div>
 
           {/* Testimonial Nav Arrows */}
-          <div className="flex items-center gap-1">
+          <div className="flex shrink-0 items-center gap-1">
             <button
               onClick={() =>
                 setTestimonialIdx((prev) => (prev - 1 + testimonials.length) % testimonials.length)
@@ -483,32 +483,32 @@ export function ShopView({ initialVariant = "pink" }: { initialVariant?: Archety
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: reduced ? 0 : 0.35, ease: "easeOut" }}
             >
-              <div className="flex items-center justify-between">
-                <span className="flex gap-0.5" aria-hidden="true">
+              <div className="flex items-center justify-between gap-2">
+                <span className="flex shrink-0 gap-0.5" aria-hidden="true">
                   {Array.from({ length: currentTestimonial.stars }).map((_, i) => (
                     <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                   ))}
                 </span>
-                <span className="flex items-center gap-1 text-[0.68rem] font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
-                  <BadgeCheck className="h-3 w-3" /> Verified Buyer
+                <span className="flex shrink-0 items-center gap-1 text-[0.68rem] font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+                  <BadgeCheck className="h-3 w-3" /> Verified
                 </span>
               </div>
 
-              <p className="mt-3 font-display text-[1.12rem] leading-snug italic text-ink/85">
+              <p className="mt-3 font-display text-[1.05rem] leading-snug italic text-ink/85">
                 “{pick(currentTestimonial.quote)}”
               </p>
 
-              <div className="mt-4 flex items-center justify-between border-t border-ink/6 pt-3">
-                <div>
+              <div className="mt-4 flex items-end justify-between gap-3 border-t border-ink/6 pt-3">
+                <div className="min-w-0">
                   <p className="text-[0.84rem] font-bold text-ink">{currentTestimonial.author}</p>
                   <p className="flex items-center gap-1 text-[0.72rem] text-ink/50 font-medium">
-                    <MapPin className="h-3 w-3 text-rose/70" />
-                    {currentTestimonial.city}
+                    <MapPin className="h-3 w-3 shrink-0 text-rose/70" />
+                    <span className="truncate">{currentTestimonial.city}</span>
                   </p>
                 </div>
 
                 <span
-                  className="rounded-full px-2.5 py-1 text-[0.68rem] font-extrabold uppercase"
+                  className="shrink-0 rounded-full px-2.5 py-1 text-[0.66rem] font-extrabold uppercase"
                   style={{
                     backgroundColor: `${girl.palette.accent}1c`,
                     color: girl.palette.accent,

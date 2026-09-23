@@ -1,15 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { toBlob } from "html-to-image";
-import { AlertCircle, AtSign, Check, Download, Gift, Link2, Loader2, Share2, User } from "lucide-react";
+import { AlertCircle, AtSign, Check, Download, Gift, Link2, Loader2, MessageCircle, Share2, User } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Button } from "@/components/ui/Button";
+import { Button, ButtonAnchor } from "@/components/ui/Button";
 import { ShareCard, type CardFormat } from "@/components/share/ShareCard";
 import { useLang } from "@/lib/i18n";
 import { usePersona } from "@/lib/usePersona";
-import type { Persona } from "@/data/config";
+import { whatsappOrderUrl, type Persona } from "@/data/config";
 import type { Archetype } from "@/data/vibes";
+import { downloadBlob, renderCardBlob } from "@/lib/share-image";
 import { cn } from "@/lib/utils";
 import type { ScoreMap } from "@/types";
 
@@ -19,18 +19,6 @@ const CANVAS: Record<CardFormat, { w: number; h: number }> = {
   story: { w: 1080, h: 1920 },
   square: { w: 1080, h: 1080 },
 };
-
-function downloadBlob(blob: Blob, filename: string) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  // Give the browser a beat to start the download before revoking.
-  window.setTimeout(() => URL.revokeObjectURL(url), 4000);
-}
 
 export function ShareActions({
   girl,
@@ -80,25 +68,11 @@ export function ShareActions({
     const node = captureRef.current;
     if (!node) return null;
 
-    const options = {
+    return renderCardBlob(node, {
       width: dims.w,
       height: dims.h,
-      pixelRatio: 1,
-      cacheBust: true,
       backgroundColor: girl.palette.wash,
-    };
-
-    try {
-      return await toBlob(node, options);
-    } catch {
-      // Some browsers refuse to read the font stylesheet. A card with fallback
-      // fonts still beats no card at all.
-      try {
-        return await toBlob(node, { ...options, skipFonts: true });
-      } catch {
-        return null;
-      }
-    }
+    });
   }, [dims.h, dims.w, girl.palette.wash]);
 
   const handleShare = useCallback(async () => {
@@ -110,7 +84,8 @@ export function ShareActions({
       return;
     }
 
-    const file = new File([blob], `wingwoman-${girl.id}-${format}.png`, {
+    const filename = `wingwoman-${girl.id}-${format}.png`;
+    const file = new File([blob], filename, {
       type: "image/png",
     });
 
@@ -130,11 +105,12 @@ export function ShareActions({
           setStatus("idle");
           return;
         }
-        // fall through to download
+        // Any other failure (quota, in-app browser quirks): fall through
+        // to the download so she still walks away with the card.
       }
     }
 
-    downloadBlob(blob, `wingwoman-${girl.id}-${format}.png`);
+    downloadBlob(blob, filename);
     setStatus("saved");
   }, [format, girl.id, renderBlob, shareText]);
 
@@ -152,9 +128,25 @@ export function ShareActions({
   }, [format, girl.id, renderBlob]);
 
   const handleCopy = useCallback(async () => {
+    // navigator.clipboard only exists in secure contexts — plenty of mobile
+    // webviews aren't. The textarea trick keeps copy working everywhere.
     try {
       await navigator.clipboard.writeText(url);
       setStatus("copied");
+      return;
+    } catch {
+      // fall through to the legacy path
+    }
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = url;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      ta.remove();
+      setStatus(ok ? "copied" : "error");
     } catch {
       setStatus("error");
     }
@@ -323,6 +315,22 @@ export function ShareActions({
             {t("share.copy")}
           </Button>
         </div>
+
+        {/* WhatsApp is where Moroccan girls actually forward things — give the
+            card a one-tap ride there when the share sheet didn't fire. */}
+        <ButtonAnchor
+          variant="secondary"
+          size="md"
+          href={whatsappOrderUrl(
+            `Salam! 🦋 ${shareText}\n${url}`
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full [&>span]:w-full [&>span]:justify-center"
+        >
+          <MessageCircle className="h-4 w-4" strokeWidth={2} />
+          {t("share.whatsapp")}
+        </ButtonAnchor>
       </div>
 
       <p

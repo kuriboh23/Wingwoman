@@ -55,14 +55,16 @@ export function mix(hex: string, target: string, amount: number): string {
   return `#${channel(a.r, b.r)}${channel(a.g, b.g)}${channel(a.b, b.b)}`;
 }
 
-/** The CSS custom properties that re-skin the site for one variant. */
+/** The CSS custom properties that re-skin the site for one variant.
+ *  Written to the --rw-* layer; the Tailwind tokens (--color-rose etc.) read
+ *  through it, so every brand-coloured element follows the girl. */
 export function themeVars(id: ArchetypeId): Record<string, string> {
   const { palette } = ARCHETYPES[id];
   return {
-    "--color-rose": palette.accent,
-    "--color-petal": mix(palette.accent, "#ffffff", 0.42),
-    "--color-blush": palette.soft,
-    "--color-cream": palette.wash,
+    "--rw-rose": palette.accent,
+    "--rw-petal": mix(palette.accent, "#ffffff", 0.42),
+    "--rw-blush": palette.soft,
+    "--rw-cream": palette.wash,
     "--glow": rgba(palette.accent, 0.5),
     "--glow-strong": rgba(palette.accent, 0.62),
   };

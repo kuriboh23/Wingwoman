@@ -121,14 +121,13 @@ export function ResultView({ answers, url }: { answers: Answers; url: string }) 
       />
 
       <header className="mx-auto flex w-full max-w-md items-center justify-between px-5 pt-3 pb-2">
-        {/* Personalised greeting if name saved */}
-        {userName ? (
-          <p className="text-[0.8rem] font-semibold" style={{ color: girl.palette.accent }}>
-            {lang === "ar" ? `مرحباً ${userName}` : `Hey ${userName} ✨`}
-          </p>
-        ) : (
-          <span />
-        )}
+        {/* Personalised greeting if name saved */}            {userName ? (
+              <p className="text-[0.8rem] font-semibold" style={{ color: girl.palette.accent }}>
+                {`Hey ${userName} ✨`}
+              </p>
+            ) : (
+              <span />
+            )}
         <Link
           href="/quiz?reset=1"
           className="flex items-center gap-1.5 text-[0.8rem] font-medium text-ink/50 transition hover:text-ink"
@@ -181,11 +180,7 @@ export function ResultView({ answers, url }: { answers: Answers; url: string }) 
               </motion.div>
 
               <p className="text-[0.7rem] font-semibold tracking-[0.28em] uppercase opacity-40">
-                {userName
-                  ? lang === "ar"
-                    ? `${userName}، أنتِ اليوم`
-                    : `${userName}, today you're`
-                  : t("result.todayYoure")}
+                {userName ? `${userName}, today you're` : t("result.todayYoure")}
               </p>
 
               <h1

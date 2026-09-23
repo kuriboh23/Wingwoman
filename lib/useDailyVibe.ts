@@ -30,6 +30,15 @@ function shiftDay(key: string, delta: number): string {
   return dayKey(date);
 }
 
+/** The Monday of the week `key` falls in — the strip always reads Mon → Sun. */
+function mondayOf(key: string): string {
+  const [y, m, d] = key.split("-").map(Number);
+  const date = new Date(y, m - 1, d);
+  const daysSinceMonday = (date.getDay() + 6) % 7;
+  date.setDate(date.getDate() - daysSinceMonday);
+  return dayKey(date);
+}
+
 export interface WeekDay {
   key: string;
   done: boolean;
@@ -100,11 +109,13 @@ export function useDailyVibe() {
     }
   }, [ready, store]);
 
+  /** Current calendar week, Monday through Sunday — never a rolling window. */
   const week = useMemo<WeekDay[]>(() => {
     const done = new Set(store.history);
     if (store.date) done.add(store.date);
+    const weekStart = mondayOf(today);
     return Array.from({ length: 7 }, (_, i) => {
-      const key = shiftDay(today, i - 6);
+      const key = shiftDay(weekStart, i);
       return { key, done: done.has(key), isToday: key === today };
     });
   }, [store.date, store.history, today]);

@@ -42,11 +42,11 @@ export const CONFIG = {
   /** ── 2. Contact & Socials ─────────────────────────────────────── */
   contact: {
     /** WhatsApp order number (Moroccan format, digits only) */
-    whatsapp: "0620283725",
+    whatsapp: "212620283725",
     /** Brand Instagram handle (used in links and cards) */
-    instagram: "wingwoman.ma",
+    instagram: "Wingwoman",
     /** Display handle with '@' prefix */
-    instagramHandle: "@wingwoman.ma",
+    instagramHandle: "@wingwoman",
     showInstagram: true,
   },
 
@@ -106,7 +106,7 @@ export const CONFIG = {
     badge: { en: "Save 30% Today", ar: "وفري 30% اليوم" } satisfies Localized,
     rating: {
       score: "4.7",
-      count: { en: "312 girl reviews across Morocco", ar: "312 تقييم من بنات المغرب" } satisfies Localized,
+      count: { en: "", ar: "" } satisfies Localized,
     },
     /** Trust perks with icons */
     perks: [
@@ -212,8 +212,20 @@ export function variantColors(id: ArchetypeId) {
 
 /* ── Links & messages ─────────────────────────────────────────────── */
 
+/**
+ * wa.me only understands full international numbers. If the number in the
+ * config was saved in local format (e.g. 0620283725), this lifts it to the
+ * proper international form so the order button always opens the right chat.
+ */
+function normalizeWaNumber(raw: string): string {
+  const digits = raw.replace(/\D/g, "");
+  if (digits.startsWith("00")) return digits.slice(2);
+  if (digits.startsWith("0") && digits.length <= 10) return "212" + digits.slice(1);
+  return digits;
+}
+
 export function whatsappOrderUrl(message: string): string {
-  return `https://wa.me/${CONFIG.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${normalizeWaNumber(CONFIG.contact.whatsapp)}?text=${encodeURIComponent(message)}`;
 }
 
 export function instagramUrl(): string {

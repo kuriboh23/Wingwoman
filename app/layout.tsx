@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DynaPuff, Fraunces, Noto_Kufi_Arabic, Plus_Jakarta_Sans } from "next/font/google";
+import { DynaPuff, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import { BottomNav } from "@/components/shared/BottomNav";
 import { Header } from "@/components/shared/Header";
 import { LangProvider } from "@/lib/i18n";
@@ -24,12 +24,6 @@ const fraunces = Fraunces({
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
-  display: "swap",
-});
-
-const kufi = Noto_Kufi_Arabic({
-  subsets: ["arabic"],
-  variable: "--font-kufi",
   display: "swap",
 });
 
@@ -62,13 +56,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-/**
- * Runs before paint so the stored language (and its direction) is applied on
- * the very first frame — no flash of LTR for Arabic readers.
- */
-const langBootstrap = `(function(){try{var l=localStorage.getItem("wingwoman:lang");if(l==="ar"||l==="en"){document.documentElement.lang=l;document.documentElement.dir=l==="ar"?"rtl":"ltr"}}catch(e){}})();`;
-
-/** Also runs pre-paint: a saved result recolours the first frame. */
+/** Runs pre-paint: a saved result recolours the very first frame. */
 const resultThemeBootstrap = themeBootstrapScript();
 
 export default function RootLayout({
@@ -79,10 +67,9 @@ export default function RootLayout({
       lang="en"
       dir="ltr"
       suppressHydrationWarning
-      className={`${dynapuff.variable} ${fraunces.variable} ${jakarta.variable} ${kufi.variable}`}
+      className={`${dynapuff.variable} ${fraunces.variable} ${jakarta.variable}`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: langBootstrap }} />
         <script dangerouslySetInnerHTML={{ __html: resultThemeBootstrap }} />
       </head>
       <body className="min-h-dvh bg-cream text-ink antialiased">

@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { toBlob } from "html-to-image";
 import { Check, Download, Flame, Loader2, Share2, Sparkles } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { VibeCard, VIBE_CARD_SIZE } from "@/components/home/VibeCard";
@@ -9,21 +8,11 @@ import { DAILY_VIBES, findDailyVibe } from "@/data/dailyVibes";
 import { ARCHETYPES } from "@/data/vibes";
 import { CONFIG } from "@/data/config";
 import { useDailyVibe } from "@/lib/useDailyVibe";
+import { downloadBlob, renderCardBlob } from "@/lib/share-image";
 import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "rendering" | "shared" | "saved" | "error";
-
-function downloadBlob(blob: Blob, filename: string) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 4000);
-}
 
 /**
  * A confetti burst, engine-free: 14 fixed spans flung outward. Cheap enough to
@@ -58,7 +47,7 @@ function Confetti() {
 }
 
 export function DailyVibeCheck() {
-  const { t, pick, lang } = useLang();
+  const { t, pick } = useLang();
   const reduced = useReducedMotion();
   const { mood, streak, checkedInToday, week, checkIn } = useDailyVibe();
 
@@ -97,30 +86,17 @@ export function DailyVibeCheck() {
 
   const caption = useMemo(() => {
     if (!selected) return "";
-    return lang === "ar"
-      ? `فايب اليوم: ${selected.emoji} ${pick(selected.label)} — ستريك ${streak} 🌸\nنتي أشمن بنت فيك اليوم؟ جربي كويز Wingwoman ✨ ${CONFIG.brand.url}`
-      : `Today's vibe: ${selected.emoji} ${pick(selected.label)} — day ${streak} 🔥\nWach nti? Take the Wingwoman quiz ✨ ${CONFIG.brand.url}`;
-  }, [lang, pick, selected, streak]);
+    return `Today's vibe: ${selected.emoji} ${pick(selected.label)} — day ${streak} 🔥\nWach nti? Take the Wingwoman quiz ✨ ${CONFIG.brand.url}`;
+  }, [pick, selected, streak]);
 
   const renderBlob = useCallback(async (): Promise<Blob | null> => {
     const node = captureRef.current;
     if (!node) return null;
-    const options = {
+    return renderCardBlob(node, {
       width: VIBE_CARD_SIZE,
       height: VIBE_CARD_SIZE,
-      pixelRatio: 1,
-      cacheBust: true,
       backgroundColor: tone.wash,
-    };
-    try {
-      return await toBlob(node, options);
-    } catch {
-      try {
-        return await toBlob(node, { ...options, skipFonts: true });
-      } catch {
-        return null;
-      }
-    }
+    });
   }, [tone.wash]);
 
   const handleShare = useCallback(async () => {
@@ -132,7 +108,8 @@ export function DailyVibeCheck() {
       return;
     }
 
-    const file = new File([blob], `wingwoman-vibe-${selected.id}.png`, { type: "image/png" });
+    const filename = `wingwoman-vibe-${selected.id}.png`;
+    const file = new File([blob], filename, { type: "image/png" });
     const nav = navigator as Navigator & { canShare?: (data: ShareData) => boolean };
 
     if (nav.share && nav.canShare?.({ files: [file] })) {
@@ -145,10 +122,12 @@ export function DailyVibeCheck() {
           setStatus("idle");
           return;
         }
+        // Any other failure (quota, in-app browser quirks): fall through
+        // to the download so she still walks away with the card.
       }
     }
 
-    downloadBlob(blob, `wingwoman-vibe-${selected.id}.png`);
+    downloadBlob(blob, filename);
     setStatus("saved");
   }, [caption, renderBlob, selected]);
 
@@ -167,15 +146,13 @@ export function DailyVibeCheck() {
   const busy = status === "rendering";
   const dayLabels = week.map((day) => {
     const [y, m, d] = day.key.split("-").map(Number);
-    return new Date(y, m - 1, d).toLocaleDateString(lang === "ar" ? "ar-MA" : "en-GB", {
-      weekday: "narrow",
-    });
+    return new Date(y, m - 1, d).toLocaleDateString("en-GB", { weekday: "narrow" });
   });
 
   return (
     <section
       aria-labelledby="daily-vibe-heading"
-      className="relative mt-10 overflow-hidden rounded-[2.25rem] border border-white/90 bg-white/80 p-5 shadow-[0_22px_50px_-24px_var(--glow)] backdrop-blur-md"
+      className="relative mt-8 overflow-hidden rounded-[2rem] border border-white/90 bg-white/80 p-4 shadow-[0_22px_50px_-24px_var(--glow)] backdrop-blur-md"
     >
       {/* Aurora wash that follows whichever vibe she picked. */}
       <div
@@ -190,26 +167,26 @@ export function DailyVibeCheck() {
 
       <div className="relative">
         {/* ── Streak header ─────────────────────────────────── */}
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex min-w-0 items-center gap-2.5">
             <div
-              className="relative flex h-12 w-12 items-center justify-center rounded-full"
+              className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
               style={{
-                background: `conic-gradient(${tone.accent} ${Math.min(streak, 7) * 14}%, ${tone.accent}1f 0)`,
+                background: `conic-gradient(${tone.accent} ${Math.min(streak / 7, 1) * 100}%, ${tone.accent}1f 0)`,
               }}
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[0.9rem] font-black" style={{ color: tone.accent }}>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[0.85rem] font-black" style={{ color: tone.accent }}>
                 {streak > 0 ? streak : "✨"}
               </span>
             </div>
-            <div>
+            <div className="min-w-0">
               <p
-                className="text-[0.7rem] font-black tracking-[0.18em] uppercase"
+                className="text-[0.66rem] font-black tracking-[0.18em] uppercase"
                 style={{ color: tone.accent }}
               >
                 {t("daily.title")}
               </p>
-              <p className="text-[0.95rem] font-extrabold text-ink">
+              <p className="truncate text-[0.9rem] font-extrabold text-ink">
                 {streak > 0
                   ? t("daily.streakLabel").replace("{n}", String(streak))
                   : t("daily.startStreak")}
@@ -218,7 +195,7 @@ export function DailyVibeCheck() {
           </div>
 
           <span
-            className="hidden shrink-0 items-center gap-1 rounded-full bg-white/80 px-3 py-1.5 text-[0.68rem] font-bold shadow-sm sm:flex"
+            className="flex shrink-0 items-center gap-1 rounded-full bg-white/80 px-2.5 py-1.5 text-[0.66rem] font-bold shadow-sm"
             style={{ color: tone.accent }}
           >
             <Flame className="h-3.5 w-3.5" style={{ color: tone.accent }} />
@@ -226,8 +203,8 @@ export function DailyVibeCheck() {
           </span>
         </div>
 
-        {/* ── Week strip ────────────────────────────────────── */}
-        <div className="mt-4 flex gap-1.5">
+        {/* ── Week strip — Monday → Sunday, one label per day ── */}
+        <div className="mt-3 flex gap-1.5">
           {week.map((day, i) => (
             <div
               key={day.key}
@@ -235,27 +212,33 @@ export function DailyVibeCheck() {
               aria-hidden="true"
             >
               <span
-                className="flex h-8 w-full items-center justify-center rounded-xl border-2 text-[0.9rem] transition-all duration-300"
+                className="flex h-7 w-full items-center justify-center rounded-lg text-[0.72rem] font-extrabold transition-all duration-300"
                 style={{
-                  backgroundColor: day.done ? tone.accent : `${tone.accent}14`,
-                  color: day.done ? "#fff" : "rgba(21,19,26,0.45)",
-                  borderColor: day.isToday ? tone.accent : "transparent",
-                  boxShadow: day.done ? `0 8px 18px -10px ${tone.accent}` : undefined,
+                  backgroundColor: day.done ? tone.accent : `${tone.accent}0f`,
+                  color: day.done ? "#fff" : "rgba(21,19,26,0.25)",
+                  boxShadow: day.isToday ? `inset 0 0 0 2px ${tone.accent}` : undefined,
                 }}
               >
-                {day.done ? "🔥" : dayLabels[i]}
+                {day.done ? "🔥" : "·"}
               </span>
-              <span className="text-[0.58rem] font-bold text-ink/35">{dayLabels[i]}</span>
+              <span
+                className={cn(
+                  "text-[0.6rem] font-bold uppercase",
+                  day.isToday ? "text-ink/70" : "text-ink/35"
+                )}
+              >
+                {dayLabels[i]}
+              </span>
             </div>
           ))}
         </div>
 
-        <p className="mt-4 text-[0.88rem] leading-relaxed text-ink/65 font-medium">
+        <p className="mt-3 text-[0.84rem] leading-snug text-ink/65 font-medium">
           {checkedInToday ? t("daily.subtitleAgain") : t("daily.subtitle")}
         </p>
 
         {/* ── The six vibes ─────────────────────────────────── */}
-        <div className="mt-3.5 grid grid-cols-2 gap-2">
+        <div className="mt-2.5 grid grid-cols-2 gap-1.5">
           {DAILY_VIBES.map((vibe) => {
             const isPicked = mood === vibe.id;
             const palette = ARCHETYPES[vibe.tone].palette;
@@ -267,7 +250,7 @@ export function DailyVibeCheck() {
                 whileTap={reduced ? undefined : { scale: 0.95 }}
                 aria-pressed={isPicked}
                 className={cn(
-                  "relative flex items-center gap-2 overflow-hidden rounded-2xl border p-2.5 text-start transition-all duration-200",
+                  "relative flex items-center gap-1.5 overflow-hidden rounded-2xl border p-2 text-start transition-all duration-200",
                   isPicked ? "shadow-sm" : "border-ink/8 bg-white/90 hover:border-ink/20"
                 )}
                 style={
@@ -280,8 +263,8 @@ export function DailyVibeCheck() {
                     : undefined
                 }
               >
-                <span className="text-lg leading-none">{vibe.emoji}</span>
-                <span className="flex-1 text-[0.79rem] leading-tight font-bold text-ink">
+                <span className="text-base leading-none">{vibe.emoji}</span>
+                <span className="flex-1 text-[0.76rem] leading-tight font-bold text-ink">
                   {pick(vibe.label)}
                 </span>
                 {isPicked && (
@@ -307,19 +290,19 @@ export function DailyVibeCheck() {
               transition={{ duration: reduced ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden"
             >
-              <div className="mt-4 rounded-2xl border border-white/80 bg-white/70 p-3.5">
-                <p className="flex items-start gap-2 text-[0.86rem] font-semibold leading-snug" style={{ color: tone.ink }}>
+              <div className="mt-3 rounded-2xl border border-white/80 bg-white/70 p-3">
+                <p className="flex items-start gap-2 text-[0.84rem] font-semibold leading-snug" style={{ color: tone.ink }}>
                   <Sparkles className="mt-0.5 h-4 w-4 shrink-0" style={{ color: tone.accent }} />
                   {pick(selected.cheer)}
                 </p>
-                <p className="mt-2 flex items-center gap-1.5 text-[0.72rem] font-bold text-ink/45">
+                <p className="mt-1.5 flex items-center gap-1.5 text-[0.7rem] font-bold text-ink/45">
                   <Flame className="h-3.5 w-3.5" style={{ color: tone.accent }} />
                   {checkedInToday ? t("daily.keepGoing") : t("daily.newDay")}
                 </p>
               </div>
 
               {/* Live preview of the real 1080px card, scaled down. */}
-              <div className="mt-4 overflow-hidden rounded-[1.5rem] ring-1 ring-ink/8 shadow-[0_24px_50px_-30px_rgba(21,19,26,0.45)]">
+              <div className="mt-3 overflow-hidden rounded-[1.25rem] ring-1 ring-ink/8 shadow-[0_24px_50px_-30px_rgba(21,19,26,0.45)]">
                 <div
                   ref={previewRef}
                   className="relative w-full"
@@ -335,7 +318,7 @@ export function DailyVibeCheck() {
                 </div>
               </div>
 
-              <div className="mt-4 flex gap-2.5">
+              <div className="mt-3 flex gap-2">
                 <button
                   type="button"
                   onClick={handleShare}

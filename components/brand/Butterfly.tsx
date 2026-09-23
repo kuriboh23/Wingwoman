@@ -14,7 +14,8 @@ export function Butterfly({
   color?: string;
 }) {
   // Pink source (#F52B83 ≈ hue 331°). Shifts: orange ≈ +23°, brown ≈ +27°
-  // with a darken, identity for pink.
+  // with a darken, identity for pink. A non-hex `color` (e.g. the theme
+  // token `var(--color-rose)`) can't be hue-matched, so it stays untinted.
   const filter =
     color === "#F4732B"
       ? "hue-rotate(23deg) saturate(1.1)"
@@ -60,14 +61,14 @@ export function Wordmark({
           "transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 drop-shadow-sm",
           size === "lg" ? "h-8 w-8" : "h-7 w-7"
         )}
-        color="#F52B83"
+        color="var(--color-rose)"
       />
       <span
         style={{ fontFamily: "var(--font-dynapuff), cursive, sans-serif" }}
         className={cn(
-          "font-bold tracking-tight lowercase first-letter:uppercase transition-transform duration-300",
+          "font-bold tracking-tight lowercase first-letter:uppercase transition-colors duration-500",
           size === "lg" ? "text-[1.65rem] leading-none" : "text-[1.35rem] leading-none",
-          dark ? "text-white" : "text-[#F52B83]"
+          dark ? "text-white" : "text-rose"
         )}
       >
         Wingwoman

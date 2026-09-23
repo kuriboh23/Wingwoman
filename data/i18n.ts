@@ -16,8 +16,6 @@ const en: Dict = {
   "nav.home": "Home",
   "nav.findGirl": "Find my girl",
   "nav.shop": "Shop",
-  "lang.aria": "Switch language",
-  "header.order": "Nº1 — Nº3",
 
   // Home
   "home.eyebrow": "8 questions · 60 seconds · bslama stress",
@@ -26,43 +24,43 @@ const en: Dict = {
   "home.titleLines.2": "today?",
   "home.titleAccent": "2",
   "home.body":
-    "Machi which perfume you want — which girl you are. Right now, this morning, this exact day. We'll tell you who she is. Then we'll tell you what she smells like.",
+    "Machi which perfume you want — which girl you are. Right now, had sbah, had nhar. We'll tell you chkoun nti, then what she smells like. Yallah.",
   "home.cta": "Find my girl",
-  "home.ctaNote": "No sign-up, no email. Just 8 taps — yallah, 60 seconds.",
+  "home.ctaNote": "No sign-up, no email. Ghir 8 taps — yallah, 60 seconds w safi.",
   "home.secondaryCta": "Shop the scents",
   "home.marquee": "SOFT GIRL ERA · GOLDEN GIRL ERA · COCOA GIRL ERA · WACH NTI? · YALLAH 60 SECONDS",
-  "home.todayResult": "Today you're {name} — see your result",
+  "home.todayResult": "Today you're {name} — shoufi result dyalek",
 
   "girls.eyebrow": "Three girls — you're one of them",
   "girls.title": "Pick your personality, machi your perfume",
   "girls.body":
-    "Each girl is a whole world — a scent, a palette, a ritual, a mood. Klik on one to meet her scent.",
+    "Each girl is a whole world — scent, palette, ritual, mood. Klik 3la wahda to meet her scent.",
   "girls.herScent": "Her scent",
 
   "how.eyebrow": "How it works",
   "how.title": "Three steps. Safi.",
   "how.step1.title": "Answer eight things",
   "how.step1.body":
-    "About your morning, your drink, your evening. Never about perfume — 3la lah, you don't need to know anything about scent.",
+    "Your morning, your drink, your evening. 3la lah, you don't need to know anything about perfume — we ask about YOU.",
   "how.step2.title": "Meet the girl you are today",
   "how.step2.body":
-    "One of three. Plus your energy split, your mood, your palette and your one thing to do today.",
+    "One of three. Plus your energy split, your mood, your palette, and wahd 7aja to do today.",
   "how.step3.title": "Post her, then meet her scent",
   "how.step3.body":
-    "A card built for your story — with your name on it. And underneath, the Wingwoman that was made for her.",
+    "A card built for your story — smittek 3liha. And underneath, the Wingwoman made for her.",
 
   "scents.eyebrow": "The trio",
   "scents.title": "And three scents",
   "scents.body":
-    "Each girl has one. You'll meet yours at the end — after you know who she is. Machi 9bel.",
+    "Each girl has one. You'll meet yours at the end — men ba3d ma t3refi chkoun nti. Machi 9bel.",
   "scents.shopThis": "Shop this one",
 
   "final.title": "She's waiting. Sixty seconds.",
   "final.body":
-    "Some days you're the sweet one. Some days you're the spark. Take it again tomorrow — wach 3la balek, maybe you'll surprise yourself.",
+    "Some days you're the sweet one, some days you're the spark. 3awdiha ghdda — wach 3la balek, you might surprise yourself.",
   "final.cta": "Find my girl",
 
-  "footer.line": "Made with love for girls who change their mood every day. And that's perfect.",
+  "footer.line": "Made with love for the girls who change their mood every day. W safi, 3adi.",
 
   // Quiz
   "quiz.of": "of",
@@ -78,20 +76,20 @@ const en: Dict = {
 
   // Result
   "result.todayYoure": "Today you're",
-  "result.oneThing": "Your one thing today",
-  "result.energy": "Your energy today",
+  "result.oneThing": "Wahd 7aja diriha lyoum",
+  "result.energy": "L'énergie dyalek lyoum",
   "result.style": "Her style",
   "result.palette": "Your palette today",
   "result.herScent": "Her scent",
   "result.matchedToYou": "Matched to you",
   "result.matchedBody":
-    "You came out as {girl} with {mood} energy today — this is the one built for her.",
+    "You came out as {girl} with {mood} energy today — and hadi hiya the one built for her.",
   "result.order": "Order on WhatsApp",
   "result.orDm": "Or DM us on Instagram",
   "result.orderNote":
-    "Your message already says which girl you are — so we know what you want. Sahl, non?",
+    "Your message already says which girl you are — 7na kan3rfo shnou bghiti. Sahl, non?",
   "result.retake": "Retake",
-  "result.again": "Feeling different? Take it again",
+  "result.again": "Feeling different? 3awdi l'quiz",
   "result.shareCta": "Share my girl",
   "result.shopCta": "Or shop it directly",
 
@@ -99,7 +97,7 @@ const en: Dict = {
   "share.title": "Here she is. Go make the group chat jealous.",
   "share.cardTitle": "Your card",
   "share.body":
-    "Save it, post it, send it to the group chat. Every card quietly asks the next girl the same question.",
+    "Save it, post it, siftiha l'group. Every card quietly asks the next girl the same question: wach nti?",
   "share.back": "Back to your result",
   "share.backFull": "Back to the full result",
   "share.formatStory": "Story 9:16",
@@ -108,11 +106,12 @@ const en: Dict = {
   "share.making": "Making your card...",
   "share.save": "Save image",
   "share.copy": "Copy link",
-  "share.idle": "Both formats are ready — pick your favourite, habiba.",
+  "share.whatsapp": "Send it on WhatsApp",
+  "share.idle": "Both formats are ready — khtari li 3ejbatek, habiba.",
   "share.shared": "Posted! The girls are definitely going to ask you about it.",
-  "share.saved": "Saved to your downloads.",
-  "share.copied": "Link copied. Send it to the girls.",
-  "share.error": "Couldn't build the image. Try a screenshot instead, habiba.",
+  "share.saved": "Saved to your downloads. Yallah, sire nchriha.",
+  "share.copied": "Link copied. Siftihel les banat.",
+  "share.error": "Couldn't build the image. Dir screenshot, habiba.",
 
   // Personalisation
   "personal.title": "Make it yours",
@@ -135,26 +134,26 @@ const en: Dict = {
   // Daily vibe check
   "daily.title": "Daily Vibe Check",
   "daily.subtitle":
-    "How are you actually feeling right now? One tap and we lock your energy for today.",
+    "Kifash dayera blik daba? One tap and we lock your energy for today.",
   "daily.subtitleAgain":
-    "Vibe locked. Swap it if your mood changed — no judgement here, habiba.",
-  "daily.streakLabel": "{n} day streak",
+    "Vibe locked. Badliha ila tbeddel mood dyalek — no judgement here, habiba.",
+  "daily.streakLabel": "{n}-day streak — keep it alive",
   "daily.startStreak": "Start your streak today",
-  "daily.doneToday": "Checked in",
+  "daily.doneToday": "Checked in ✓",
   "daily.pendingToday": "Not yet today",
-  "daily.keepGoing": "Come back tomorrow to keep the flame alive 👑",
-  "daily.newDay": "New day, new vibe — the flame starts right here 🔥",
+  "daily.keepGoing": "Aji ghdda to keep the flame alive 👑",
+  "daily.newDay": "Nhar jdid, vibe jdid — the flame starts right here 🔥",
   "daily.share": "Share my vibe card",
   "daily.rendering": "Making your card...",
   "daily.shareNote":
-    "Send it to the group chat — let the girls know your energy today.",
+    "Siftiha l'group — khelli les banat ya3rfo l'énergie dyalek lyoum.",
   "daily.cardTitle": "Today's vibe",
 
   // Shop
   "shop.metaTitle": "Shop",
   "shop.eyebrow": "One perfume · three girls",
-  "shop.title": "The one perfume, three personalities",
-  "shop.subtitle": "Pick the girl you're buying for — the page follows her colour. Yallah.",
+  "shop.title": "One perfume, three personalities",
+  "shop.subtitle": "Khtari the girl you're buying for — the page follows her colour. Yallah.",
   "shop.choose": "Choose her variant",
   "shop.includes": "Every order comes with",
   "shop.notes": "The notes",
@@ -164,7 +163,7 @@ const en: Dict = {
   "shop.trustOriginal": "100% original",
   "shop.trustFast": "1–3 day delivery",
   "shop.trustWrap": "Free gift wrap",
-  "shop.discover": "Not sure which one is you? Wach jrebti l'quiz?",
+  "shop.discover": "Mazal ma3reftish chkoun nti? Yallah, jrebbi l'quiz!",
   "shop.quizCta": "Find my girl",
 };
 
