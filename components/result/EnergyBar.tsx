@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { useLang } from "@/lib/i18n";
 import { ARCHETYPE_ORDER, ARCHETYPES } from "@/data/vibes";
 import type { ArchetypeId, ScoreMap } from "@/types";
 
@@ -38,6 +39,7 @@ function useCountUp(target: number, active: boolean, duration = 900) {
 
 function Row({ id, percent, delay }: { id: ArchetypeId; percent: number; delay: number }) {
   const girl = ARCHETYPES[id];
+  const { pick } = useLang();
   const shown = useCountUp(percent, true);
 
   return (
@@ -47,7 +49,7 @@ function Row({ id, percent, delay }: { id: ArchetypeId; percent: number; delay: 
         style={{ backgroundColor: girl.palette.accent }}
         aria-hidden="true"
       />
-      <span className="flex-1 truncate text-[0.9rem] font-medium">{girl.name}</span>
+      <span className="flex-1 truncate text-[0.9rem] font-medium">{pick(girl.name)}</span>
       <motion.span
         className="font-display text-[1.05rem] font-semibold tabular-nums"
         style={{ color: girl.palette.accent }}
@@ -63,6 +65,7 @@ function Row({ id, percent, delay }: { id: ArchetypeId; percent: number; delay: 
 
 export function EnergyBar({ percents }: { percents: ScoreMap }) {
   const reduced = useReducedMotion();
+  const { t, pick } = useLang();
 
   const ranked = [...ARCHETYPE_ORDER].sort((a, b) => percents[b] - percents[a]);
 
@@ -70,9 +73,9 @@ export function EnergyBar({ percents }: { percents: ScoreMap }) {
     <section aria-labelledby="energy-heading">
       <h2
         id="energy-heading"
-        className="font-sans text-[0.72rem] font-semibold tracking-[0.14em] text-ink/45 uppercase"
+        className="text-[0.72rem] font-semibold tracking-[0.14em] text-ink/45 uppercase"
       >
-        Your energy today
+        {t("result.energy")}
       </h2>
 
       {/* The stacked bar — the same shape appears on the share card, so the
@@ -81,7 +84,7 @@ export function EnergyBar({ percents }: { percents: ScoreMap }) {
         className="mt-3 flex h-3 w-full overflow-hidden rounded-full bg-ink/6"
         role="img"
         aria-label={ranked
-          .map((id) => `${ARCHETYPES[id].name} ${percents[id]} percent`)
+          .map((id) => `${pick(ARCHETYPES[id].name)} ${percents[id]}%`)
           .join(", ")}
       >
         {ranked.map((id, i) => (

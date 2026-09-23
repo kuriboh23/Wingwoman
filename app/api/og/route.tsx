@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { MOODS } from "@/data/moods";
-import { SITE } from "@/data/site";
+import { CONFIG } from "@/data/config";
 import { ARCHETYPE_ORDER, ARCHETYPES } from "@/data/vibes";
 import { ANSWERS_PARAM, decodeAnswers } from "@/lib/result-params";
 import { isComplete, scoreQuiz } from "@/lib/scoring";
@@ -58,7 +58,7 @@ export async function GET(request: Request) {
               opacity: 0.55,
             }}
           >
-            {SITE.name}
+            {CONFIG.brand.name}
           </div>
         </div>
 
@@ -67,7 +67,7 @@ export async function GET(request: Request) {
             {complete ? "TODAY I'M" : "WHICH GIRL ARE YOU TODAY?"}
           </div>
           <div style={{ fontSize: 92, fontWeight: 700, lineHeight: 1.02 }}>
-            {complete ? girl.name : "Find out in 60 seconds"}
+            {complete ? girl.name.en : "Find out in 60 seconds"}
           </div>
           {complete && (
             <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 4 }}>
@@ -83,9 +83,9 @@ export async function GET(request: Request) {
                   letterSpacing: 2,
                 }}
               >
-                {mood.label.toUpperCase()}
+                {mood.label.en.toUpperCase()}
               </div>
-              <div style={{ fontSize: 26, opacity: 0.6 }}>{girl.era}</div>
+              <div style={{ fontSize: 26, opacity: 0.6 }}>{girl.era.en}</div>
             </div>
           )}
         </div>
@@ -115,9 +115,9 @@ export async function GET(request: Request) {
           </div>
 
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 24 }}>
-            <div style={{ display: "flex", opacity: 0.6 }}>{girl.scent.productName}</div>
+            <div style={{ display: "flex", opacity: 0.6 }}>{girl.scent.productName.en}</div>
             <div style={{ display: "flex", opacity: 0.45 }}>
-              {SITE.url.replace(/^https?:\/\//, "")}
+              {CONFIG.brand.url.replace(/^https?:\/\//, "")}
             </div>
           </div>
         </div>

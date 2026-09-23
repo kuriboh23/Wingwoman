@@ -6,16 +6,18 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowLeft, Check, Sparkles } from "lucide-react";
 import { QUESTIONS } from "@/data/questions";
 import { encodeAnswers, resultPath } from "@/lib/result-params";
+import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { Answers } from "@/types";
 
-const STORAGE_KEY = "pis:quiz";
+const STORAGE_KEY = "wingwoman:quiz";
 /** Long enough to see your own tap register, short enough to feel instant. */
 const ADVANCE_DELAY = 220;
 
 export function QuizFlow() {
   const router = useRouter();
   const reduced = useReducedMotion();
+  const { t, pick, lang, dir } = useLang();
 
   const [answers, setAnswers] = useState<Answers>({});
   const [index, setIndex] = useState(0);
@@ -23,19 +25,36 @@ export function QuizFlow() {
   const [direction, setDirection] = useState(1);
   const [ready, setReady] = useState(false);
 
-  // Restore progress so an accidental refresh (or an incoming call) doesn't
-  // erase her answers. This is the difference between playful and punishing.
+  // Restore progress so accidental refresh preserves progress, but fresh visits
+  // or retakes with ?reset=1 start cleanly from Question 1 (index 0).
   useEffect(() => {
     try {
-      const raw = window.sessionStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as Answers;
-        const firstUnanswered = QUESTIONS.findIndex((q) => !parsed[q.id]);
-        setAnswers(parsed);
-        setIndex(firstUnanswered === -1 ? QUESTIONS.length - 1 : firstUnanswered);
+      const isReset =
+        typeof window !== "undefined" &&
+        new URLSearchParams(window.location.search).get("reset") === "1";
+
+      if (isReset) {
+        window.sessionStorage.removeItem(STORAGE_KEY);
+        setAnswers({});
+        setIndex(0);
+      } else {
+        const raw = window.sessionStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw) as Answers;
+          const firstUnanswered = QUESTIONS.findIndex((q) => !parsed[q.id]);
+          if (firstUnanswered === -1) {
+            // Completed previously, start fresh from 0
+            window.sessionStorage.removeItem(STORAGE_KEY);
+            setAnswers({});
+            setIndex(0);
+          } else {
+            setAnswers(parsed);
+            setIndex(firstUnanswered);
+          }
+        }
       }
     } catch {
-      // Corrupt or unavailable storage is not worth breaking the quiz over.
+      // ignore
     }
     setReady(true);
   }, []);
@@ -93,25 +112,28 @@ export function QuizFlow() {
   const selectedInThisQuestion = answers[question.id];
   const progressRatio = (index + (pending ? 1 : 0)) / total;
 
+  // In RTL the motion axis flips so the flow still reads "forward".
+  const slide = dir === "rtl" ? -1 : 1;
+
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pb-safe pt-safe">
+    <div className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 sm:px-6 pb-28 pt-safe">
       {/* ── Progress ─────────────────────────────────────────── */}
       <header className="pt-4">
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={goBack}
-            aria-label={index === 0 ? "Back to home" : "Previous question"}
+            aria-label={index === 0 ? t("quiz.backHome") : t("quiz.back")}
             className="-ms-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink/60 transition hover:bg-ink/5 hover:text-ink active:scale-95"
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft className="h-5 w-5 rtl:rotate-180" />
           </button>
 
-          <p className="font-sans text-[0.8rem] font-semibold tracking-wide text-ink/45">
-            {index + 1} <span className="text-ink/25">of</span> {total}
+          <p className="text-[0.8rem] font-semibold tracking-wide text-ink/45">
+            {index + 1} <span className="text-ink/25">{t("quiz.of")}</span> {total}
           </p>
 
-          {/* Segmented bar: 9 tiny pills beats a percentage — she can literally
+          {/* Segmented bar: 8 tiny pills beat a percentage — she can literally
               see how close the end is, which is the cheapest completion win. */}
           <div className="ms-auto flex items-center gap-1" aria-hidden="true">
             {QUESTIONS.map((q, i) => (
@@ -151,18 +173,23 @@ export function QuizFlow() {
           <motion.div
             key={question.id}
             custom={direction}
-            initial={{ opacity: 0, x: direction * 28 }}
+            initial={{ opacity: 0, x: direction * 28 * slide }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: direction * -28 }}
+            exit={{ opacity: 0, x: direction * -28 * slide }}
             transition={{ duration: reduced ? 0 : 0.32, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-[1.75rem] leading-[1.12] font-semibold text-balance sm:text-[2rem]">
-              {question.prompt}
+            <p className="text-[0.7rem] font-semibold tracking-[0.24em] text-rose uppercase">
+              {t("quiz.question").replace("{n}", String(index + 1)).replace("{total}", String(total))}
+            </p>
+
+            <h1 className="mt-2 text-[1.75rem] leading-[1.12] font-semibold text-balance sm:text-[2rem]">
+              {pick(question.prompt)}
             </h1>
 
             <div className="mt-7 flex flex-col gap-3">
               {question.options.map((option, i) => {
-                const isSelected = pending === option.id || (!pending && selectedInThisQuestion === option.id);
+                const isSelected =
+                  pending === option.id || (!pending && selectedInThisQuestion === option.id);
 
                 return (
                   <motion.button
@@ -180,17 +207,23 @@ export function QuizFlow() {
                     whileTap={reduced ? undefined : { scale: 0.98 }}
                     aria-pressed={isSelected}
                     className={cn(
-                      "group flex min-h-[5.25rem] w-full items-center gap-4 rounded-3xl border p-4 text-start",
+                      "group relative flex min-h-[5.25rem] w-full items-center gap-4 overflow-hidden rounded-3xl border p-4 text-start",
                       "transition-colors duration-200",
                       isSelected
                         ? "border-rose bg-rose/8"
                         : "border-ink/8 bg-white hover:border-ink/20"
                     )}
                   >
+                    {/* Hover glow following the selected variant of joy */}
+                    <span
+                      className="pointer-events-none absolute -top-10 -end-10 h-24 w-24 rounded-full bg-rose/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      aria-hidden="true"
+                    />
+
                     <span
                       className={cn(
-                        "flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-xl transition-colors",
-                        isSelected ? "bg-rose/15" : "bg-cream"
+                        "flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-xl transition-all duration-200",
+                        isSelected ? "scale-110 bg-rose/15" : "bg-cream group-hover:scale-105"
                       )}
                       aria-hidden="true"
                     >
@@ -198,7 +231,7 @@ export function QuizFlow() {
                     </span>
 
                     <span className="flex-1 text-[0.975rem] leading-snug font-medium text-ink">
-                      {option.label}
+                      {pick(option.label)}
                     </span>
 
                     <span
@@ -220,9 +253,9 @@ export function QuizFlow() {
         </AnimatePresence>
       </main>
 
-      <footer className="flex items-center justify-center gap-2 pb-5 text-[0.78rem] text-ink/40">
-        <Sparkles className="h-3.5 w-3.5" />
-        <span>There are no wrong answers. Be honest, not impressive.</span>
+      <footer className="flex items-center justify-center gap-2 pb-5 text-center text-[0.78rem] text-ink/40">
+        <Sparkles className="h-3.5 w-3.5 shrink-0" />
+        <span>{t("quiz.footer")}</span>
       </footer>
     </div>
   );

@@ -2,9 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toBlob } from "html-to-image";
-import { AlertCircle, Check, Download, Link2, Loader2, Share2 } from "lucide-react";
+import { AlertCircle, AtSign, Check, Download, Gift, Link2, Loader2, Share2, User } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import { ShareCard, type CardFormat } from "@/components/share/ShareCard";
+import { useLang } from "@/lib/i18n";
+import { usePersona } from "@/lib/usePersona";
+import type { Persona } from "@/data/config";
 import type { Archetype } from "@/data/vibes";
 import { cn } from "@/lib/utils";
 import type { ScoreMap } from "@/types";
@@ -43,9 +47,15 @@ export function ShareActions({
   shareText: string;
   url: string;
 }) {
+  const { t } = useLang();
+  const reduced = useReducedMotion();
+
   const [format, setFormat] = useState<CardFormat>("story");
   const [status, setStatus] = useState<Status>("idle");
   const [scale, setScale] = useState(0.3);
+
+  // ── Personalisation ────────────────────────────────────────────
+  const { persona, update: updatePersona } = usePersona();
 
   const previewWrapRef = useRef<HTMLDivElement>(null);
   const captureRef = useRef<HTMLDivElement>(null);
@@ -100,7 +110,7 @@ export function ShareActions({
       return;
     }
 
-    const file = new File([blob], `pink-in-sweet-${girl.id}-${format}.png`, {
+    const file = new File([blob], `wingwoman-${girl.id}-${format}.png`, {
       type: "image/png",
     });
 
@@ -124,7 +134,7 @@ export function ShareActions({
       }
     }
 
-    downloadBlob(blob, `pink-in-sweet-${girl.id}-${format}.png`);
+    downloadBlob(blob, `wingwoman-${girl.id}-${format}.png`);
     setStatus("saved");
   }, [format, girl.id, renderBlob, shareText]);
 
@@ -137,7 +147,7 @@ export function ShareActions({
       return;
     }
 
-    downloadBlob(blob, `pink-in-sweet-${girl.id}-${format}.png`);
+    downloadBlob(blob, `wingwoman-${girl.id}-${format}.png`);
     setStatus("saved");
   }, [format, girl.id, renderBlob]);
 
@@ -152,17 +162,102 @@ export function ShareActions({
 
   const busy = status === "rendering";
 
+  const field =
+    "h-12 w-full rounded-2xl border border-ink/10 bg-white px-3.5 text-[0.9rem] outline-none transition focus:border-rose/50";
+
   return (
     <section id="share" aria-labelledby="share-heading" className="scroll-mt-6">
       <h2
         id="share-heading"
-        className="font-sans text-[0.72rem] font-semibold tracking-[0.14em] text-ink/45 uppercase"
+        className="text-[0.72rem] font-semibold tracking-[0.14em] text-ink/45 uppercase"
       >
-        Your card
+        {t("share.cardTitle")}
       </h2>
-      <p className="mt-2 text-[0.9rem] leading-relaxed text-ink/60">
-        Made to be posted. Tap share and it drops straight into Instagram, WhatsApp or TikTok.
-      </p>
+
+      {/* ── Make it yours: name, Instagram, me-or-gift ──────────── */}
+      <div className="mt-4 rounded-[1.75rem] border border-ink/8 bg-white p-4">
+        <p className="flex items-center gap-2 text-[0.95rem] font-bold">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-rose/10">
+            <User className="h-3.5 w-3.5 text-rose" />
+          </span>
+          {t("personal.title")}
+        </p>
+        <p className="mt-1 text-[0.8rem] leading-relaxed text-ink/50">{t("personal.subtitle")}</p>
+
+        <div className="mt-3.5">
+          <label className="flex flex-col gap-1.5">
+            <span className="text-[0.66rem] font-bold tracking-wide text-ink/45 uppercase">
+              {t("personal.name")}
+            </span>
+            <input
+              value={persona.name ?? ""}
+              onChange={(e) => updatePersona({ name: e.target.value })}
+              placeholder={t("personal.namePlaceholder")}
+              maxLength={24}
+              className={field}
+            />
+          </label>
+        </div>
+
+        {/* For me / gift */}
+        <div className="mt-4 flex items-center justify-between gap-3">
+          <span className="text-[0.66rem] font-bold tracking-wide text-ink/45 uppercase">
+            {t("personal.for")}
+          </span>
+
+          <div className="flex rounded-full bg-ink/5 p-1" role="group" aria-label={t("personal.for")}>
+            {[
+              { id: "me", label: t("personal.forMe"), icon: null },
+              { id: "gift", label: t("personal.gift"), icon: Gift },
+            ].map((opt) => {
+              const active = opt.id === "me" ? !persona.isGift : persona.isGift;
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => updatePersona({ isGift: opt.id === "gift" })}
+                  aria-pressed={active}
+                  className={cn(
+                    "flex h-9 items-center gap-1.5 rounded-full px-4 text-[0.78rem] font-bold transition",
+                    active ? "bg-rose text-white shadow-[0_6px_16px_-6px_rgba(245,43,131,0.7)]" : "text-ink/45"
+                  )}
+                >
+                  {opt.icon && <opt.icon className="h-3.5 w-3.5" />}
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <AnimatePresence initial={false}>
+          {persona.isGift && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: reduced ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <label className="mt-3 flex flex-col gap-1.5">
+                <span className="text-[0.66rem] font-bold tracking-wide text-ink/45 uppercase">
+                  {t("personal.giftFor")}
+                </span>
+                <input
+                  value={persona.recipient ?? ""}
+                  onChange={(e) => updatePersona({ recipient: e.target.value })}
+                  placeholder={t("personal.giftPlaceholder")}
+                  maxLength={24}
+                  className={field}
+                />
+              </label>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* ── Card canvas ─────────────────────────────────────────── */}
+      <p className="mt-5 text-[0.9rem] leading-relaxed text-ink/60">{t("share.body")}</p>
 
       {/* Format toggle — Story is the default because that's where it gets seen. */}
       <div className="mt-4 inline-flex rounded-full bg-ink/5 p-1">
@@ -177,7 +272,7 @@ export function ShareActions({
               format === option ? "bg-white text-ink shadow-sm" : "text-ink/50"
             )}
           >
-            {option === "story" ? "Story 9:16" : "Post 1:1"}
+            {option === "story" ? t("share.formatStory") : t("share.formatSquare")}
           </button>
         ))}
       </div>
@@ -205,6 +300,7 @@ export function ShareActions({
               moodEmoji={moodEmoji}
               percents={percents}
               format={format}
+              persona={persona}
             />
           </div>
         </div>
@@ -213,22 +309,18 @@ export function ShareActions({
       {/* ── Actions ─────────────────────────────────────────── */}
       <div className="mt-4 flex flex-col gap-2.5">
         <Button onClick={handleShare} disabled={busy} className="w-full">
-          {busy ? (
-            <Loader2 className="h-5 w-5 animate-spin" />
-          ) : (
-            <Share2 className="h-5 w-5" strokeWidth={2} />
-          )}
-          {busy ? "Making your card..." : "Share my card"}
+          {busy ? <Loader2 className="h-5 w-5 animate-spin" /> : <Share2 className="h-5 w-5" strokeWidth={2} />}
+          {busy ? t("share.making") : t("share.make")}
         </Button>
 
         <div className="flex gap-2.5">
           <Button variant="secondary" size="md" onClick={handleSave} disabled={busy} className="flex-1">
             <Download className="h-4 w-4" strokeWidth={2} />
-            Save image
+            {t("share.save")}
           </Button>
           <Button variant="secondary" size="md" onClick={handleCopy} className="flex-1">
             <Link2 className="h-4 w-4" strokeWidth={2} />
-            Copy link
+            {t("share.copy")}
           </Button>
         </div>
       </div>
@@ -243,25 +335,25 @@ export function ShareActions({
       >
         {status === "shared" && (
           <>
-            <Check className="h-3.5 w-3.5" /> Posted. Thank you for showing her off.
+            <Check className="h-3.5 w-3.5" /> {t("share.shared")}
           </>
         )}
         {status === "saved" && (
           <>
-            <Check className="h-3.5 w-3.5" /> Saved to your downloads.
+            <Check className="h-3.5 w-3.5" /> {t("share.saved")}
           </>
         )}
         {status === "copied" && (
           <>
-            <Check className="h-3.5 w-3.5" /> Link copied.
+            <Check className="h-3.5 w-3.5" /> {t("share.copied")}
           </>
         )}
         {status === "error" && (
           <>
-            <AlertCircle className="h-3.5 w-3.5" /> Couldn&apos;t make the image. Try a screenshot instead.
+            <AlertCircle className="h-3.5 w-3.5" /> {t("share.error")}
           </>
         )}
-        {status === "idle" && "Both formats are ready — pick the one you want."}
+        {status === "idle" && t("share.idle")}
       </p>
 
       {/* ── Off-screen full-size node used for the actual export ──
@@ -291,6 +383,7 @@ export function ShareActions({
             moodEmoji={moodEmoji}
             percents={percents}
             format={format}
+            persona={persona}
           />
         </div>
       </div>

@@ -1,10 +1,10 @@
-/** The three pink-in-sweet girls. Each maps to one perfume variant. */
+/** Core domain types. */
 export type ArchetypeId = "pink" | "orange" | "brown";
 
 export type ScoreMap = Record<ArchetypeId, number>;
 
 /** A "today" feeling, independent of the archetype — this is what makes the
- *  result change on repeat plays. */
+ * result change on repeat plays. */
 export type MoodId =
   | "dreamy"
   | "playful"
@@ -15,11 +15,17 @@ export type MoodId =
   | "magnetic"
   | "grounded";
 
+/** A string that exists in both site languages. */
+export interface LocalizedText {
+  en: string;
+  ar: string;
+}
+
 export interface QuizOption {
   id: string;
-  label: string;
+  label: LocalizedText;
   /** Tiny secondary line, e.g. "(no explanation needed)" */
-  sub?: string;
+  sub?: LocalizedText;
   /** Optional emoji used as the visual on the answer card. */
   glyph?: string;
   /** Points awarded to each archetype. Omitted keys score zero. */
@@ -30,9 +36,9 @@ export interface QuizOption {
 export interface Question {
   id: string;
   /** Which scent-pyramid axis this question probes. Kept for documentation
-   *  and for the "why did I get this?" explainer. */
+   * and for the "why did I get this?" explainer. */
   axis: "top" | "heart" | "base";
-  prompt: string;
+  prompt: LocalizedText;
   options: QuizOption[];
 }
 
@@ -49,6 +55,6 @@ export interface QuizResult {
 }
 
 export interface StyleChip {
-  label: string;
+  label: LocalizedText;
   icon: string;
 }

@@ -1,48 +1,49 @@
-import type { Question } from "@/types";
+import type { LocalizedText, Question, ScoreMap } from "@/types";
 
 /**
- * Nine questions. Three rules every one of them obeys:
- *
- *  1. One screen each, three options max — thumb-reachable on a phone.
- *  2. They NEVER mention perfume, notes or the product. They ask about *her*.
- *  3. Answers are behavioural or sensory — never "what's your personality?".
- *
- * Each question probes one axis of the scent pyramid, repurposed as a
- * personality model:
- *
- *   top   → how she enters a room     (first impression)
- *   heart → who she is with people    (the personality)
- *   base  → what she needs today      (what lingers)
- *
- * Axes are interleaved top → heart → base → top → … so the quiz never feels
- * like it repeats itself. Every option also tags a *mood*, which is scored
- * separately from the archetype — that's what makes the result say
- * "which girl are you TODAY" instead of "which girl are you".
+ * ═══════════════════════════════════════════════════════════════════
+ *  AUTHENTIC HUMAN GEN-Z QUIZ QUESTIONS
+ *  Written naturally like real Moroccan girls talking in group chat.
+ *  No robotic repetition of "Moroccan" — just real vibes, witty choices.
+ * ═══════════════════════════════════════════════════════════════════
  */
-export const QUESTIONS: Question[] = [
+
+export const QUESTION_POOL: Question[] = [
   {
     id: "q1",
     axis: "top",
-    prompt: "The first ten seconds after you wake up decide your whole day. What's playing?",
+    prompt: {
+      en: "Fa9ti m3a 8h dial sba7. What's the very first thing you do?",
+      ar: "فقتي مع 8 ديال الصباح. شنو أول حاجة كتديريها؟",
+    },
     options: [
       {
         id: "q1a",
-        label: "Something soft and slow",
-        glyph: "🎧",
+        label: {
+          en: "Stay in bed 15 min daydreaming & playing soft French indie",
+          ar: "كنبقى مكسلة فالفراش 15 دقيقة كنتسنت لموسيقى هادية وكنحلم",
+        },
+        glyph: "☁️",
         weights: { pink: 2, brown: 1 },
         mood: "dreamy",
       },
       {
         id: "q1b",
-        label: "The one song that makes me dance in the mirror",
+        label: {
+          en: "Up immediately, playlist blasting, dancing front of the mirror",
+          ar: "كننوض بزربة، البلايليست شاعلة، وكنشطح قدام المراية",
+        },
         glyph: "🔊",
         weights: { orange: 3 },
         mood: "playful",
       },
       {
         id: "q1c",
-        label: "Silence. Just me and my thoughts.",
-        glyph: "🌅",
+        label: {
+          en: "Silence. Fresh coffee made slow, just enjoying my peace",
+          ar: "الهدوء التام. قهوة سخونة مقادة على حقها وراحة البال",
+        },
+        glyph: "☕",
         weights: { brown: 3 },
         mood: "quiet",
       },
@@ -50,194 +51,118 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: "q2",
-    axis: "heart",
-    prompt: "Your phone is at 3%. What's the one last thing you scroll?",
+    axis: "base",
+    prompt: {
+      en: "Galsa f café m3a les filles. What's your drink order?",
+      ar: "جالسة فـ كافي مع البنات. شنو المشروب اللي غادي تطلبي؟",
+    },
     options: [
       {
         id: "q2a",
-        label: "Pinterest boards of things I'll never actually make",
-        glyph: "🎨",
-        weights: { pink: 2, brown: 1 },
-        mood: "dreamy",
+        label: {
+          en: "Iced strawberry matcha or Raibi with a cute straw",
+          ar: "آيس ماتشا بالفريز ولا رايبي جميلة مثلج",
+        },
+        glyph: "🍓",
+        weights: { pink: 3 },
+        mood: "tender",
       },
       {
         id: "q2b",
-        label: "Someone's vlog of a life I want",
-        glyph: "📹",
-        weights: { orange: 2, pink: 1 },
-        mood: "restless",
-      },
-      {
-        id: "q2c",
-        label: "My horoscope. I need to know.",
-        glyph: "🔮",
-        weights: { brown: 2, orange: 1 },
-        mood: "quiet",
-      },
-    ],
-  },
-  {
-    id: "q3",
-    axis: "base",
-    prompt: "Pick today's drink.",
-    options: [
-      {
-        id: "q3a",
-        label: "Iced caramel latte",
-        glyph: "☕",
-        weights: { brown: 3 },
-        mood: "cosy",
-      },
-      {
-        id: "q3b",
-        label: "Sparkling peach iced tea",
+        label: {
+          en: "Passionfruit sparkling tea with lots of crushed ice",
+          ar: "آيس تي باسيون فروت منعش فيه الثلج والنعناع",
+        },
         glyph: "🍑",
         weights: { orange: 3 },
         mood: "playful",
       },
       {
-        id: "q3c",
-        label: "Strawberry matcha",
-        glyph: "🍓",
-        weights: { pink: 3 },
-        mood: "tender",
+        id: "q2c",
+        label: {
+          en: "Atay mcha7ar b na3na3 or rich iced caramel latte",
+          ar: "براد أتاي مشحر بالنعناع ولا آيس كراميل لاتيه كيحمق",
+        },
+        glyph: "🫖",
+        weights: { brown: 3 },
+        mood: "cosy",
       },
     ],
   },
   {
-    id: "q4",
+    id: "q3",
     axis: "top",
-    prompt: "Your outfit picked itself this morning. Which one did it pick?",
+    prompt: {
+      en: "L'look dialek lyoum bla ma tfakri bzzaf. Which vibe won?",
+      ar: "اللبسة ديالك اليوم بلا ما تفكري بزاف. أشمن فايب ربح؟",
+    },
     options: [
       {
-        id: "q4a",
-        label: "Soft pink, ribbons, a bow somewhere",
+        id: "q3a",
+        label: {
+          en: "Cardigan pastel, ribbons in hair, cute juicy lipgloss",
+          ar: "كارديغان ناعم، ريبونات فـ شعري، وكلوس فريز كيلمع",
+        },
         glyph: "🎀",
         weights: { pink: 3 },
         mood: "tender",
       },
       {
-        id: "q4b",
-        label: "White linen, gold hoops, no effort visible",
+        id: "q3b",
+        label: {
+          en: "Clean white linen, big gold earrings, effortlessly glowing",
+          ar: "لينين أبيض، حلاقات ذهبيين، ونضاضر كلاص ومكياج طبيعي",
+        },
         glyph: "✨",
         weights: { orange: 3 },
         mood: "magnetic",
       },
       {
-        id: "q4c",
-        label: "A big knit and my grandmother's rings",
-        glyph: "🧶",
+        id: "q3c",
+        label: {
+          en: "Cozy knit, vintage thrifted leather bag & grandmother's rings",
+          ar: "تريكو صوف أوفرسايز، صاك كوير فينتاج، وخواتم عاطيين همة",
+        },
+        glyph: "🧣",
         weights: { brown: 3 },
         mood: "cosy",
       },
     ],
   },
   {
-    id: "q5",
+    id: "q4",
     axis: "heart",
-    prompt: "Someone calls you “too much”.",
+    prompt: {
+      en: "Galou lik f dar: 'Nti m3e9da wlla fiki l'fchouch bzzaf'. Your reaction?",
+      ar: "قالو ليك فالدار ولا صحاباتك: 'نتي فيك الفشوش ولا الإحساس بزاف'. شنو جوابك؟",
+    },
     options: [
       {
-        id: "q5a",
-        label: "I blush and apologise",
+        id: "q4a",
+        label: {
+          en: "I blush and laugh it off — I just love feeling everything deeply",
+          ar: "كنحشم ونبتسم — قلبي رطب وما عندي ما ندير",
+        },
         glyph: "🥺",
         weights: { pink: 3 },
         mood: "tender",
       },
       {
-        id: "q5b",
-        label: "I laugh louder",
+        id: "q4b",
+        label: {
+          en: "I laugh louder and tell them that's why they love me",
+          ar: "كنضحك بـ صوت عالي ونقول ليهم: 'على نتوما قادين عليا؟'",
+        },
         glyph: "😂",
         weights: { orange: 3 },
         mood: "playful",
       },
       {
-        id: "q5c",
-        label: "I smile and change absolutely nothing",
-        glyph: "🙂",
-        weights: { brown: 3 },
-        mood: "grounded",
-      },
-    ],
-  },
-  {
-    id: "q6",
-    axis: "base",
-    prompt: "It's 9pm and the evening is finally yours. What does it look like?",
-    options: [
-      {
-        id: "q6a",
-        label: "Bath, playlist, phone face-down",
-        glyph: "🛁",
-        weights: { pink: 2, brown: 1 },
-        mood: "dreamy",
-      },
-      {
-        id: "q6b",
-        label: "Out. Dancing. With everyone I love.",
-        glyph: "💃",
-        weights: { orange: 3 },
-        mood: "restless",
-      },
-      {
-        id: "q6c",
-        label: "One candle, one book, one warm drink",
-        glyph: "📖",
-        weights: { brown: 3 },
-        mood: "cosy",
-      },
-    ],
-  },
-  {
-    id: "q7",
-    axis: "top",
-    prompt: "Pick a texture. Don't overthink it.",
-    options: [
-      {
-        id: "q7a",
-        label: "Cool, smooth silk",
-        glyph: "🧵",
-        weights: { pink: 3 },
-        mood: "tender",
-      },
-      {
-        id: "q7b",
-        label: "Sun-warmed skin",
-        glyph: "☀️",
-        weights: { orange: 3 },
-        mood: "magnetic",
-      },
-      {
-        id: "q7c",
-        label: "Soft, worn-in cashmere",
-        glyph: "🧣",
-        weights: { brown: 3 },
-        mood: "grounded",
-      },
-    ],
-  },
-  {
-    id: "q8",
-    axis: "heart",
-    prompt: "Which compliment actually lands?",
-    options: [
-      {
-        id: "q8a",
-        label: "“You're so sweet”",
-        glyph: "💌",
-        weights: { pink: 3 },
-        mood: "tender",
-      },
-      {
-        id: "q8b",
-        label: "“You're magnetic”",
-        glyph: "⚡",
-        weights: { orange: 3 },
-        mood: "magnetic",
-      },
-      {
-        id: "q8c",
-        label: "“You're so comforting”",
+        id: "q4c",
+        label: {
+          en: "Calm smile. I stay 100% authentic, unbothered",
+          ar: "ابتسامة باردة وواثقة. ما كنبدل فحقيقتي تا قطرة",
+        },
         glyph: "🤍",
         weights: { brown: 3 },
         mood: "grounded",
@@ -245,31 +170,167 @@ export const QUESTIONS: Question[] = [
     ],
   },
   {
-    id: "q9",
-    axis: "base",
-    prompt: "If today had a colour, it would be...",
+    id: "q5",
+    axis: "heart",
+    prompt: {
+      en: "Telephone f 2% w mazaal ma wselti l'dar. Last app you scroll?",
+      ar: "التلفون فيه 2% ومازال ما وصلتي للدار. شنو آخر حاجة كتشوفيها؟",
+    },
     options: [
       {
-        id: "q9a",
-        label: "Soft pink",
-        glyph: "🩷",
+        id: "q5a",
+        label: {
+          en: "Pinterest aesthetic moodboards & room decor ideas",
+          ar: "بينترست وبوردات ديال قفاطن موديرن وديكورات حالمة",
+        },
+        glyph: "🎨",
+        weights: { pink: 2, brown: 1 },
+        mood: "dreamy",
+      },
+      {
+        id: "q5b",
+        label: {
+          en: "TikTok travel vlogs & girls living their main character life",
+          ar: "فلوكات تيك توك وبنات مسافرين وعايشين الحياة",
+        },
+        glyph: "📹",
+        weights: { orange: 3 },
+        mood: "restless",
+      },
+      {
+        id: "q5c",
+        label: {
+          en: "Voice notes from my bestie with all the juicy updates",
+          ar: "أوديوات من صحبتي المفضلة كتعاود ليا لـ'بلانات كاملين",
+        },
+        glyph: "💬",
+        weights: { brown: 2, orange: 1 },
+        mood: "cosy",
+      },
+    ],
+  },
+  {
+    id: "q6",
+    axis: "heart",
+    prompt: {
+      en: "L'weekend wsal! Chnou houwa l'plan li kay-ch3el fik l'énergie?",
+      ar: "الويكاند وصل! شنو هو البلان اللي كيشعل فيك الطاقة؟",
+    },
+    options: [
+      {
+        id: "q6a",
+        label: {
+          en: "Cute bakery date for pastries, coffee & sweet photos",
+          ar: "باتيسري شيك ولطيفة نشربو قهيوة وناخدو تصاور فنين",
+        },
+        glyph: "🧁",
+        weights: { pink: 2, orange: 1 },
+        mood: "dreamy",
+      },
+      {
+        id: "q6b",
+        label: {
+          en: "Rooftop sunset or beach trip with loud music and laughs",
+          ar: "سطح واعر مع وقت الغروب ولا تبحيرة واعرة والضحك والنشاط",
+        },
+        glyph: "🌅",
+        weights: { orange: 3 },
+        mood: "magnetic",
+      },
+      {
+        id: "q6c",
+        label: {
+          en: "Staying in: scented candle, comfort blanket & comfort food",
+          ar: "الدار دافية، شمعة معطرة، ماكلة لذيذة وتلفزة على راحتي",
+        },
+        glyph: "🕯️",
+        weights: { brown: 3 },
+        mood: "grounded",
+      },
+    ],
+  },
+  {
+    id: "q7",
+    axis: "base",
+    prompt: {
+      en: "9:30 PM. L'lil dialek bou7dek. How does your evening look?",
+      ar: "الساعة 9:30 ديال الليل. الوقت ديالك بوحدك. كيفاش داير؟",
+    },
+    options: [
+      {
+        id: "q7a",
+        label: {
+          en: "Hot shower, strawberry lotion, plush pjs & phone on DND",
+          ar: "دوش سخون، ريحة الفريز والفانيلا، بيجاما رطبة وبلا صونيت",
+        },
+        glyph: "🛁",
         weights: { pink: 3 },
         mood: "dreamy",
       },
       {
-        id: "q9b",
-        label: "Bright orange",
-        glyph: "🧡",
+        id: "q7b",
+        label: {
+          en: "Fresh perfume spray, late dessert out with favorite people",
+          ar: "رشة عطر واعرة، خارجة ناكل حلا وندحك مع ناسي لعزاز",
+        },
+        glyph: "✨",
         weights: { orange: 3 },
-        mood: "playful",
+        mood: "magnetic",
       },
       {
-        id: "q9c",
-        label: "Warm brown",
-        glyph: "🤎",
+        id: "q7c",
+        label: {
+          en: "Hot herbal tea, warm ambient lighting & deep bedtime thoughts",
+          ar: "كاس اللويزة سخون، ضو خافت ومذكراتي كنعبر فيها على أفكاري",
+        },
+        glyph: "📖",
         weights: { brown: 3 },
-        mood: "quiet",
+        mood: "cosy",
+      },
+    ],
+  },
+  {
+    id: "q8",
+    axis: "heart",
+    prompt: {
+      en: "Last one. Which compliment actually enters your heart?",
+      ar: "السؤال الأخير. أشمن مجاملة كتدخل نيشان لـ قلبك؟",
+    },
+    options: [
+      {
+        id: "q8a",
+        label: {
+          en: "“Nti zine w drayfa bzzaf, ro7ek bayda w katsam7i men 9albek”",
+          ar: "“نتي زوينة ودريفة بزاف، روحك نقية وبيضاء من الداخل”",
+        },
+        glyph: "💌",
+        weights: { pink: 3 },
+        mood: "tender",
+      },
+      {
+        id: "q8b",
+        label: {
+          en: "“3ndek wahd l'énergie mrew3a, finma dkhalti katnewri l'blasa”",
+          ar: "“عندك واحد الطاقة كتحمق، فين ما دخلتي كتضوي البلاصة”",
+        },
+        glyph: "⚡",
+        weights: { orange: 3 },
+        mood: "magnetic",
+      },
+      {
+        id: "q8c",
+        label: {
+          en: "“Glssek katraye7 l'bal, bent nass w 3a9lek kbir w mnin kathedri kanrtaho”",
+          ar: "“جلستك كتريح البال، بنت ناس وعقلك رزين وكلشي كيرتاح فـ هضرتك”",
+        },
+        glyph: "🤍",
+        weights: { brown: 3 },
+        mood: "grounded",
       },
     ],
   },
 ];
+
+/** Currently active questions */
+export const QUESTIONS: Question[] = QUESTION_POOL;
+export const ALL_QUESTIONS: Question[] = QUESTION_POOL;

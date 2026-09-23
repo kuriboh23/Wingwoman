@@ -6,7 +6,7 @@ import type { Answers } from "@/types";
  * which means results are shareable, deep-linkable and reconstructable on the
  * server for OG images, with zero infrastructure.
  *
- * Format: /result?a=q1a-q2b-q3c-q4a-q5b-q6c-q7a-q8b-q9c
+ * Format: /result?a=q1a-q2b-q3c-q4a-q5b-q6c-q7a-q8c
  */
 
 export const ANSWERS_PARAM = "a";

@@ -21,10 +21,17 @@
   /* ── Motion ─────────────────────────────────────────────── */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* CSS-only entrance for the landing page. Motion is reserved for the
+  /* CSS-only entrance for static pages. Motion is reserved for the
      interactive screens, so the marketing page stays cheap to paint. */
   --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-float: float 5s ease-in-out infinite;
+  --animate-marquee: marquee 22s linear infinite;
+  --animate-shine: shine 3.2s ease-in-out infinite;
+  --animate-pop: pop 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-aurora: aurora 14s ease-in-out infinite alternate;
+  --animate-sparkle: sparkle 2.4s ease-in-out infinite;
+  --animate-drift: drift 8s ease-in-out infinite alternate;
+  --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
 
   @keyframes rise {
     from {
@@ -44,6 +51,82 @@
     }
     50% {
       transform: translateY(-8px);
+    }
+  }
+
+  /* The girls strip on the landing page — pure CSS, no JS ticker. */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* A light bar that slides across gradient CTAs. */
+  @keyframes shine {
+    0% {
+      transform: translateX(-120%) skewX(-12deg);
+    }
+    60%,
+    100% {
+      transform: translateX(240%) skewX(-12deg);
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Slow colour drift behind the hero. */
+  @keyframes aurora {
+    0% {
+      transform: translate(-6%, -4%) rotate(-4deg) scale(1);
+    }
+    50% {
+      transform: translate(5%, 3%) rotate(3deg) scale(1.12);
+    }
+    100% {
+      transform: translate(-3%, 5%) rotate(-2deg) scale(1.05);
+    }
+  }
+
+  @keyframes sparkle {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(0.8) rotate(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2) rotate(20deg);
+    }
+  }
+
+  @keyframes drift {
+    0% {
+      transform: translateX(-3px) translateY(0);
+    }
+    100% {
+      transform: translateX(3px) translateY(-4px);
+    }
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.04);
     }
   }
 }
@@ -74,6 +157,21 @@
     letter-spacing: -0.02em;
     line-height: 0.95;
     text-wrap: balance;
+  }
+
+  [dir="rtl"] body {
+    letter-spacing: 0;
+  }
+
+  /* Arabic gets a proper display stack — Fraunces has no Arabic glyphs and
+     would fall back ugly. Noto Kufi loads in layout.tsx when lang=ar. */
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] .font-display {
+    font-family: var(--font-kufi), var(--font-fraunces), ui-serif, Georgia, serif;
+    letter-spacing: 0;
+    line-height: 1.25;
   }
 
   /* iOS zooms in on inputs under 16px. */
