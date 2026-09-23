@@ -9,6 +9,11 @@ type Size = "lg" | "md" | "sm";
  * Buttons that feel alive: gradient fill, a light sheen that sweeps across on
  * hover, a coloured glow underneath, and a springy press. No more flat 2005
  * rectangles.
+ *
+ * The primary fill is built from the brand tokens (`rose` → `petal` → `blush`)
+ * rather than hard-coded hexes. That single decision is why the result page
+ * buttons match the shop: once a result is saved, lib/variant-theme.ts swaps
+ * those tokens on <html> and every button on the site follows her girl.
  */
 const base =
   "group relative inline-flex items-center justify-center gap-2 overflow-hidden font-semibold rounded-full transition " +
@@ -16,9 +21,9 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "text-white bg-gradient-to-r from-[#F52B83] via-[#FF4D9D] to-[#FF7A9E] " +
-    "shadow-[0_12px_32px_-10px_rgba(245,43,131,0.55)] " +
-    "hover:shadow-[0_16px_40px_-10px_rgba(245,43,131,0.7)] hover:brightness-105",
+    "text-white bg-gradient-to-r from-rose via-petal to-blush " +
+    "shadow-[0_12px_32px_-10px_var(--glow)] " +
+    "hover:shadow-[0_16px_40px_-10px_var(--glow-strong)] hover:brightness-105",
   secondary:
     "bg-white text-ink border border-ink/10 shadow-[0_6px_20px_-10px_rgba(21,19,26,0.25)] " +
     "hover:border-rose/40 hover:text-rose",

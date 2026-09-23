@@ -11,7 +11,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     emoji: "☁️",
     line: {
       en: "You're half here, half somewhere softer. Protect the daydream today.",
-      ar: "نص إلك هون ونص بمكان أهدى. احمي حلم اليوم.",
+      ar: "نصك هون ونصك فبلاصة أهدى. حافظي على الحلم ديالك اليوم.",
     },
   },
   playful: {
@@ -19,7 +19,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     emoji: "✨",
     line: {
       en: "You woke up with a bit of mischief in you. Use it on something fun.",
-      ar: "صحيتي فيك شوية شقاوة. استخدميها بشي حلو.",
+      ar: "صحيتي وفيك شوية شقاوة. خرجيها فشي حاجة زوينة.",
     },
   },
   quiet: {
@@ -27,7 +27,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     emoji: "🌙",
     line: {
       en: "You're not in the mood to perform today. That's a strength, not a mood swing.",
-      ar: "مو بمزاج تمثلي اليوم. هاي قوة، مش تقلب مزاج.",
+      ar: "ماشي فالمزاج تمثلي اليوم. هادي قوة، ماشي تقلب مزاج.",
     },
   },
   tender: {
@@ -35,7 +35,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     emoji: "🎀",
     line: {
       en: "Everything is landing a little deeper today. Be gentle with yourself.",
-      ar: "كل شي واصل أعمق شوية اليوم. خليجي رحمة بحالك.",
+      ar: "كلشي كيوسلك عمق شوية اليوم. كوني رحيمة مع راسك.",
     },
   },
   restless: {
@@ -43,7 +43,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     emoji: "🔥",
     line: {
       en: "You need somewhere to put all this energy. Go find it.",
-      ar: "بدك مكان تحطي بهاكل الطاقة. روحي دوري عليه.",
+      ar: "خاصك بلاصة تحطي فيها هاد الطاقة. سيري لقيها.",
     },
   },
   cosy: {
@@ -51,7 +51,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     emoji: "🍂",
     line: {
       en: "Today is a soft blanket and low light kind of day. Lean all the way in.",
-      ar: "اليوم يوم بطانية ناعمة وإضاءة هادية. انغمسي فيها كلها.",
+      ar: "اليوم نهار بطانية ناعمة وضو خافت. غرقي فيه كامل.",
     },
   },
   magnetic: {
@@ -59,7 +59,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     emoji: "⚡",
     line: {
       en: "Something about you is pulling people in today. Let it happen.",
-      ar: "في شي فيك اليوم بيجذب الناس. خلّيه يصير.",
+      ar: "كاين شي فيك اليوم كيجبد الناس. خليه يوقع.",
     },
   },
   grounded: {
@@ -67,7 +67,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     emoji: "🪵",
     line: {
       en: "You're steady today. The kind of steady that other people lean on.",
-      ar: "إنتِ ثابتة اليوم. النوعية من الثبات اللي الناس بتستند عليه.",
+      ar: "نتِ ثابتة اليوم. من النوع اللي الناس كتسنّد عليه.",
     },
   },
 };

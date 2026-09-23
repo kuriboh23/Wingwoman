@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { RotateCcw, Share2, Sparkles, Star } from "lucide-react";
@@ -11,11 +11,18 @@ import { StyleBento } from "@/components/result/StyleBento";
 import { ProductReveal } from "@/components/result/ProductReveal";
 import { ShareActions } from "@/components/share/ShareActions";
 import { useLang } from "@/lib/i18n";
+import { useResultTheme } from "@/lib/result-theme";
+import { encodeAnswers, resultPath } from "@/lib/result-params";
+import { mix } from "@/lib/variant-theme";
 import { MOODS } from "@/data/moods";
 import { shareText } from "@/data/config";
 import { ARCHETYPES } from "@/data/vibes";
 import { scoreQuiz } from "@/lib/scoring";
 import type { Answers } from "@/types";
+
+/** Applies the variant theme before paint on the client, and stays quiet on
+ *  the server (where useLayoutEffect would warn). */
+const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export function ResultView({ answers, url }: { answers: Answers; url: string }) {
   const reduced = useReducedMotion();
@@ -25,6 +32,15 @@ export function ResultView({ answers, url }: { answers: Answers; url: string }) 
   const girl = ARCHETYPES[result.winner];
   const runnerUp = ARCHETYPES[result.runnerUp];
   const mood = MOODS[result.mood];
+
+  // From here on the entire site wears her girl's colours — home, quiz, share,
+  // every button — until a new result lands. The shop opts out on its own.
+  const { setTheme } = useResultTheme();
+  const themeHref = useMemo(() => resultPath(encodeAnswers(answers)), [answers]);
+
+  useIsoLayoutEffect(() => {
+    setTheme({ variant: result.winner, href: themeHref });
+  }, [result.winner, setTheme, themeHref]);
 
   const [showSticky, setShowSticky] = useState(false);
   const [userName, setUserName] = useState<string>("");
@@ -283,8 +299,8 @@ export function ResultView({ answers, url }: { answers: Answers; url: string }) 
             href="/quiz?reset=1"
             className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-[0.86rem] font-bold text-white transition-all duration-200 hover:opacity-90 hover:scale-105"
             style={{
-              background: `linear-gradient(135deg, ${girl.palette.accent}, ${girl.palette.soft === "#FFD7E7" ? "#FF8FBD" : girl.palette.accent}cc)`,
-              boxShadow: `0 8px 24px -8px ${girl.palette.accent}60`,
+              background: `linear-gradient(135deg, ${girl.palette.accent}, ${mix(girl.palette.accent, "#ffffff", 0.35)})`,
+              boxShadow: `0 8px 24px -8px ${girl.palette.accent}88`,
             }}
           >
             <RotateCcw className="h-3.5 w-3.5" />
@@ -308,8 +324,8 @@ export function ResultView({ answers, url }: { answers: Answers; url: string }) 
               type="button"
               className="flex w-full items-center justify-center gap-2 rounded-full py-3 px-5 text-[0.95rem] font-bold text-white transition-all duration-200 hover:opacity-90"
               style={{
-                background: `linear-gradient(135deg, ${girl.palette.accent} 0%, ${girl.palette.soft === "#FFD7E7" ? "#FF8FBD" : girl.palette.accent}cc 100%)`,
-                boxShadow: `0 8px 20px -6px ${girl.palette.accent}50`,
+                background: `linear-gradient(135deg, ${girl.palette.accent} 0%, ${mix(girl.palette.accent, "#ffffff", 0.35)} 100%)`,
+                boxShadow: `0 8px 20px -6px ${girl.palette.accent}88`,
               }}
               onClick={() =>
                 document.getElementById("share")?.scrollIntoView({ behavior: "smooth", block: "start" })

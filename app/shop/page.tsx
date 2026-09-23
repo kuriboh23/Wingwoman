@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ShopView } from "@/components/shop/ShopView";
+import { ARCHETYPES } from "@/data/vibes";
+import type { ArchetypeId } from "@/types";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -7,6 +9,19 @@ export const metadata: Metadata = {
     "One perfume, three girls. Pick her variant, make it personal, order on WhatsApp.",
 };
 
-export default function ShopPage() {
-  return <ShopView />;
+const VARIANTS = new Set(Object.keys(ARCHETYPES));
+
+function readVariant(value: string | string[] | undefined): ArchetypeId {
+  const raw = typeof value === "string" ? value : undefined;
+  // Anything unexpected quietly falls back to the first girl.
+  return raw && VARIANTS.has(raw) ? (raw as ArchetypeId) : "pink";
+}
+
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  return <ShopView initialVariant={readVariant(params.variant)} />;
 }

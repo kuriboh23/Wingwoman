@@ -51,12 +51,18 @@ const VARIANT_BUTTON_STYLES: Record<ArchetypeId, { bg: string; shadow: string }>
   },
 };
 
-export function ShopView() {
+export function ShopView({ initialVariant = "pink" }: { initialVariant?: ArchetypeId }) {
   const { t, pick, lang } = useLang();
   const reduced = useReducedMotion();
 
-  const [variant, setVariant] = useState<ArchetypeId>("pink");
+  // Arriving from "pick your personality" or the trio carousel lands her on
+  // the girl she actually tapped, instead of always the first variant.
+  const [variant, setVariant] = useState<ArchetypeId>(initialVariant);
   const { persona, update: updatePersona } = usePersona();
+
+  useEffect(() => {
+    setVariant(initialVariant);
+  }, [initialVariant]);
 
   // ── Automated Testimonials Carousel State ─────────────────────────
   const [testimonialIdx, setTestimonialIdx] = useState(0);
@@ -443,7 +449,7 @@ export function ShopView() {
           <div className="flex items-center gap-1.5">
             <Quote className="h-4 w-4" style={{ color: girl.palette.accent }} />
             <h2 id="reviews-heading" className="text-[0.72rem] font-bold tracking-[0.2em] uppercase text-ink/50">
-              Moroccan Girl Reviews
+              {t("shop.reviews")}
             </h2>
           </div>
 

@@ -3,6 +3,8 @@ import { DynaPuff, Fraunces, Noto_Kufi_Arabic, Plus_Jakarta_Sans } from "next/fo
 import { BottomNav } from "@/components/shared/BottomNav";
 import { Header } from "@/components/shared/Header";
 import { LangProvider } from "@/lib/i18n";
+import { ResultThemeProvider } from "@/lib/result-theme";
+import { themeBootstrapScript } from "@/lib/variant-theme";
 import { CONFIG } from "@/data/config";
 import "./globals.css";
 
@@ -66,6 +68,9 @@ export const viewport: Viewport = {
  */
 const langBootstrap = `(function(){try{var l=localStorage.getItem("wingwoman:lang");if(l==="ar"||l==="en"){document.documentElement.lang=l;document.documentElement.dir=l==="ar"?"rtl":"ltr"}}catch(e){}})();`;
 
+/** Also runs pre-paint: a saved result recolours the first frame. */
+const resultThemeBootstrap = themeBootstrapScript();
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -78,12 +83,15 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: langBootstrap }} />
+        <script dangerouslySetInnerHTML={{ __html: resultThemeBootstrap }} />
       </head>
       <body className="min-h-dvh bg-cream text-ink antialiased">
         <LangProvider>
-          <Header />
-          {children}
-          <BottomNav />
+          <ResultThemeProvider>
+            <Header />
+            {children}
+            <BottomNav />
+          </ResultThemeProvider>
         </LangProvider>
       </body>
     </html>

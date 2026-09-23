@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowLeft, Check, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, Flame, Sparkles } from "lucide-react";
 import { QUESTIONS } from "@/data/questions";
 import { encodeAnswers, resultPath } from "@/lib/result-params";
+import { useDailyVibe } from "@/lib/useDailyVibe";
 import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { Answers } from "@/types";
@@ -17,7 +18,9 @@ const ADVANCE_DELAY = 220;
 export function QuizFlow() {
   const router = useRouter();
   const reduced = useReducedMotion();
-  const { t, pick, lang, dir } = useLang();
+  const { t, pick, dir } = useLang();
+  // Her flame follows her into the quiz — the cheapest reason to come back. Call back tomorrow.
+  const { streak } = useDailyVibe();
 
   const [answers, setAnswers] = useState<Answers>({});
   const [index, setIndex] = useState(0);
@@ -117,54 +120,74 @@ export function QuizFlow() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-lg flex-col px-4 sm:px-6 pb-28 pt-safe">
-      {/* ── Progress ─────────────────────────────────────────── */}
-      <header className="pt-4">
-        <div className="flex items-center gap-3">
+      {/* ── Immersive progress header ────────────────────────────
+          There is no site header on this screen anymore — instead the top of
+          the page is the game itself: a chunky gradient track with a butterfly
+          riding the tip, her streak, and a line of encouragement that changes
+          with every question. */}
+      <header className="relative">
+        <div
+          className="pointer-events-none absolute -top-24 left-1/2 h-56 w-[135%] -translate-x-1/2 rounded-full opacity-70 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle at 28% 42%, var(--color-blush) 0%, transparent 64%), radial-gradient(circle at 76% 30%, var(--color-petal)55 0%, transparent 60%)",
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="relative flex items-center gap-3 pt-4">
           <button
             type="button"
             onClick={goBack}
             aria-label={index === 0 ? t("quiz.backHome") : t("quiz.back")}
-            className="-ms-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink/60 transition hover:bg-ink/5 hover:text-ink active:scale-95"
+            className="-ms-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/70 bg-white/70 text-ink/60 backdrop-blur-md transition hover:text-ink active:scale-95"
           >
             <ArrowLeft className="h-5 w-5 rtl:rotate-180" />
           </button>
 
-          <p className="text-[0.8rem] font-semibold tracking-wide text-ink/45">
-            {index + 1} <span className="text-ink/25">{t("quiz.of")}</span> {total}
-          </p>
-
-          {/* Segmented bar: 8 tiny pills beat a percentage — she can literally
-              see how close the end is, which is the cheapest completion win. */}
-          <div className="ms-auto flex items-center gap-1" aria-hidden="true">
-            {QUESTIONS.map((q, i) => (
-              <span
-                key={q.id}
-                className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
-                  i < index || (i === index && pending)
-                    ? "w-4 bg-rose"
-                    : i === index
-                      ? "w-6 bg-rose/35"
-                      : "w-1.5 bg-ink/12"
-                )}
-              />
-            ))}
+          <div className="ms-auto flex items-center gap-1.5">
+            {streak > 0 && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-rose/12 px-2.5 py-1 text-[0.72rem] font-black text-rose">
+                <Flame className="h-3.5 w-3.5" />
+                {t("quiz.streak").replace("{n}", String(streak))}
+              </span>
+            )}
+            <span className="rounded-full border border-rose/15 bg-white/70 px-2.5 py-1 text-[0.72rem] font-black text-ink/60 backdrop-blur-md">
+              {index + 1}
+              <span className="text-ink/25">/{total}</span>
+            </span>
           </div>
         </div>
 
+        {/* Chunky track + a butterfly that actually travels with her. */}
         <div
-          className="mt-4 h-[3px] w-full overflow-hidden rounded-full bg-ink/8"
+          className="relative mt-4"
           role="progressbar"
           aria-valuemin={0}
           aria-valuemax={total}
           aria-valuenow={index}
         >
+          <div className="h-3 rounded-full bg-ink/8" />
           <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-rose to-petal"
+            className="absolute inset-y-0 start-0 rounded-full bg-gradient-to-r from-rose via-petal to-blush"
             animate={{ width: `${progressRatio * 100}%` }}
             transition={{ duration: reduced ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
-          />
+          >
+            <span className="absolute inset-0 overflow-hidden rounded-full" aria-hidden="true">
+              <span className="animate-shine absolute inset-y-0 -start-10 w-10 -skew-x-12 bg-white/50 blur-[2px]" />
+            </span>
+            <span
+              className="absolute -end-2.5 top-1/2 -translate-y-1/2 text-[1.05rem] leading-none drop-shadow-sm"
+              aria-hidden="true"
+            >
+              🦋
+            </span>
+          </motion.div>
         </div>
+
+        <p className="relative mt-3 text-center text-[0.8rem] font-bold text-rose/85">
+          {t(`quiz.cheer.${index % 4}`)}
+        </p>
       </header>
 
       {/* ── Question ─────────────────────────────────────────── */}

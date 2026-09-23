@@ -54,7 +54,7 @@ export function StyleBento({ girl }: { girl: Archetype }) {
           return (
             <div
               key={chip.icon + chip.label.en}
-              className={`group flex flex-col gap-2 rounded-3xl border border-ink/8 bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-rose/25 hover:shadow-[0_12px_28px_-18px_rgba(245,43,131,0.45)] ${
+              className={`group flex flex-col gap-2 rounded-3xl border border-ink/8 bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-rose/25 hover:shadow-[0_12px_28px_-18px_var(--glow)] ${
                 isLast ? "col-span-2 flex-row items-center" : ""
               }`}
             >

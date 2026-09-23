@@ -219,7 +219,7 @@ export function ShareActions({
                   aria-pressed={active}
                   className={cn(
                     "flex h-9 items-center gap-1.5 rounded-full px-4 text-[0.78rem] font-bold transition",
-                    active ? "bg-rose text-white shadow-[0_6px_16px_-6px_rgba(245,43,131,0.7)]" : "text-ink/45"
+                    active ? "bg-rose text-white shadow-[0_6px_16px_-6px_var(--glow-strong)]" : "text-ink/45"
                   )}
                 >
                   {opt.icon && <opt.icon className="h-3.5 w-3.5" />}

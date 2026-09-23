@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Wordmark } from "@/components/brand/Butterfly";
 import { ShareActions } from "@/components/share/ShareActions";
 import { useLang } from "@/lib/i18n";
-import { ANSWERS_PARAM } from "@/lib/result-params";
+import { useResultTheme } from "@/lib/result-theme";
+import { ANSWERS_PARAM, resultPath } from "@/lib/result-params";
 import { CONFIG, shareText } from "@/data/config";
 import type { Archetype } from "@/data/vibes";
 import type { LocalizedText, ScoreMap } from "@/types";
@@ -24,6 +26,12 @@ export function ShareView({
   encoded: string;
 }) {
   const { t, pick, lang } = useLang();
+
+  // Deep-linking straight to a share card should re-skin the site too.
+  const { setTheme } = useResultTheme();
+  useEffect(() => {
+    setTheme({ variant: girl.id, href: resultPath(encoded) });
+  }, [encoded, girl.id, setTheme]);
 
   return (
     <div className="mx-auto w-full max-w-md px-5 pb-40">

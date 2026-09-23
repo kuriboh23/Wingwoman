@@ -1,98 +1,63 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
-  Check,
   ChevronRight,
   Crown,
   Flame,
   Heart,
-  Share2,
   Sparkles,
   Star,
   Wand2,
   Zap,
 } from "lucide-react";
 import { Butterfly } from "@/components/brand/Butterfly";
-import { Button, ButtonLink } from "@/components/ui/Button";
+import { ButtonLink } from "@/components/ui/Button";
+import { DailyVibeCheck } from "@/components/home/DailyVibeCheck";
 import { useLang } from "@/lib/i18n";
+import { useResultTheme } from "@/lib/result-theme";
 import { ARCHETYPES } from "@/data/vibes";
 import { CONFIG, instagramUrl, variantName } from "@/data/config";
 
 const STEP_ICONS = [Wand2, Crown, Sparkles];
 
-const DAILY_VIBES = [
-  { id: "sweet", emoji: "🍓", label: { en: "Soft & Sweet", ar: "سويت وهادية" } },
-  { id: "magnetic", emoji: "⚡", label: { en: "Unbothered", ar: "طاقتي عالية" } },
-  { id: "cozy", emoji: "☕", label: { en: "Cozy Chic", ar: "راحة وفخامة" } },
-  { id: "romantic", emoji: "🎀", label: { en: "Hopeless Romantic", ar: "رومانسية" } },
-];
+/** After she taps a girl herself, we stop the carousel for a beat so the
+ *  card she chose is the card she actually sees. */
+const MANUAL_HOLD_MS = 12000;
 
 export function HomeView() {
   const { t, pick, lang } = useLang();
   const reduced = useReducedMotion();
+  const { theme } = useResultTheme();
   const girls = Object.values(ARCHETYPES);
 
-  // ── Auto-scrolling Trio Carousel State ─────────────────────────────
-  const [activeTrioIndex, setActiveTrioIndex] = useState(1); // Middle active by default
+  const themedGirl = theme ? ARCHETYPES[theme.variant] : null;
+
+  // ── Trio carousel: auto-advances until she touches it ──────────────
+  const [activeTrioIndex, setActiveTrioIndex] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
+  const manualHoldRef = useRef(0);
 
   useEffect(() => {
     if (isHovered || reduced) return;
     const interval = setInterval(() => {
+      // Respect her choice: no auto-snap right after a tap.
+      if (Date.now() - manualHoldRef.current < MANUAL_HOLD_MS) return;
       setActiveTrioIndex((prev) => (prev + 1) % girls.length);
     }, 3600);
     return () => clearInterval(interval);
   }, [girls.length, isHovered, reduced]);
 
-  // ── Daily Vibe Check & Streak State ────────────────────────────────
-  const [dailyMood, setDailyMood] = useState<string | null>(null);
-  const [streak, setStreak] = useState(1);
-  const [copiedDaily, setCopiedDaily] = useState(false);
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("wingwoman:daily_vibe");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setDailyMood(parsed.mood);
-        setStreak(parsed.streak || 1);
-      }
-    } catch {
-      // ignore
-    }
-  }, []);
-
-  const handlePickDailyVibe = (id: string) => {
-    setDailyMood(id);
-    const nextStreak = streak ? streak : 1;
-    setStreak(nextStreak);
-    try {
-      localStorage.setItem(
-        "wingwoman:daily_vibe",
-        JSON.stringify({ mood: id, date: new Date().toDateString(), streak: nextStreak })
-      );
-    } catch {
-      // ignore
-    }
+  const selectTrio = (index: number) => {
+    manualHoldRef.current = Date.now();
+    setActiveTrioIndex(index);
   };
 
-  const handleShareDaily = async () => {
-    const selected = DAILY_VIBES.find((v) => v.id === dailyMood);
-    const vibeLabel = selected ? pick(selected.label) : "Positive";
-    const text = `Today's Vibe: ${selected?.emoji || "✨"} ${vibeLabel} · Day ${streak} Streak on Wingwoman 🌸 Discover your girl: ${CONFIG.brand.url}`;
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopiedDaily(true);
-      setTimeout(() => setCopiedDaily(false), 2500);
-    } catch {
-      // fallback
-    }
-  };
+  const activeGirl = girls[activeTrioIndex];
 
   const reveal = {
     hidden: { opacity: 0, y: reduced ? 0 : 20 },
@@ -109,13 +74,13 @@ export function HomeView() {
       <section className="relative pt-2 text-center sm:text-start">
         {/* Soft feminine ambient glow */}
         <div
-          className="pointer-events-none absolute -top-16 -left-16 h-72 w-72 rounded-full opacity-60 blur-3xl"
-          style={{ background: "radial-gradient(circle, #FFD7E7 0%, transparent 70%)" }}
+          className="pointer-events-none absolute -top-16 -left-16 h-72 w-72 rounded-full opacity-60 blur-3xl transition-colors duration-700"
+          style={{ background: `radial-gradient(circle, var(--color-blush) 0%, transparent 70%)` }}
           aria-hidden="true"
         />
         <div
           className="pointer-events-none absolute top-36 -right-16 h-72 w-72 rounded-full opacity-50 blur-3xl"
-          style={{ background: "radial-gradient(circle, #FF8FBD55 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, var(--color-petal)55 0%, transparent 70%)" }}
           aria-hidden="true"
         />
 
@@ -166,7 +131,7 @@ export function HomeView() {
           className="animate-rise mt-7 flex flex-col gap-3"
           style={{ animationDelay: "220ms" }}
         >
-          <ButtonLink href="/quiz" className="w-full shadow-[0_16px_36px_-10px_rgba(245,43,131,0.5)]">
+          <ButtonLink href="/quiz" className="w-full">
             <Sparkles className="h-5 w-5" strokeWidth={2.2} />
             {t("home.cta")}
             <ArrowRight className="h-4 w-4 opacity-80 transition-transform group-hover:translate-x-1.5 rtl:rotate-180 rtl:group-hover:-translate-x-1.5" />
@@ -178,73 +143,31 @@ export function HomeView() {
 
           <p className="text-center text-[0.8rem] text-ink/45 font-medium">{t("home.ctaNote")}</p>
         </div>
-      </section>
 
-      {/* ── Daily Vibe Check & Streak (Challenge / Daily Fun) ─── */}
-      <section className="mt-12 rounded-[2.25rem] border border-white/90 bg-white/80 p-5 shadow-[0_18px_40px_-20px_rgba(245,43,131,0.25)] backdrop-blur-md">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-2xl bg-rose/15 text-rose">
-              <Flame className="h-4.5 w-4.5 fill-rose text-rose" />
+        {/* ── Today's girl: the site is already wearing her colours, so tell
+            her why. This is the thread that pulls her back the next day. ── */}
+        {themedGirl && (
+          <Link
+            href={theme?.href ?? "/quiz"}
+            className="animate-rise mt-5 inline-flex items-center gap-2.5 rounded-full border px-4 py-2.5 text-[0.82rem] font-bold transition hover:scale-[1.02]"
+            style={{
+              borderColor: `${themedGirl.palette.accent}40`,
+              backgroundColor: `${themedGirl.palette.accent}12`,
+              color: themedGirl.palette.ink,
+              boxShadow: `0 12px 30px -16px ${themedGirl.palette.accent}`,
+            }}
+          >
+            <span className="text-base leading-none">{themedGirl.emoji}</span>
+            <span>
+              {t("home.todayResult").replace("{name}", pick(themedGirl.name))}
             </span>
-            <div>
-              <p className="text-[0.72rem] font-bold uppercase tracking-wider text-rose">
-                Daily Vibe Check
-              </p>
-              <p className="text-[0.95rem] font-extrabold text-ink">
-                Day {streak} Streak 🔥
-              </p>
-            </div>
-          </div>
-          <span className="text-[0.7rem] font-bold text-ink/45 bg-ink/5 px-2.5 py-1 rounded-full">
-            Check-in daily
-          </span>
-        </div>
-
-        <p className="mt-3 text-[0.86rem] text-ink/65 font-medium">
-          How are you feeling right this second? Tap to lock your vibe for today:
-        </p>
-
-        <div className="mt-3.5 grid grid-cols-2 gap-2">
-          {DAILY_VIBES.map((v) => {
-            const isPicked = dailyMood === v.id;
-            return (
-              <button
-                key={v.id}
-                type="button"
-                onClick={() => handlePickDailyVibe(v.id)}
-                className={`flex items-center gap-2 rounded-2xl border p-2.5 text-start transition-all duration-200 ${
-                  isPicked
-                    ? "border-rose bg-rose/10 shadow-sm"
-                    : "border-ink/8 bg-white/90 hover:border-rose/30"
-                }`}
-              >
-                <span className="text-lg">{v.emoji}</span>
-                <span className="text-[0.8rem] font-bold text-ink leading-tight flex-1">
-                  {pick(v.label)}
-                </span>
-                {isPicked && <Check className="h-4 w-4 text-rose shrink-0" strokeWidth={3} />}
-              </button>
-            );
-          })}
-        </div>
-
-        {dailyMood && (
-          <div className="mt-4 flex items-center justify-between border-t border-ink/6 pt-3">
-            <span className="text-[0.76rem] font-medium text-emerald-700 flex items-center gap-1">
-              <Check className="h-3.5 w-3.5" strokeWidth={2.5} /> Vibe locked for today!
-            </span>
-            <button
-              type="button"
-              onClick={handleShareDaily}
-              className="inline-flex items-center gap-1.5 text-[0.76rem] font-bold text-rose hover:underline"
-            >
-              <Share2 className="h-3.5 w-3.5" />
-              {copiedDaily ? "Copied! ✨" : "Share Vibe"}
-            </button>
-          </div>
+            <ChevronRight className="h-3.5 w-3.5 rtl:rotate-180" />
+          </Link>
         )}
       </section>
+
+      {/* ── Daily Vibe Check & Streak (the everyday reason to come back) ── */}
+      <DailyVibeCheck />
 
       {/* ── Redesigned Archetype Cards ────────────────────────── */}
       <section className="mt-14" aria-labelledby="girls-heading">
@@ -279,8 +202,11 @@ export function HomeView() {
           <div className="mt-6 flex flex-col gap-5">
             {girls.map((girl, i) => (
               <motion.div key={girl.id} variants={reveal}>
+                {/* Each card opens THE girl's shop variant, not the default
+                    pink one — that was the whole "always shows the first
+                    variant" bug. */}
                 <Link
-                  href="/shop"
+                  href={`/shop?variant=${girl.id}`}
                   className="group relative block overflow-hidden rounded-[2.5rem] transition-all duration-300 hover:-translate-y-1.5"
                   style={{
                     boxShadow: `0 24px 50px -20px ${girl.palette.accent}50`,
@@ -376,9 +302,9 @@ export function HomeView() {
 
                     {/* Interactive Bottom Bar */}
                     <div className="mt-5 flex items-center justify-between border-t pt-4" style={{ borderColor: `${girl.palette.accent}15` }}>
-                      <span className="inline-flex items-center gap-1.5 text-[0.84rem] font-bold text-ink/75 group-hover:text-rose transition-colors">
-                        <span>{t("girls.herScent")}</span>
-                        <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      <span className="inline-flex items-center gap-1.5 text-[0.84rem] font-bold text-ink/75 transition-colors group-hover:text-rose">
+                        <span>{t("scents.shopThis")}</span>
+                        <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180" />
                       </span>
 
                       <span
@@ -416,7 +342,7 @@ export function HomeView() {
             return (
               <li
                 key={step}
-                className="group relative flex items-start gap-4 overflow-hidden rounded-3xl border border-ink/8 bg-white/90 p-4.5 transition-all duration-300 hover:border-rose/30 hover:shadow-[0_14px_32px_-16px_rgba(245,43,131,0.35)]"
+                className="group relative flex items-start gap-4 overflow-hidden rounded-3xl border border-ink/8 bg-white/90 p-4.5 transition-all duration-300 hover:border-rose/30 hover:shadow-[0_14px_32px_-16px_var(--glow)]"
               >
                 <span
                   className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-rose/15 via-petal/25 to-blush/40 shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
@@ -442,7 +368,7 @@ export function HomeView() {
         </ol>
       </section>
 
-      {/* ── The Trio: Big Selected Item, Small Side Items, Zero Shadow Leak ─ */}
+      {/* ── The Trio: Big Selected Item, Small Side Items ─────── */}
       <section
         className="mt-16"
         aria-labelledby="scents-heading"
@@ -466,15 +392,23 @@ export function HomeView() {
           {girls.map((girl, i) => {
             const isActive = i === activeTrioIndex;
             return (
-              <div
+              <button
                 key={girl.id}
-                onClick={() => setActiveTrioIndex(i)}
+                type="button"
+                onClick={() => selectTrio(i)}
+                aria-pressed={isActive}
+                aria-label={pick(girl.name)}
                 className={`transition-all duration-500 cursor-pointer overflow-hidden rounded-[2.25rem] ${
                   isActive
-                    ? "w-44 sm:w-52 aspect-[3/4] z-20 scale-100 shadow-[0_20px_45px_-12px_rgba(245,43,131,0.45)] ring-3 ring-rose/50"
+                    ? "w-44 sm:w-52 aspect-[3/4] z-20 scale-100"
                     : "w-24 sm:w-28 aspect-[3/4] z-10 scale-90 opacity-60 hover:opacity-85"
                 }`}
-                style={{ backgroundColor: girl.palette.soft }}
+                style={{
+                  backgroundColor: girl.palette.soft,
+                  boxShadow: isActive
+                    ? `0 0 0 3px ${girl.palette.accent}, 0 20px 45px -12px ${girl.palette.accent}99`
+                    : undefined,
+                }}
               >
                 <div className="relative w-full h-full overflow-hidden rounded-[2.25rem]">
                   <Image
@@ -492,8 +426,11 @@ export function HomeView() {
                   />
 
                   {isActive && (
-                    <span className="absolute top-3 start-3 rounded-full bg-white/95 px-2.5 py-0.5 text-[0.6rem] font-black uppercase tracking-wider text-rose shadow-sm">
-                      {girl.emoji} Selected
+                    <span
+                      className="absolute top-3 start-3 rounded-full bg-white/95 px-2.5 py-0.5 text-[0.6rem] font-black uppercase tracking-wider shadow-sm"
+                      style={{ color: girl.palette.accent }}
+                    >
+                      {girl.emoji} {t("scents.shopThis")}
                     </span>
                   )}
 
@@ -508,7 +445,7 @@ export function HomeView() {
                     )}
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -518,7 +455,7 @@ export function HomeView() {
           {girls.map((g, idx) => (
             <button
               key={g.id}
-              onClick={() => setActiveTrioIndex(idx)}
+              onClick={() => selectTrio(idx)}
               aria-label={`Select ${pick(g.name)}`}
               className={`h-2 rounded-full transition-all duration-300 ${
                 idx === activeTrioIndex ? "w-6 bg-rose" : "w-2 bg-ink/15 hover:bg-ink/30"
@@ -527,13 +464,17 @@ export function HomeView() {
           ))}
         </div>
 
+        {/* The trio link follows whichever girl is in front — no more landing
+            on pink after tapping the cocoa one. */}
         <div className="mt-4 text-center">
           <Link
-            href="/shop"
+            href={`/shop?variant=${activeGirl.id}`}
             className="inline-flex items-center gap-1.5 text-[0.86rem] font-bold text-rose hover:underline"
           >
-            <span>{t("home.secondaryCta")}</span>
-            <ArrowRight className="h-3.5 w-3.5" />
+            <span>
+              {t("scents.shopThis")} · {pick(activeGirl.scent.productName)}
+            </span>
+            <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" />
           </Link>
         </div>
       </section>
@@ -543,9 +484,9 @@ export function HomeView() {
         <div
           className="relative overflow-hidden rounded-[2.5rem] p-8 text-center"
           style={{
-            background: "linear-gradient(135deg, #FFF1F7 0%, #FFD7E7 50%, #FFEAF3 100%)",
-            border: "1px solid rgba(245,43,131,0.15)",
-            boxShadow: "0 20px 60px -20px rgba(245,43,131,0.25)",
+            background: `linear-gradient(135deg, var(--color-cream) 0%, var(--color-blush) 50%, var(--color-cream) 100%)`,
+            border: "1px solid color-mix(in srgb, var(--color-rose) 15%, transparent)",
+            boxShadow: "0 20px 60px -20px var(--glow)",
           }}
         >
           {/* Decorative floating particles */}
@@ -555,7 +496,7 @@ export function HomeView() {
 
           <div className="relative">
             <div className="animate-float mx-auto mb-4 w-fit">
-              <Butterfly className="h-12 w-12" color="#F52B83" />
+              <Butterfly className="h-12 w-12" color={themedGirl?.palette.accent} />
             </div>
 
             <h2 className="text-[2.2rem] leading-[1.05] font-semibold text-balance">
@@ -564,7 +505,7 @@ export function HomeView() {
 
             <p className="mt-3 text-[0.94rem] leading-relaxed text-ink/65">{t("final.body")}</p>
 
-            <ButtonLink href="/quiz" className="mt-6 w-full shadow-[0_14px_30px_-10px_rgba(245,43,131,0.5)]">
+            <ButtonLink href="/quiz" className="mt-6 w-full">
               <Sparkles className="h-4.5 w-4.5" />
               {t("final.cta")}
             </ButtonLink>

@@ -48,15 +48,15 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
     emoji: "🩷",
     tagline: {
       en: "Sweet on purpose. Never by accident.",
-      ar: "حلوة عن قصد. مش بالصدفة.",
+      ar: "حلوة عن قصد. ماشي بالصدفة.",
     },
     paragraph: {
       en: "You feel everything first and think about it later, which is exactly why people fall for you. You're the one who remembers birthdays, notices when someone's gone quiet, and forgives too fast. Today you're running on rose-coloured everything — and it isn't softness, it's a decision.",
-      ar: "إحساسك بكل شي قبل ما تفكري فيه — ولهيك الناس بيحبوك. إنتِ اللي بتتذكري أعياد الميلاد، بتلاحظي لما أحد يصير هادي، وبتسامحي بسرعة. اليوم عايشة بكل شي وردي — ومش ضعف، هاي قرارات.",
+      ar: "كتحسي بكلشي قبل ما تفكري فيه — وهادشي علاش الناس كيتعلقو بيك. نتِ اللي كتفكري فعياد الميلاد، وكتلاحظي ملي شي واحد كيسكت، وكتسامحي بزربة. اليوم كاملة بالروزي — وماشي ضعف، هادي قرار.",
     },
     ritual: {
       en: "Spray once on your wrist before you leave. Let today be soft on purpose.",
-      ar: "رشّي مرة على معصمك قبل ما تطلعي. خلّي يومك هادي عن قصد.",
+      ar: "رشي مرة على معصمك قبل ما تخرجي. وخلّي هاد النهار هادي عن قصد.",
     },
     defaultMood: "tender",
     scent: {
@@ -68,7 +68,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
       ],
       description: {
         en: "Opens like a strawberry pressed to your pulse point, dries down into peony and a soft bed of vanilla. Sweet, but with a spine.",
-        ar: "بتفتح كأنها فراولة على نقطة النبض، وبتهدن على بيوني وسرير فانيلا ناعم. حلوة — بس بعناصة.",
+        ar: "كتحل بحال فراولة على نقطة النبض، ومن بعد كتهدن على بيوني وفراش فانيلا ناعم. حلوة — بصح بعناصة.",
       },
     },
     palette: {
@@ -92,15 +92,15 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
     emoji: "🧡",
     tagline: {
       en: "Sunny, magnetic, allergic to standing still.",
-      ar: "شمسية، مغناطيسية، عندها حساسية من الوقوف بمكان.",
+      ar: "شمسية، مغناطيسية، وعندها حساسية من الوقوف فبلاصة وحدة.",
     },
     paragraph: {
       en: "You walk into a room and the energy changes — not because you tried, but because you're genuinely excited to be there. You talk to strangers, you order the thing nobody else is ordering, and you're the reason everyone's still out at 1am. Today you're lit from the inside.",
-      ar: "بتدخلي الغرفة والطاقة بتتغير — مش لأنك حاولتي، لأنك فعلاً متحمسة تكوني موجودة. بتحكي مع الغرباء، بتبطي الشي اللي ما حد عم يبطه، وإنتِ السبب إن الكل لسا بالمقهى الساعة ١ بالليل. اليوم منورة من جوا.",
+      ar: "كتدخلي لبلاصة وطاقة كتتبدل — ماشي حيت حاولتي، حيت بصح متحمسة تكوني تما. كتهضري مع الناس اللي ما تعرفيهمش، كتطلبي الحاجة اللي ما حد طالبها، ونتِ السبب علاش الكل مازال برا فالساعة ١ فالليل. اليوم مضوية من الداخل.",
     },
     ritual: {
       en: "Put something on that makes you walk differently. Then go be seen.",
-      ar: "البسي شي بيخليك تمشي بشكل مختلف. وبعدين اطلعي واخلّي الكل يشوفك.",
+      ar: "لبسي شي حاجة كتخليك تمشي بشكل مختلف. ومن بعد خرجي وخلّي الكل يشوفك.",
     },
     defaultMood: "magnetic",
     scent: {
@@ -112,7 +112,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
       ],
       description: {
         en: "Juicy peach and neroli off the top, settling into warm amber skin. The smell of late afternoon sun on your shoulders.",
-        ar: "خوخ نيري ونيرولي بالبداية، وبتستقر على عنبر دافي كأنه على جلدك. ريحة شمس العصر على أكتافك.",
+        ar: "خوخ ونيرولي فالبداية، ومن بعد كيستقرو على عنبر دافي بحالو على جلدك. ريحة شمس العصر على كتافك.",
       },
     },
     palette: {
@@ -123,9 +123,9 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
     },
     swatches: ["#F4732B", "#FFA05C", "#FFE0C7", "#FFF5EC"],
     chips: [
-      { label: { en: "Gold hoops", ar: "حلق دهبي" }, icon: "gem" },
+      { label: { en: "Gold hoops", ar: "حلقان ذهبيين" }, icon: "gem" },
       { label: { en: "Iced coffee", ar: "قهوة مثلجة" }, icon: "coffee" },
-      { label: { en: "Linen everything", ar: "كتان بكل شي" }, icon: "sun" },
+      { label: { en: "Linen everything", ar: "كتان فكل شي" }, icon: "sun" },
     ],
     image: "/images/orange.jpg",
   },
@@ -136,15 +136,15 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
     emoji: "🤎",
     tagline: {
       en: "Quietly the most powerful person in the room.",
-      ar: "بهدوء، أقوى شخص بالغرفة.",
+      ar: "بهدوء، أقوى وحدة فالبلاصة.",
     },
     paragraph: {
       en: "You don't perform. You listen more than you speak, you notice the small things, and when you finally say something it lands because you meant it. People come to you when they're falling apart. Today you're warm, unhurried, and completely at home in yourself.",
-      ar: "إنتِ ما بتعملي عروض. بتسمعي أكتر ما بتحكي، بتلاحظي التفاصيل الصغيرة، ولما تحكي شي بيوصل لأنك قصدي. الناس بيجوا عندك لما بتنهاروا. اليوم دافية، بدون استعجال، ومرتاحة بجوسك ١٠٠٪.",
+      ar: "نتِ ما كتمثليش. كتسمعي كتر ما كتهضري، كتلاحظي التفاصيل الصغيرة، وملي كتهضري شي حاجة كتوصل حيت قصدك. الناس كيجيو عندك ملي كيكونو طايحين. اليوم دافية، بلا زيارة، ومرتاحة فراسك ١٠٠٪.",
     },
     ritual: {
       en: "Do one thing slowly today. Make it the first thing.",
-      ar: "اعملي شي واحد ببطء اليوم. وخليه أول شي.",
+      ar: "ديري حاجة وحدة ببطء اليوم. وخلّيها أول حاجة.",
     },
     defaultMood: "grounded",
     scent: {
@@ -157,7 +157,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
       ],
       description: {
         en: "Vanilla and caramel melting into tonka bean and sandalwood. Rich, skin-close, and absolutely unforgettable in cold weather.",
-        ar: "فانيلا وكراميل بيتذوبوا على تونكا وخشب الصندل. غني، قريب من الجلد، ولا يُنسى بالجو البارد.",
+        ar: "فانيلا وكراميل كيدوبو على تونكا وخشب الصندل. غني، قريب من الجلد، وما كيتنساش فالجو البارد.",
       },
     },
     palette: {

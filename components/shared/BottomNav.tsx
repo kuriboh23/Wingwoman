@@ -58,7 +58,7 @@ export function BottomNav() {
                     className={cn(
                       "absolute inset-0 rounded-2xl bg-gradient-to-r shadow-lg",
                       featured
-                        ? "from-[#F52B83] via-[#FF4D9D] to-[#FF7A9E] shadow-rose/40"
+                        ? "from-rose via-petal to-blush shadow-rose/40"
                         : "from-ink to-[#3a3444] shadow-ink/30"
                     )}
                     transition={{ type: "spring", stiffness: 480, damping: 40 }}
