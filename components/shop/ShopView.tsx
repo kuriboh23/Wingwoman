@@ -386,24 +386,30 @@ export function ShopView({ initialVariant = "pink" }: { initialVariant?: Archety
 
             {/* ── Dynamic Variant-Adaptive Action Buttons ── */}
             <div className="mt-6 flex flex-col gap-3">
+              {/* One line, always: short label + price chip sized to the
+                  button, never spilling outside it. */}
               <ButtonAnchor
                 href={whatsappOrderUrl(message)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-white font-bold transition-all duration-300 [&>span]:w-full [&>span]:justify-center"
+                size="sm"
+                className="w-full text-white font-bold transition-all duration-300 [&>span]:w-full [&>span]:justify-center [&>span]:gap-2 [&>span]:px-3"
                 style={{
                   background: btnStyle.bg,
                   boxShadow: btnStyle.shadow,
                 }}
               >
-                <MessageCircle className="h-5 w-5" strokeWidth={2.2} />
-                {t("shop.order")} · {price}
+                <MessageCircle className="h-4 w-4 shrink-0" strokeWidth={2.2} />
+                <span className="truncate whitespace-nowrap">{t("shop.order")}</span>
+                <span className="shrink-0 rounded-full bg-white/25 px-2.5 py-0.5 text-[0.78rem] font-extrabold tabular-nums">
+                  {price}
+                </span>
               </ButtonAnchor>
 
               {CONFIG.contact.showInstagram && (
                 <ButtonAnchor
                   variant="secondary"
-                  size="md"
+                  size="sm"
                   href={instagramUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -412,7 +418,9 @@ export function ShopView({ initialVariant = "pink" }: { initialVariant?: Archety
                     borderColor: `${girl.palette.accent}40`,
                   }}
                 >
-                  <span style={{ color: girl.palette.accent }}>{t("shop.dm")}</span>
+                  <span style={{ color: girl.palette.accent }} className="truncate whitespace-nowrap">
+                    {t("shop.dm")}
+                  </span>
                 </ButtonAnchor>
               )}
             </div>

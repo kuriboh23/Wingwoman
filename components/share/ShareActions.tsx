@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AlertCircle, AtSign, Check, Download, Gift, Link2, Loader2, MessageCircle, Share2, User } from "lucide-react";
+import { AlertCircle, AtSign, Check, Download, Gift, Link2, Loader2, Share2, User } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Button, ButtonAnchor } from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 import { ShareCard, type CardFormat } from "@/components/share/ShareCard";
 import { useLang } from "@/lib/i18n";
 import { usePersona } from "@/lib/usePersona";
-import { whatsappOrderUrl, type Persona } from "@/data/config";
+import { type Persona } from "@/data/config";
 import type { Archetype } from "@/data/vibes";
 import { downloadBlob, renderCardBlob } from "@/lib/share-image";
 import { cn } from "@/lib/utils";
@@ -315,22 +315,6 @@ export function ShareActions({
             {t("share.copy")}
           </Button>
         </div>
-
-        {/* WhatsApp is where Moroccan girls actually forward things — give the
-            card a one-tap ride there when the share sheet didn't fire. */}
-        <ButtonAnchor
-          variant="secondary"
-          size="md"
-          href={whatsappOrderUrl(
-            `Salam! 🦋 ${shareText}\n${url}`
-          )}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full [&>span]:w-full [&>span]:justify-center"
-        >
-          <MessageCircle className="h-4 w-4" strokeWidth={2} />
-          {t("share.whatsapp")}
-        </ButtonAnchor>
       </div>
 
       <p

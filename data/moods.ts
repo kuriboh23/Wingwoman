@@ -7,10 +7,10 @@ import type { LocalizedText, MoodId } from "@/types";
  */
 export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: LocalizedText }> = {
   dreamy: {
-    label: { en: "Dreamy", ar: "حالمة" },
+    label: { en: "Rêveuse", ar: "حالمة" },
     emoji: "☁️",
     line: {
-      en: "You're half here, half somewhere softer. Protect the daydream today.",
+      en: "Nti nass w ness f blassa a7la. 7asbi 3la l'7olm dyalek lyoum.",
       ar: "نصك هون ونصك فبلاصة أهدى. حافظي على الحلم ديالك اليوم.",
     },
   },
@@ -18,15 +18,15 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     label: { en: "Playful", ar: "لعوب" },
     emoji: "✨",
     line: {
-      en: "You woke up with a bit of mischief in you. Use it on something fun.",
+      en: "S7iti w fik chi shwiya dyal sh9awa. Khrejiha f chi 7aja zwina.",
       ar: "صحيتي وفيك شوية شقاوة. خرجيها فشي حاجة زوينة.",
     },
   },
   quiet: {
-    label: { en: "Quiet", ar: "هادية" },
+    label: { en: "Hadia", ar: "هادية" },
     emoji: "🌙",
     line: {
-      en: "You're not in the mood to perform today. That's a strength, not a mood swing.",
+      en: "Machi f l'mood temtheli lyoum. Hadi 9ouwa, machi t9alob mood.",
       ar: "ماشي فالمزاج تمثلي اليوم. هادي قوة، ماشي تقلب مزاج.",
     },
   },
@@ -34,7 +34,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     label: { en: "Tender", ar: "حنونة" },
     emoji: "🎀",
     line: {
-      en: "Everything is landing a little deeper today. Be gentle with yourself.",
+      en: "Kolchi kayo sla9 3ame9 chi shwiya lyoum. Kouni ra7ima m3a rasek.",
       ar: "كلشي كيوسلك عمق شوية اليوم. كوني رحيمة مع راسك.",
     },
   },
@@ -42,7 +42,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     label: { en: "Restless", ar: "متحمسة" },
     emoji: "🔥",
     line: {
-      en: "You need somewhere to put all this energy. Go find it.",
+      en: "Khassek blassa t7etti fiha had l'energie. Siri l9iha.",
       ar: "خاصك بلاصة تحطي فيها هاد الطاقة. سيري لقيها.",
     },
   },
@@ -50,15 +50,15 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     label: { en: "Cosy", ar: "مريحة" },
     emoji: "🍂",
     line: {
-      en: "Today is a soft blanket and low light kind of day. Lean all the way in.",
+      en: "Lyoum nhar dyal btanya na3ma w daw khafif. Ghre9i fih kamel.",
       ar: "اليوم نهار بطانية ناعمة وضو خافت. غرقي فيه كامل.",
     },
   },
   magnetic: {
-    label: { en: "Magnetic", ar: "مغناطيسية" },
+    label: { en: "Magnétique", ar: "مغناطيسية" },
     emoji: "⚡",
     line: {
-      en: "Something about you is pulling people in today. Let it happen.",
+      en: "Kayn chi fik lyoum kayjbed l'nes. Khellih ywe99e3.",
       ar: "كاين شي فيك اليوم كيجبد الناس. خليه يوقع.",
     },
   },
@@ -66,7 +66,7 @@ export const MOODS: Record<MoodId, { label: LocalizedText; emoji: string; line: 
     label: { en: "Grounded", ar: "واثقة" },
     emoji: "🪵",
     line: {
-      en: "You're steady today. The kind of steady that other people lean on.",
+      en: "Nti thabta lyoum. Mn l'naw3 li l'nes katsnad 3lih.",
       ar: "نتِ ثابتة اليوم. من النوع اللي الناس كتسنّد عليه.",
     },
   },

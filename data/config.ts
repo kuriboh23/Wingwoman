@@ -25,11 +25,11 @@ export const CONFIG = {
   brand: {
     name: "WINGWOMAN",
     tagline: {
-      en: "Which girl are you today?",
+      en: "Ashmen bent nti lyoum?",
       ar: "أشمن بنت فيك نتي اليوم؟",
     } satisfies Localized,
     description: {
-      en: "A 60-second quiz matching your Moroccan Gen-Z vibe to your signature Wingwoman scent.",
+      en: "Quiz dyal 60 secondes kayle9a l'vibe dyalek w kaywjjed lik l'parfum dyal Wingwoman li mwaf9 m3ak.",
       ar: "كويز ديال دقيقة كيكتاشف الفايب ديالك وكيحدد العطر ديال Wingwoman لي مواتي مع شخصيتك.",
     } satisfies Localized,
     url: "https://wingwoman.vercel.app",
@@ -44,9 +44,9 @@ export const CONFIG = {
     /** WhatsApp order number (Moroccan format, digits only) */
     whatsapp: "212620283725",
     /** Brand Instagram handle (used in links and cards) */
-    instagram: "Wingwoman",
+    instagram: "Wingwoman 8",
     /** Display handle with '@' prefix */
-    instagramHandle: "@wingwoman",
+    instagramHandle: "@wingwoman.8",
     showInstagram: true,
   },
 
@@ -99,11 +99,11 @@ export const CONFIG = {
 
   /** ── 4. The Product (Shop Details) ────────────────────────────── */
   product: {
-    collectionTitle: { en: "The Moroccan Trio", ar: "ثلاثية البنات" } satisfies Localized,
-    subtitle: { en: "Eau de Parfum · 100 ml · Long Lasting", ar: "عطر مركز · 100 مل · ثبات يدوم" } satisfies Localized,
+    collectionTitle: { en: "Le Trio dyal l'Banat", ar: "ثلاثية البنات" } satisfies Localized,
+    subtitle: { en: "Eau de Parfum · 100 ml · Tenue longue durée", ar: "عطر مركز · 100 مل · ثبات يدوم" } satisfies Localized,
     price: { amount: 149, display: "149 DH" },
     compareAt: { amount: 210, display: "210 DH" },
-    badge: { en: "Save 30% Today", ar: "وفري 30% اليوم" } satisfies Localized,
+    badge: { en: "-30% Lyoum", ar: "وفري 30% اليوم" } satisfies Localized,
     rating: {
       score: "4.7",
       count: { en: "", ar: "" } satisfies Localized,
@@ -112,15 +112,15 @@ export const CONFIG = {
     perks: [
       {
         icon: "gift",
-        label: { en: "Free gift wrap + cute custom note", ar: "تغليف هدية كادو + نوطة مخصصة" } satisfies Localized,
+        label: { en: "Emballage cadeau + nota cute", ar: "تغليف هدية كادو + نوطة مخصصة" } satisfies Localized,
       },
       {
         icon: "truck",
-        label: { en: "Fast delivery in 24–48h across Morocco", ar: "توصيل سريع فـ 24-48 ساعة فالمغرب كامل" } satisfies Localized,
+        label: { en: "Livraison 24-48h f l'Maghrib kamel", ar: "توصيل سريع فـ 24-48 ساعة فالمغرب كامل" } satisfies Localized,
       },
       {
         icon: "badge",
-        label: { en: "100% original, sealed & authentic", ar: "أصلي 100% ومضمون" } satisfies Localized,
+        label: { en: "Original 100%, scellé w garanti", ar: "أصلي 100% ومضمون" } satisfies Localized,
       },
     ],
   },
@@ -134,7 +134,7 @@ export const CONFIG = {
       stars: 5,
       variant: "pink",
       quote: {
-        en: "Rose Sugar is literally that sweet strawberry-vanilla vibe. Wore it to a café f Maarif and 3 girls asked me what perfume it was!",
+        en: "Rose Sugar hiya dik l'vibe dyal fraise-vanille 7louwa. Lbst-h f café f Maârif w 3 dyal l'banat sewni 3lach men smo4a!",
         ar: "روز شوجر خطييير! ريحة الفريز والفانيلا الناعمة، مشيت بيه لكافي فالمعاريف وكلشي سواني عليه.",
       },
     },
@@ -145,7 +145,7 @@ export const CONFIG = {
       stars: 5,
       variant: "orange",
       quote: {
-        en: "Golden Hour is unmatched for Marrakech sunsets and rooftop nights. So magnetic, sunny and fresh — my new daily signature.",
+        en: "Golden Hour ma fiha l'm9arona — l'ghroub f Marrakech w les soirées f roof. Magnétique, chamsia w fresh — signature dyali l'jbida.",
         ar: "جولدن أور كيحمق، خصوصاً مع الغروب فمراكش. ريحة الخوخ والعنبر كتعطي طاقة إيجابية وفخامة.",
       },
     },
@@ -156,7 +156,7 @@ export const CONFIG = {
       stars: 5,
       variant: "brown",
       quote: {
-        en: "Warm Cocoa ordered as a gift for my sister and I ended up ordering a second bottle for myself. The cardamom and vanilla stay for 8+ hours.",
+        en: "Warm Cocoa khditha cadeau l khti w sdeqt wakhda wa7da liya. L'tenue dyalha wa3ra — 8 swa3e w mazal kayn l'dfa w l'élégance.",
         ar: "وارم كوكا خديتها كادو لأختي وصدقت واخدة وحدة ليا. الثبات ديالها واعر وكتحسي بالدفء والأناقة.",
       },
     },
@@ -167,7 +167,7 @@ export const CONFIG = {
       stars: 5,
       variant: "pink",
       quote: {
-        en: "Did the quiz together before going out. The personality match is crazy accurate and delivery arrived super fast in 2 days via WhatsApp!",
+        en: "Drna l'quiz bjooj 9bel ma nekhrjo. L'réultat ja lase9 m3a l'personnalité dyalna bzzaf! W livraison jat f 2 iyam fabor — nqelna f WhatsApp 🩷",
         ar: "درنا الكويز مجموعين والنتيجة جات لاصقة مع الشخصية ديالنا. التوصيل كان سريع فـ يومين والباكاجينغ كيحمق!",
       },
     },
@@ -177,11 +177,11 @@ export const CONFIG = {
   marquee: [
     "WINGWOMAN",
     "MOROCCAN GEN-Z VIBE",
-    "WHICH GIRL ARE YOU TODAY?",
+    "ASHMEN BENT NTI LYOUM?",
     "EAU DE PARFUM 100ML",
-    "FREE GIFT PACKAGING",
-    "FAST DELIVERY ALL OVER MOROCCO",
-    "FIND YOUR SCENT IN 60 SECONDS",
+    "EMBALLAGE CADEAU FABOR",
+    "LIVRAISON F L'MAGHRIB KAMEL",
+    "RI7TEK F 60 SECONDES",
   ],
 
   /** ── 7. Variant Overrides ─────────────────────────────────────── */
@@ -252,23 +252,23 @@ export function orderMessage(opts: {
 }): string {
   const { girlName, productName, emoji, persona, lang } = opts;
   if (lang === "ar") {
-    const me = persona?.name ? `أنا ${persona.name} و` : "";
+    const me = persona?.name ? `Ana ${persona.name} w ` : "";
     const gift =
       persona?.isGift && persona.recipient
-        ? ` — وهادي كادو لـ ${persona.recipient} 🎁`
+        ? ` — w hada cadeau l ${persona.recipient} 🎁`
         : "";
-    return `Salam Wingwoman! ${emoji} ${me}درت الكويز وطلعت ليا "${girlName}" — بغيت نكوموندي ${productName}${gift}.`;
+    return `Salam Wingwoman! ${emoji} ${me}dert l'quiz w tle3t liya "${girlName}" — bghit ncommandi ${productName}${gift}.`;
   }
-  const me = persona?.name ? `I'm ${persona.name} and ` : "";
+  const me = persona?.name ? `Ana ${persona.name} w ` : "";
   const gift =
     persona?.isGift && persona.recipient
-      ? ` — it's a gift for ${persona.recipient} 🎁`
+      ? ` — w hada cadeau l ${persona.recipient} 🎁`
       : "";
-  return `Salam Wingwoman! ${emoji} ${me}I did the quiz and I'm "${girlName}" — I'd like to order ${productName}${gift}. (via Wingwoman Quiz)`;
+  return `Salam Wingwoman! ${emoji} ${me}dert l'quiz w tle3t liya "${girlName}" — bghit ncommandi ${productName}${gift}. (mn l'quiz dyal Wingwoman)`;
 }
 
 export function shareText(girlName: string, moodLabel: string, lang: "en" | "ar"): string {
   return lang === "ar"
-    ? `اليوم أنا ${girlName} — طاقة ${moodLabel} 🩷 نتي أشمن بنت فيك؟ جربي كويز Wingwoman ✨`
-    : `I'm ${girlName} today — ${moodLabel.toLowerCase()} energy 🩷 Which girl are you? Discover on Wingwoman ✨`;
+    ? `Lyoum ana ${girlName} — energie ${moodLabel.toLowerCase()} 🩷 Wach nti? Jrebbi l'quiz dyal Wingwoman ✨`
+    : `Lyoum ana ${girlName} — energie ${moodLabel.toLowerCase()} 🩷 Wach nti? Jrebbi l'quiz dyal Wingwoman ✨`;
 }

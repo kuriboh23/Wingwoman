@@ -64,10 +64,10 @@ export async function GET(request: Request) {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <div style={{ fontSize: 28, opacity: 0.5, letterSpacing: 4 }}>
-            {complete ? "TODAY I'M" : "WHICH GIRL ARE YOU TODAY?"}
+            {complete ? "LYOUM ANA" : "ASHMEN BENT NTI LYOUM?"}
           </div>
           <div style={{ fontSize: 92, fontWeight: 700, lineHeight: 1.02 }}>
-            {complete ? girl.name.en : "Find out in 60 seconds"}
+            {complete ? girl.name.en : "Le9a rassek f 60 secondes"}
           </div>
           {complete && (
             <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 4 }}>

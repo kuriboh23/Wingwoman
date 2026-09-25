@@ -9,8 +9,8 @@ import { ARCHETYPES } from "@/data/vibes";
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
 export const metadata: Metadata = {
-  title: "Your card",
-  description: "Your Wingwoman result card, ready to post.",
+  title: "L'card dyalek",
+  description: "L'card dyal résultat dyalek mn Wingwoman — wajda bach t-postiha.",
 };
 
 export default async function SharePage({ searchParams }: { searchParams: SearchParams }) {

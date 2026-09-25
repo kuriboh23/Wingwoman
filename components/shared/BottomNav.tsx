@@ -8,9 +8,12 @@ import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 /**
- * Floating bottom navigation — the app-like chrome the brand deserves.
- * Glassy pill, safe-area aware, with a springy indicator behind the active
- * tab. "Find my girl" is the featured middle action, styled like a CTA.
+ * Floating bottom navigation — renders on EVERY page via app/layout.tsx.
+ *
+ * Fits the narrowest phones on purpose:
+ *  - pill width is capped at 22rem and always keeps 12px air on each side
+ *  - labels are one word ("Dar" / "Quiz" / "Shop") and never wrap
+ *  - icons shrink slightly before anything is allowed to clip
  */
 export function BottomNav() {
   const pathname = usePathname();
@@ -26,11 +29,11 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Primary"
-      className="fixed inset-x-0 bottom-0 z-50 flex justify-center"
+      className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-3"
     >
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/85 to-transparent" />
 
-      <div className="relative mx-4 mb-[calc(0.5rem+env(safe-area-inset-bottom))] w-full max-w-sm">
+      <div className="relative mb-[calc(0.5rem+env(safe-area-inset-bottom))] w-full max-w-[22rem]">
         <div
           className={cn(
             "grid grid-cols-3 gap-0.5 rounded-full border border-white/60 bg-white/80 p-1",
@@ -46,7 +49,7 @@ export function BottomNav() {
                 href={href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group relative flex h-11 items-center justify-center gap-1.5 rounded-full px-2",
+                  "group relative flex h-11 min-w-0 items-center justify-center gap-1.5 rounded-full px-2",
                   "transition-colors duration-200",
                   active ? "text-white" : "text-ink/55 hover:text-ink",
                   featured && !active && "text-rose"
@@ -66,17 +69,20 @@ export function BottomNav() {
                 )}
 
                 <motion.span
-                  className="relative z-10 flex"
+                  className="relative z-10 flex shrink-0"
                   whileTap={reduced ? undefined : { scale: 0.82, rotate: -6 }}
                   transition={{ type: "spring", stiffness: 500, damping: 18 }}
                 >
                   <Icon
-                    className={cn("h-[1.15rem] w-[1.15rem]", featured && "drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]")}
+                    className={cn(
+                      "h-[1.05rem] w-[1.05rem] sm:h-[1.15rem] sm:w-[1.15rem]",
+                      featured && "drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]"
+                    )}
                     strokeWidth={active ? 2.4 : 2}
                   />
                 </motion.span>
 
-                <span className="relative z-10 text-[0.72rem] leading-none font-bold tracking-wide">
+                <span className="relative z-10 truncate text-[0.7rem] leading-none font-bold tracking-wide whitespace-nowrap sm:text-[0.72rem]">
                   {label}
                 </span>
               </Link>

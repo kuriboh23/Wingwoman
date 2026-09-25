@@ -26,7 +26,7 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "pink",
     label: { en: "Soft & Sweet", ar: "سويت وهادية" },
     cheer: {
-      en: "Habiba energy. The world can wait a minute. 🍓",
+      en: "Energy dyal l'habibta. L'dnya tsenna chi shwiya. 🍓",
       ar: "طاقة الحبيبة. الدنيا تسنى شوية. 🍓",
     },
   },
@@ -36,7 +36,7 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "orange",
     label: { en: "Main Character", ar: "البطلة ديال القصة" },
     cheer: {
-      en: "Yallah! Today everybody's watching you. ⚡",
+      en: "Yallah! Lyoum l'kol kaytferjou fik. ⚡",
       ar: "يالاه! اليوم الكل كيتفرج فيك. ⚡",
     },
   },
@@ -44,9 +44,9 @@ export const DAILY_VIBES: DailyVibe[] = [
     id: "romantic",
     emoji: "🎀",
     tone: "pink",
-    label: { en: "Hopeless Romantic", ar: "رومانسية بزاف" },
+    label: { en: "Romantic bzzaf", ar: "رومانسية بزاف" },
     cheer: {
-      en: "Your heart is extra soft today — protect it, habiba. 🎀",
+      en: "9albek rtab bzzaf lyoum — 7asbi 3lih, habibti. 🎀",
       ar: "قلبك رطب بزاف اليوم — حافظي عليه، حبيبة. 🎀",
     },
   },
@@ -56,7 +56,7 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "orange",
     label: { en: "Feral Energy", ar: "طاقة واعر" },
     cheer: {
-      en: "Feral mode ON. Fin ghadi tkhwi had l'énergie? 🔥",
+      en: "Feral mode ON. Fin ghadi tkhreji had l'energie? 🔥",
       ar: "مود واعر خدام. فين غادي تخرجي هاد الطاقة؟ 🔥",
     },
   },
@@ -66,7 +66,7 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "brown",
     label: { en: "Cozy Chic", ar: "راحة وفخامة" },
     cheer: {
-      en: "Blanket, candle, zero drama. Bslama l'stress. ☕",
+      en: "Couverture, chm3a, w zero drama. Bslama l'stress. ☕",
       ar: "بطانية، شمعة، وبلا دراما. بسلامة للستريس. ☕",
     },
   },
@@ -76,7 +76,7 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "brown",
     label: { en: "Low Battery", ar: "بطارية ضعيفة" },
     cheer: {
-      en: "Battery low? Charge yourself. Mashi 3ib. 🌙",
+      en: "Battery d9ifa? Charge rasek. Machi 3ib. 🌙",
       ar: "البطارية ضعيفة؟ شارجي راسك. ماشي عيب. 🌙",
     },
   },

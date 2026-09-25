@@ -1,322 +1,170 @@
 /**
- * The two site languages. UI strings live here; content strings (girls,
- * questions, moods) carry their own { en, ar } pairs next to the data.
+ * UI strings — one voice only: Moroccan Gen-Z Darija in Latin script (the way
+ * girls actually type), generic English where they'd use it anyway, and a
+ * pinch of simple French (les notes, Livraison, Vérifié...).
  *
- * Voice rule: English is Moroccan Gen-Z English (Darija words dropped in
- * where a real girl would drop them), Arabic is Darija — not MSA, not
- * Levantine. If it wouldn't sound right in a Casablanca group chat, it does
- * not belong here.
+ * Content strings (girls, questions, moods) carry their own { en, ar } pairs
+ * next to the data — the `en` half is what the site shows.
+ *
+ * Voice rule: if it wouldn't sound right in a Casablanca group chat, it does
+ * not belong here. No MSA, no Google-Translate Arabic.
  */
-export type Lang = "en" | "ar";
+export type Lang = "en";
 
 export type Dict = Record<string, string>;
 
 const en: Dict = {
-  // Header / nav
-  "nav.home": "Home",
-  "nav.findGirl": "Find my girl",
+  // ── Nav — short on purpose: the bottom pill must fit every phone ──
+  "nav.home": "Dar",
+  "nav.findGirl": "Quiz",
   "nav.shop": "Shop",
 
   // Home
-  "home.eyebrow": "8 questions · 60 seconds · bslama stress",
-  "home.titleLines.0": "Which girl",
-  "home.titleLines.1": "are you",
-  "home.titleLines.2": "today?",
-  "home.titleAccent": "2",
+  "home.eyebrow": "8 las2ila · 60 secondes · bla stress",
+  "home.titleLines.0": "Ashmen bent",
+  "home.titleLines.1": "nti",
+  "home.titleLines.2": "lyoum?",
   "home.body":
-    "Machi which perfume you want — which girl you are. Right now, had sbah, had nhar. We'll tell you chkoun nti, then what she smells like. Yallah.",
-  "home.cta": "Find my girl",
-  "home.ctaNote": "No sign-up, no email. Ghir 8 taps — yallah, 60 seconds w safi.",
-  "home.secondaryCta": "Shop the scents",
-  "home.marquee": "SOFT GIRL ERA · GOLDEN GIRL ERA · COCOA GIRL ERA · WACH NTI? · YALLAH 60 SECONDS",
-  "home.todayResult": "Today you're {name} — shoufi result dyalek",
+    "Machi ghir ashmen parfum bghiti — ashmen bent nti daba, had sbah. N9olik chkoun nti, w mn ba3d chnou ri7tha. Yallah.",
+  "home.cta": "Le9a chkoun nti",
+  "home.ctaNote": "Bla inscription, bla email. Ghir 8 taps — 60 secondes w safi.",
+  "home.secondaryCta": "Choufi les parfums",
+  "home.marquee": "SOFT GIRL ERA · GOLDEN GIRL ERA · COCOA GIRL ERA · WACH NTI? · YALLAH 60 SECONDES",
+  "home.todayResult": "Lyoum nti {name} — choufi résultat dyalek",
 
-  "girls.eyebrow": "Three girls — you're one of them",
-  "girls.title": "Pick your personality, machi your perfume",
+  "girls.eyebrow": "3 dyal l'banat — nti wa7da fihom",
+  "girls.title": "Khtari l'personnalité, machi l'parfum",
   "girls.body":
-    "Each girl is a whole world — scent, palette, ritual, mood. Klik 3la wahda to meet her scent.",
-  "girls.herScent": "Her scent",
+    "Kol bent 3ndha 3lam kamel — ri7a, couleurs, mood, ritual. Kliki 3la wa7da bach tchoufi ri7tha.",
+  "girls.herScent": "Ri7tha",
 
-  "how.eyebrow": "How it works",
-  "how.title": "Three steps. Safi.",
-  "how.step1.title": "Answer eight things",
+  "how.eyebrow": "Kifash kaykhdem",
+  "how.title": "3 khotwat. Safi.",
+  "how.step1.title": "Jawbi 3la 8 dyal las2ila",
   "how.step1.body":
-    "Your morning, your drink, your evening. 3la lah, you don't need to know anything about perfume — we ask about YOU.",
-  "how.step2.title": "Meet the girl you are today",
+    "Sbah dyalek, l'boisson dyalek, l'soir dyalek. Makhassek t3refi walo 3la parfum — 7na kans9so 3la NTI.",
+  "how.step2.title": "Le9i l'bent li ntiha lyoum",
   "how.step2.body":
-    "One of three. Plus your energy split, your mood, your palette, and wahd 7aja to do today.",
-  "how.step3.title": "Post her, then meet her scent",
+    "Wa7da mn 3. M3aha l'energie dyalek, mood dyalek, couleurs, w wa7d l'haja diriha lyoum.",
+  "how.step3.title": "Postiha, w choufi ri7tha",
   "how.step3.body":
-    "A card built for your story — smittek 3liha. And underneath, the Wingwoman made for her.",
+    "Card msawb 3la 9yassek — smitek 3lih. W t7tih, l'parfum dyal Wingwoman li mwjod liha.",
 
-  "scents.eyebrow": "The trio",
-  "scents.title": "And three scents",
+  "scents.eyebrow": "Le trio",
+  "scents.title": "W 3 dyal riya7",
   "scents.body":
-    "Each girl has one. You'll meet yours at the end — men ba3d ma t3refi chkoun nti. Machi 9bel.",
-  "scents.shopThis": "Shop this one",
+    "Kol bent 3ndha ri7tha. Ghadi tchoufi dyalek f lekher — mn ba3d ma t3refi chkoun nti. Machi 9bel.",
+  "scents.shopThis": "Chri hada",
 
-  "final.title": "She's waiting. Sixty seconds.",
+  "final.title": "Hiya katsennak. 60 secondes.",
   "final.body":
-    "Some days you're the sweet one, some days you're the spark. 3awdiha ghdda — wach 3la balek, you might surprise yourself.",
-  "final.cta": "Find my girl",
+    "Kayn nhar nti l'7louwa, w kayn nhar nti l'charara. 3awdiha ghda — bla ma t7essi, ghatdouhki rassek.",
+  "final.cta": "Le9a chkoun nti",
 
-  "footer.line": "Made with love for the girls who change their mood every day. W safi, 3adi.",
+  "footer.line": "Msawb b l7ob l l'banat li kaybedl l'mood dyalhom kol nhar. W safi, 3adi.",
 
   // Quiz
-  "quiz.of": "of",
-  "quiz.question": "Question {n} of {total}",
-  "quiz.backHome": "Back to home",
-  "quiz.back": "Previous question",
-  "quiz.footer": "There are no wrong answers here — bsah, be honest, machi impressive.",
-  "quiz.streak": "{n} day streak",
-  "quiz.cheer.0": "Yallah, you got this 💅",
-  "quiz.cheer.1": "Bsah, be honest — that's the whole trick 👑",
-  "quiz.cheer.2": "Halfway — the pretty questions are coming 🔥",
-  "quiz.cheer.3": "Almost there, habiba — don't stop now ✨",
+  "quiz.question": "Question {n} mn {total}",
+  "quiz.backHome": "Rje3 l'dar",
+  "quiz.back": "L'so2al li 9bel",
+  "quiz.footer": "Ma kaynch jawab ghalat hna — bs7, kouni sincere, machi impressive.",
+  "quiz.streak": "Streak {n} iyam",
+  "quiz.cheer.0": "Yallah, nti 9adra 💅",
+  "quiz.cheer.1": "Bs7, kouni sincere — hadi hiya s-sirriya kamla 👑",
+  "quiz.cheer.2": "Nass l'tri9 — las2ila zwina jayin 🔥",
+  "quiz.cheer.3": "9rebiti, habibti — matw9efich daba ✨",
 
   // Result
-  "result.todayYoure": "Today you're",
-  "result.oneThing": "Wahd 7aja diriha lyoum",
-  "result.energy": "L'énergie dyalek lyoum",
-  "result.style": "Her style",
-  "result.palette": "Your palette today",
-  "result.herScent": "Her scent",
-  "result.matchedToYou": "Matched to you",
+  "result.todayYoure": "Lyoum nti",
+  "result.oneThing": "Wa7d l'haja diriha lyoum",
+  "result.energy": "L'energie dyalek lyoum",
+  "result.style": "Style dyalha",
+  "result.palette": "Couleurs dyalek lyoum",
+  "result.herScent": "Ri7tha",
+  "result.matchedToYou": "Matched m3ak",
   "result.matchedBody":
-    "You came out as {girl} with {mood} energy today — and hadi hiya the one built for her.",
-  "result.order": "Order on WhatsApp",
-  "result.orDm": "Or DM us on Instagram",
+    "Tle3ti {girl} b {mood} energy lyoum — w hadi hiya l'parfum li msawb liha.",
+  "result.order": "Commandi f WhatsApp",
+  "result.orDm": "Wla DM 3la Instagram",
   "result.orderNote":
-    "Your message already says which girl you are — 7na kan3rfo shnou bghiti. Sahl, non?",
-  "result.retake": "Retake",
-  "result.again": "Feeling different? 3awdi l'quiz",
-  "result.shareCta": "Share my girl",
-  "result.shopCta": "Or shop it directly",
+    "L'message deja fih chkoun nti — 7na kan3rfo chnou bghiti. Sahel, s7i7?",
+  "result.retake": "3awdi",
+  "result.again": "7ssiti rassek mkhalfa? 3awdi l'quiz",
+  "result.shareCta": "Share l'card dyalek",
+  "result.shopCta": "Wla chriha nichan",
 
   // Share
-  "share.title": "Here she is. Go make the group chat jealous.",
-  "share.cardTitle": "Your card",
+  "share.title": "Ha hiya. Daba khelli l'group chat yghar.",
+  "share.cardTitle": "L'card dyalek",
   "share.body":
-    "Save it, post it, siftiha l'group. Every card quietly asks the next girl the same question: wach nti?",
-  "share.back": "Back to your result",
-  "share.backFull": "Back to the full result",
+    "Sejjelha, postiha, siftiha l'group. Kol card kats9ssi l'bent li jaya nefs l'so2al: wach nti?",
+  "share.back": "Rje3 l'résultat",
+  "share.backFull": "Rje3 l'résultat kamel",
   "share.formatStory": "Story 9:16",
   "share.formatSquare": "Post 1:1",
   "share.make": "Share my card",
-  "share.making": "Making your card...",
-  "share.save": "Save image",
-  "share.copy": "Copy link",
-  "share.whatsapp": "Send it on WhatsApp",
-  "share.idle": "Both formats are ready — khtari li 3ejbatek, habiba.",
-  "share.shared": "Posted! The girls are definitely going to ask you about it.",
-  "share.saved": "Saved to your downloads. Yallah, sire nchriha.",
-  "share.copied": "Link copied. Siftihel les banat.",
-  "share.error": "Couldn't build the image. Dir screenshot, habiba.",
+  "share.making": "Kanwjjed l'card...",
+  "share.save": "Sejjel l'image",
+  "share.copy": "Copy le lien",
+  "share.idle": "Jouj formats wajdin — khtari li 3ejbek, habibti.",
+  "share.shared": "T-postat! L'banat ghadi yseksouk 3liha, promis.",
+  "share.saved": "Tsejjlat f downloads. Yallah, siri chriha.",
+  "share.copied": "L'lien tcopya. Siftih l l'banat.",
+  "share.error": "Ma9dernach nsawbo l'image. Dir screenshot, habibti.",
 
   // Personalisation
-  "personal.title": "Make it yours",
-  "personal.subtitle": "Your name goes straight onto the card — optional, but cuter.",
-  "personal.name": "Your name",
-  "personal.namePlaceholder": "e.g. Sara",
+  "personal.title": "Khelliha b smitek",
+  "personal.subtitle": "Smitek kat3lich nichan f l'card — optional, walakin cuter.",
+  "personal.name": "Smitek",
+  "personal.namePlaceholder": "matalan: Sara",
   "personal.ig": "Instagram",
-  "personal.igPlaceholder": "your.handle",
-  "personal.for": "This card is",
-  "personal.forMe": "For me",
-  "personal.gift": "A gift",
-  "personal.giftFor": "For who?",
-  "personal.giftPlaceholder": "her name, e.g. Lina",
-  "personal.onCard": "On the card",
+  "personal.igPlaceholder": "compte dyalek",
+  "personal.for": "Had l'card",
+  "personal.forMe": "Liya",
+  "personal.gift": "Cadeau",
+  "personal.giftFor": "L chkoun?",
+  "personal.giftPlaceholder": "smiytha, matalan: Lina",
+  "personal.onCard": "F l'card",
 
   // Card
-  "card.todayIm": "Today I'm",
-  "card.aGiftFor": "A gift for",
+  "card.todayIm": "Lyoum ana",
+  "card.aGiftFor": "Cadeau l",
 
   // Daily vibe check
   "daily.title": "Daily Vibe Check",
   "daily.subtitle":
-    "Kifash dayera blik daba? One tap and we lock your energy for today.",
+    "Kifash dayra blik daba? Tap wa7da w n7esso l'energie dyalek lyoum.",
   "daily.subtitleAgain":
-    "Vibe locked. Badliha ila tbeddel mood dyalek — no judgement here, habiba.",
-  "daily.streakLabel": "{n}-day streak — keep it alive",
-  "daily.startStreak": "Start your streak today",
-  "daily.doneToday": "Checked in ✓",
-  "daily.pendingToday": "Not yet today",
-  "daily.keepGoing": "Aji ghdda to keep the flame alive 👑",
-  "daily.newDay": "Nhar jdid, vibe jdid — the flame starts right here 🔥",
-  "daily.share": "Share my vibe card",
-  "daily.rendering": "Making your card...",
+    "Vibe locked. Beddelha ila tbeddel l'mood dyalek — hna ma kaynch jugement, habibti.",
+  "daily.streakLabel": "Streak dyal {n} iyam — khelliha 3aycha",
+  "daily.startStreak": "Bda l'streak dyalek lyoum",
+  "daily.doneToday": "Dertih lyoum ✓",
+  "daily.pendingToday": "Mazal lyoum",
+  "daily.keepGoing": "Aji ghda bach tb9i l'flame cha3la 👑",
+  "daily.newDay": "Nhar jdid, vibe jdid — l'flame kaybda mn hna 🔥",
+  "daily.share": "Share l'vibe card dyalek",
+  "daily.rendering": "Kanwjjed l'card...",
   "daily.shareNote":
-    "Siftiha l'group — khelli les banat ya3rfo l'énergie dyalek lyoum.",
-  "daily.cardTitle": "Today's vibe",
+    "Siftiha l'group — khelli l'banat ya3rfo l'energie dyalek lyoum.",
+  "daily.cardTitle": "Vibe dyal lyoum",
 
   // Shop
   "shop.metaTitle": "Shop",
-  "shop.eyebrow": "One perfume · three girls",
-  "shop.title": "One perfume, three personalities",
-  "shop.subtitle": "Khtari the girl you're buying for — the page follows her colour. Yallah.",
-  "shop.choose": "Choose her variant",
-  "shop.includes": "Every order comes with",
-  "shop.notes": "The notes",
-  "shop.order": "Order on WhatsApp",
-  "shop.dm": "Or DM us on Instagram",
-  "shop.reviews": "What the girls say",
-  "shop.trustOriginal": "100% original",
-  "shop.trustFast": "1–3 day delivery",
-  "shop.trustWrap": "Free gift wrap",
-  "shop.discover": "Mazal ma3reftish chkoun nti? Yallah, jrebbi l'quiz!",
-  "shop.quizCta": "Find my girl",
+  "shop.eyebrow": "Parfum wa7d · 3 dyal l'banat",
+  "shop.title": "Parfum wa7d, 3 bent, 3 vibe",
+  "shop.subtitle":
+    "Khtari l'bent li ghadi tchri liha — w l'page katban b les couleurs dyalha. Yallah.",
+  "shop.choose": "Khtari la version dyalha",
+  "shop.includes": "Kol commande ja m3aha",
+  "shop.notes": "Les notes",
+  "shop.order": "Commandi f WhatsApp",
+  "shop.dm": "Wla DM 3la Instagram",
+  "shop.reviews": "Chno 9alo l'banat",
+  "shop.trustOriginal": "Original 100%",
+  "shop.trustFast": "Livraison 1-3 iyam",
+  "shop.trustWrap": "Emballage cadeau fabor",
+  "shop.discover": "Mazal ma3rftich chkoun nti? Yallah, jrebbi l'quiz!",
+  "shop.quizCta": "Le9a chkoun nti",
 };
 
-const ar: Dict = {
-  // Header / nav
-  "nav.home": "الرئيسية",
-  "nav.findGirl": "لقاي بنتك",
-  "nav.shop": "المتجر",
-  "lang.aria": "بدلي اللغة",
-  "header.order": "١ — ٣",
-
-  // Home
-  "home.eyebrow": "٨ أسئلة · ٦٠ ثانية · بلا ستريس",
-  "home.titleLines.0": "أشمن بنت",
-  "home.titleLines.1": "نتِ",
-  "home.titleLines.2": "اليوم؟",
-  "home.titleAccent": "2",
-  "home.body":
-    "ماشي أشمن عطر بغيتي — أشمن بنت نتِ دابا، هاد الصباح، هاد النهار بالضبط. غادي نقولك شكون هي… ومن بعد شنو ريحتها.",
-  "home.cta": "لقاي بنتك",
-  "home.ctaNote": "بلا تسجيل، بلا إيميل. غير ٨ تكليكات — يالاه، ٦٠ ثانية.",
-  "home.secondaryCta": "تسوقي الروايح",
-  "home.marquee": "عصر البنت الهادية · عصر البنت الذهبية · عصر بنت الكاكاو · واش نتِ؟ · يالاه ٦٠ ثانية",
-  "home.todayResult": "اليوم نتِ {name} — شوفي النتيجة",
-
-  "girls.eyebrow": "تلاتة بنات — نتِ وحدة فيهم",
-  "girls.title": "ختاري الشخصية ديالك، ماشي العطر ديالك",
-  "girls.body":
-    "كل بنت عندها عالم كامل — ريحة، ألوان، طقوس، ومزاج. تكليكي على وحدة باش تعرفي ريحتها.",
-  "girls.herScent": "ريحتها",
-
-  "how.eyebrow": "كيفاش كتخدم",
-  "how.title": "تلاتة خطوات. صافي.",
-  "how.step1.title": "جاوي على ٨ حوايج",
-  "how.step1.body":
-    "على الصباح، المشروب، والسهرة. عمرنا ما غادي نسولوك على العطر — ٣لا الله، ما خاصك تعرفي والو على الروايح.",
-  "how.step2.title": "تلقاي البنت اللي نتِ اليوم",
-  "how.step2.body":
-    "وحدة من تلاتة. مع الطاقة، المزاج، الألوان، وحاجة وحدة ديريها اليوم.",
-  "how.step3.title": "نشريها، ومن بعد شوفي ريحتها",
-  "how.step3.body":
-    "كارت مصمم للستوري ديالك — وسميتك عليه. وتحته عطر Wingwoman اللي خصها.",
-  "scents.shopThis": "شري هادا",
-
-  "scents.eyebrow": "التلاتية",
-  "scents.title": "وتلاتة روائح",
-  "scents.body": "كل بنت عندها ريحتها. غادي تعرفي ريحتك فالآخر — من بعد ما تعرفي شكون نتِ. ماشي قبل.",
-
-  "final.title": "هي كتسناك. ستين ثانية بس.",
-  "final.body":
-    "كاين نهار نتِ الحلوة، وكاين نهار نتِ الشرارة. عاوديها غدا — واش على بالك، يمكن تفاجئي راسك.",
-  "final.cta": "لقاي بنتك",
-
-  "footer.line": "مصنوع بالحب للبنات اللي كيبدلو مزاجهم كل نهار. وعادي.",
-
-  // Quiz
-  "quiz.of": "من",
-  "quiz.question": "سؤال {n} من {total}",
-  "quiz.backHome": "رجعي للرئيسية",
-  "quiz.back": "السؤال اللي قبل",
-  "quiz.footer": "ما كاينش جواب غلط — بصح، كوني صادقة ماشي مثالية.",
-  "quiz.streak": "ستريك {n} أيام",
-  "quiz.cheer.0": "يالاه، نتِ قادرة 💅",
-  "quiz.cheer.1": "بصاح، كوني صادقة — هادي هي الحيلة كاملة 👑",
-  "quiz.cheer.2": "وسط الطريق — الأسئلة الزوينة جايين 🔥",
-  "quiz.cheer.3": "قربتي، حبيبة — ما توقفيش دابا ✨",
-
-  // Result
-  "result.todayYoure": "اليوم نتِ",
-  "result.oneThing": "حاجة وحدة ديريها اليوم",
-  "result.energy": "طاقتك اليوم",
-  "result.style": "ستايلها",
-  "result.palette": "ألوانك اليوم",
-  "result.herScent": "ريحتها",
-  "result.matchedToYou": "مخصصة ليك",
-  "result.matchedBody":
-    "طلعتي {girl} بطاقة {mood} اليوم — وهاد هو العطر اللي مبني عليها.",
-  "result.order": "طلبي فالواتساب",
-  "result.orDm": "ولا صيفطي لينا ميساج فالإنستغرام",
-  "result.orderNote": "الرسالة ديالك كتقول شكون نتِ — فحنا كنعرفو شنو بغيتي. ساهل، صح؟",
-  "result.retake": "عاودي",
-  "result.again": "حسيتي راسك مبدلة؟ عاودي الكويز",
-  "result.shareCta": "شاركي بنتك",
-  "result.shopCta": "ولا شريها ديريكت",
-
-  // Share
-  "share.title": "ها هي. دابا خلّي الگروب يغار.",
-  "share.cardTitle": "الكارت ديالك",
-  "share.body":
-    "سجليها، نشريها، وصيفطيها للگروب. كل كارت كيسول البنت اللي من بعد نفس السؤال.",
-  "share.back": "رجعي للنتيجة",
-  "share.backFull": "رجعي للنتيجة الكاملة",
-  "share.formatStory": "ستوري ٩:١٦",
-  "share.formatSquare": "بوست ١:١",
-  "share.make": "شاركي الكارت",
-  "share.making": "كنوجدو الكارت...",
-  "share.save": "سجلي الصورة",
-  "share.copy": "كوبي الرابط",
-  "share.idle": "الجوج الصيغات واجدين — ختاري اللي بغيتي، حبيبة.",
-  "share.shared": "تنشرات! البنات غادي يسولوك عليها.",
-  "share.saved": "تسجلت فالداونلود.",
-  "share.copied": "الرابط تكوبا. صيفطيه للبنات.",
-  "share.error": "ما قدرناش نوجدو التصويرة. ديري سكرين شوت، حبيبة.",
-
-  // Personalisation
-  "personal.title": "خليها بسميتك",
-  "personal.subtitle": "سميتك كتطلع فالكارت ديريكت — اختياري، ولكن زوينة كتر.",
-  "personal.name": "سميتك",
-  "personal.namePlaceholder": "مثلاً سارة",
-  "personal.ig": "إنستغرام",
-  "personal.igPlaceholder": "الحساب ديالك",
-  "personal.for": "هاد الكارت",
-  "personal.forMe": "ليا",
-  "personal.gift": "كادو",
-  "personal.giftFor": "لمن؟",
-  "personal.giftPlaceholder": "سميتها، مثلاً لينا",
-  "personal.onCard": "فالكارت",
-
-  // Card
-  "card.todayIm": "اليوم أنا",
-  "card.aGiftFor": "كادو لـ",
-
-  // Daily vibe check
-  "daily.title": "شيك الفايب اليومي",
-  "daily.subtitle": "كي داير حالك دابا بصح؟ تكليكة وحدة، وقفلنا طاقتك لليوم.",
-  "daily.subtitleAgain": "الفايب تقفل. بدليه إلا بدل مزاجك — هنا ما كاينش الحكم، حبيبة.",
-  "daily.streakLabel": "ستريك {n} أيام",
-  "daily.startStreak": "بدي الستريك ديالك اليوم",
-  "daily.doneToday": "شيكيتي",
-  "daily.pendingToday": "مازال اليوم",
-  "daily.keepGoing": "رجي غدا باش تخلّي اللهب شاعل 👑",
-  "daily.newDay": "نهار جديد، فايب جديد — اللهب كيبدا من هنا 🔥",
-  "daily.share": "شاركي كارت الفايب",
-  "daily.rendering": "كنوجدو الكارت...",
-  "daily.shareNote": "صيفطيه للگروب — خلّي البنات يعرفو طاقتك اليوم.",
-  "daily.cardTitle": "فايب اليوم",
-
-  // Shop
-  "shop.metaTitle": "المتجر",
-  "shop.eyebrow": "عطر واحد · تلاتة بنات",
-  "shop.title": "عطر واحد، تلاتة شخصيات",
-  "shop.subtitle": "ختاري البنت اللي غادي تشري ليها — والصفحة كتلون بألوانها. يالاه.",
-  "shop.choose": "ختاري النسخة ديالها",
-  "shop.includes": "كل كوموند كتجي معاها",
-  "shop.notes": "المكونات",
-  "shop.order": "طلبي فالواتساب",
-  "shop.dm": "ولا صيفطي لينا فالإنستغرام",
-  "shop.reviews": "شنو قالو البنات",
-  "shop.trustOriginal": "أصلي ١٠٠٪",
-  "shop.trustFast": "توصيل ١–٣ أيام",
-  "shop.trustWrap": "تغليف كادو فابور",
-  "shop.discover": "مازال ما عرفتي شكون نتِ؟ واش جربتي الكويز؟",
-  "shop.quizCta": "لقاي بنتك",
-};
-
-export const DICT: Record<Lang, Dict> = { en, ar };
+export const DICT: Record<"en", Dict> = { en };

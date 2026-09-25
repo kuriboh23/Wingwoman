@@ -4,10 +4,15 @@ import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { DICT } from "@/data/i18n";
 
 /**
- * The site is English-only now (with a strong Darija accent in the copy),
- * but the t()/pick()/dir API stays so every component reads exactly the same
- * way — and a second language can be reintroduced later without touching
- * the components again.
+ * The site is one language: Moroccan Gen-Z Darija in Latin script, mixed with
+ * generic English + simple French (the way girls actually type). The `ar`
+ * halves of content strings are kept only as legacy data — `pick()` always
+ * serves the Latin-script copy, so Google Translate never gets an Arabic
+ * page to "helpfully" convert.
+ *
+ * The t()/pick()/dir API stays so every component reads exactly the same way
+ * — and a second language can be reintroduced later without touching the
+ * components again.
  */
 type Lang = "en";
 

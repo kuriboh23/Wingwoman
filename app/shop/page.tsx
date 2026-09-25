@@ -6,7 +6,7 @@ import type { ArchetypeId } from "@/types";
 export const metadata: Metadata = {
   title: "Shop",
   description:
-    "One perfume, three girls. Pick her variant, make it personal, order on WhatsApp.",
+    "Parfum wa7d, 3 dyal l'banat. Khtari la version dyalha, khelliha b smitek, w commandi f WhatsApp.",
 };
 
 const VARIANTS = new Set(Object.keys(ARCHETYPES));
