@@ -26,8 +26,8 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "pink",
     label: { en: "Soft & Sweet", ar: "سويت وهادية" },
     cheer: {
-      en: "Energy dyal l'habibta. L'dnya tsenna chi shwiya. 🍓",
-      ar: "طاقة الحبيبة. الدنيا تسنى شوية. 🍓",
+      en: "Your energy shines today. The world's waiting for your light. 🍓",
+      ar: "الطاقة ديالك بتشتغل اليوم. الدنيا معطّسة بانتظارك. 🍓",
     },
   },
   {
@@ -36,8 +36,8 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "orange",
     label: { en: "Main Character", ar: "البطلة ديال القصة" },
     cheer: {
-      en: "Yallah! Lyoum l'kol kaytferjou fik. ⚡",
-      ar: "يالاه! اليوم الكل كيتفرج فيك. ⚡",
+      en: "Yes! Today everyone's watching you. Own the room. ⚡",
+      ar: "يالاه! اليوم الجميع عايز يرى كده. خد البُلاصة لذاتك. ⚡",
     },
   },
   {
@@ -46,8 +46,8 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "pink",
     label: { en: "Romantic bzzaf", ar: "رومانسية بزاف" },
     cheer: {
-      en: "9albek rtab bzzaf lyoum — 7asbi 3lih, habibti. 🎀",
-      ar: "قلبك رطب بزاف اليوم — حافظي عليه، حبيبة. 🎀",
+      en: "Your heart's beating extra fast today — take care of it, my love. 🎀",
+      ar: "قلبك بيدق سريع جداً اليوم — اعناها، حبيبة. 🎀",
     },
   },
   {
@@ -56,8 +56,8 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "orange",
     label: { en: "Feral Energy", ar: "طاقة واعر" },
     cheer: {
-      en: "Feral mode ON. Fin ghadi tkhreji had l'energie? 🔥",
-      ar: "مود واعر خدام. فين غادي تخرجي هاد الطاقة؟ 🔥",
+      en: "Feral mode is ON. How about we burn some of this energy out? 🔥",
+      ar: "مود واعر خدام شغال. شوية بكاء للطاقة ديالك؟ 🔥",
     },
   },
   {
@@ -66,8 +66,8 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "brown",
     label: { en: "Cozy Chic", ar: "راحة وفخامة" },
     cheer: {
-      en: "Couverture, chm3a, w zero drama. Bslama l'stress. ☕",
-      ar: "بطانية، شمعة، وبلا دراما. بسلامة للستريس. ☕",
+      en: "Covers, candle, and zero drama. Stay safe from the stress. ☕",
+      ar: "بطانية، شمعة، ودrama صفر. حماية من الإستريس. ☕",
     },
   },
   {
@@ -76,8 +76,8 @@ export const DAILY_VIBES: DailyVibe[] = [
     tone: "brown",
     label: { en: "Low Battery", ar: "بطارية ضعيفة" },
     cheer: {
-      en: "Battery d9ifa? Charge rasek. Machi 3ib. 🌙",
-      ar: "البطارية ضعيفة؟ شارجي راسك. ماشي عيب. 🌙",
+      en: "Battery low? Charge your socks. You're fine. 🌙",
+      ar: "البطارية هuntu؟ شغّليها. أنت كويسة. 🌙",
     },
   },
 ];

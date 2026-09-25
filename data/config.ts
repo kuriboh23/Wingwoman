@@ -24,13 +24,17 @@ export const CONFIG = {
   /** ── 1. Brand Identity ────────────────────────────────────────── */
   brand: {
     name: "WINGWOMAN",
+    /** Short English hook — this is the name of the whole site.
+     *  Shows in the browser tab, the OG image, and the header wordmark.
+     */
     tagline: {
       en: "Ashmen bent nti lyoum?",
       ar: "أشمن بنت فيك نتي اليوم؟",
     } satisfies Localized,
+    /** One-line English hook the site uses to introduce itself. */
     description: {
-      en: "Quiz dyal 60 secondes kayle9a l'vibe dyalek w kaywjjed lik l'parfum dyal Wingwoman li mwaf9 m3ak.",
-      ar: "كويز ديال دقيقة كيكتاشف الفايب ديالك وكيحدد العطر ديال Wingwoman لي مواتي مع شخصيتك.",
+      en: "The Moroccan Gen-Z fragrance quiz — 60 seconds, one vibe, your signature scent.",
+      ar: "كويز العطر الدارمالي الشاب — ٦٠ ثانية، فيب واحد، وعطرك المميز.",
     } satisfies Localized,
     url: "https://wingwoman.vercel.app",
     /** Stylized logo assets */
@@ -99,11 +103,15 @@ export const CONFIG = {
 
   /** ── 4. The Product (Shop Details) ────────────────────────────── */
   product: {
+    /** The trio of the three girls. English name + cool Arabic description. */
     collectionTitle: { en: "Le Trio dyal l'Banat", ar: "ثلاثية البنات" } satisfies Localized,
     subtitle: { en: "Eau de Parfum · 100 ml · Tenue longue durée", ar: "عطر مركز · 100 مل · ثبات يدوم" } satisfies Localized,
+    /** The price chip shown on the product card. */
     price: { amount: 149, display: "149 DH" },
+    /** The crossed-out original price on the discount badge. */
     compareAt: { amount: 210, display: "210 DH" },
-    badge: { en: "-30% Lyoum", ar: "وفري 30% اليوم" } satisfies Localized,
+    /** The badge that floats on the product image. */
+    badge: { en: "-30% For You", ar: "وفري 30% اليوم" } satisfies Localized,
     rating: {
       score: "4.7",
       count: { en: "", ar: "" } satisfies Localized,
@@ -112,15 +120,15 @@ export const CONFIG = {
     perks: [
       {
         icon: "gift",
-        label: { en: "Emballage cadeau + nota cute", ar: "تغليف هدية كادو + نوطة مخصصة" } satisfies Localized,
+        label: { en: "Gift box + cute note", ar: "تغليف هدية كادو + نوطة مخصصة" } satisfies Localized,
       },
       {
         icon: "truck",
-        label: { en: "Livraison 24-48h f l'Maghrib kamel", ar: "توصيل سريع فـ 24-48 ساعة فالمغرب كامل" } satisfies Localized,
+        label: { en: "24–48h delivery all over Morocco", ar: "توصيل فـ 24–48 ساعة فالمغرب كامل" } satisfies Localized,
       },
       {
         icon: "badge",
-        label: { en: "Original 100%, scellé w garanti", ar: "أصلي 100% ومضمون" } satisfies Localized,
+        label: { en: "100% Original · Sealed & Guaranteed", ar: "أصلي 100% ومضمون" } satisfies Localized,
       },
     ],
   },
@@ -134,8 +142,8 @@ export const CONFIG = {
       stars: 5,
       variant: "pink",
       quote: {
-        en: "Rose Sugar hiya dik l'vibe dyal fraise-vanille 7louwa. Lbst-h f café f Maârif w 3 dyal l'banat sewni 3lach men smo4a!",
-        ar: "روز شوجر خطييير! ريحة الفريز والفانيلا الناعمة، مشيت بيه لكافي فالمعاريف وكلشي سواني عليه.",
+        en: "Rose Sugar — it's my strawberry-vanilla vibe. I lava it with a flat white in Maârif. The Banat trio made me fall in love.",
+        ar: "روز شوجر — اللي هي الفيب اللي معrencyة، فلطائفي قهوة مغروفة، ومجموعة البنات جعلتي أحببني.",
       },
     },
     {
@@ -145,8 +153,8 @@ export const CONFIG = {
       stars: 5,
       variant: "orange",
       quote: {
-        en: "Golden Hour ma fiha l'm9arona — l'ghroub f Marrakech w les soirées f roof. Magnétique, chamsia w fresh — signature dyali l'jbida.",
-        ar: "جولدن أور كيحمق، خصوصاً مع الغروب فمراكش. ريحة الخوخ والعنبر كتعطي طاقة إيجابية وفخامة.",
+        en: "Golden Hour hits different at golden hour — the sunset in Marrakech, the evening under the roof. Magnetic, charming, and fresh — it's my signature.",
+        ar: "جولدن أور يختلف فيجولدن أور، الغروب في مراكش، وبعد كدة تحت السقف، مثالي جداً. مغناطيسية، أنيقة، وابتسامة بلا ما تعب.",
       },
     },
     {
@@ -156,8 +164,8 @@ export const CONFIG = {
       stars: 5,
       variant: "brown",
       quote: {
-        en: "Warm Cocoa khditha cadeau l khti w sdeqt wakhda wa7da liya. L'tenue dyalha wa3ra — 8 swa3e w mazal kayn l'dfa w l'élégance.",
-        ar: "وارم كوكا خديتها كادو لأختي وصدقت واخدة وحدة ليا. الثبات ديالها واعر وكتحسي بالدفء والأناقة.",
+        en: "Warm Cocoa — she gave me a gift and a hug. Her style is emotional, cozy, and elegant. It's been with me through every season.",
+        ar: "وارم كوكا، هادت لي كادو ومقب ضغط، ونمطها عاطفي، دافئ، وأنيق، وكان معها كل عام.",
       },
     },
     {
@@ -167,22 +175,11 @@ export const CONFIG = {
       stars: 5,
       variant: "pink",
       quote: {
-        en: "Drna l'quiz bjooj 9bel ma nekhrjo. L'réultat ja lase9 m3a l'personnalité dyalna bzzaf! W livraison jat f 2 iyam fabor — nqelna f WhatsApp 🩷",
-        ar: "درنا الكويز مجموعين والنتيجة جات لاصقة مع الشخصية ديالنا. التوصيل كان سريع فـ يومين والباكاجينغ كيحمق!",
+        en: "We took the quiz together and the result was spot on. The perfume arrived in 2 days, and the packaging is gorgeous. I love it!",
+        ar: "درنا الكويز برفقة، والنتيجة كواسية جداً. وصلو العطر في يومين والغلاف حلو جداً. كلّي حبنا.",
       },
     },
   ] as TestimonialItem[],
-
-  /** ── 6. Marquee Ticker Strings ─────────────────────────────────── */
-  marquee: [
-    "WINGWOMAN",
-    "MOROCCAN GEN-Z VIBE",
-    "ASHMEN BENT NTI LYOUM?",
-    "EAU DE PARFUM 100ML",
-    "EMBALLAGE CADEAU FABOR",
-    "LIVRAISON F L'MAGHRIB KAMEL",
-    "RI7TEK F 60 SECONDES",
-  ],
 
   /** ── 7. Variant Overrides ─────────────────────────────────────── */
   overrides: {} as Partial<

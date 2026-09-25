@@ -7,18 +7,14 @@ import { Wordmark } from "@/components/brand/Butterfly";
 /**
  * The global chrome.
  *
- * - `/quiz` gets no header at all. The quiz has its own immersive progress
- *   header, and a second bar on top of it just ate 60px of a phone screen.
- * - Language is English-only now, so the header carries just the wordmark.
+ * Same 80% centered shell for every screen: a fixed top-bar that lives only
+ * inside the content block, a 16px gutter around it, and a wordmark that can
+ * never be pushed off-screen by a wider phone.
  */
 export function Header() {
-  const pathname = usePathname();
-
-  if (pathname === "/quiz") return null;
-
   return (
-    <header className="animate-rise w-full">
-      <div className="mx-auto flex w-full max-w-lg items-center justify-center px-4 pt-safe py-3.5">
+    <header className="animate-rise">
+      <div className="mx-auto w-[80%] max-w-lg px-4 pt-safe pb-safe sm:px-6">
         <Link href="/" aria-label="Wingwoman home" className="flex items-center justify-center">
           <Wordmark size="md" />
         </Link>

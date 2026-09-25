@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 /**
  * Floating bottom navigation — renders on EVERY page via app/layout.tsx.
  *
- * Fits the narrowest phones on purpose:
- *  - pill width is capped at 22rem and always keeps 12px air on each side
- *  - labels are one word ("Dar" / "Quiz" / "Shop") and never wrap
- *  - icons shrink slightly before anything is allowed to clip
+ * The whole bar stays inside one centered 80% shell, so:
+ *  - the pill keeps a 16px gutter on phones and 24px on tablets,
+ *  - nothing can ever be pushed off-screen or clipped on a wide device,
+ *  - the bar is a true fixed element that always clears the home bar.
  */
 export function BottomNav() {
   const pathname = usePathname();
@@ -29,11 +29,11 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Primary"
-      className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-3"
+      className="fixed inset-x-0 bottom-0 z-50"
     >
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/85 to-transparent" />
 
-      <div className="relative mb-[calc(0.5rem+env(safe-area-inset-bottom))] w-full max-w-[22rem]">
+      <div className="relative mx-auto w-[80%] max-w-lg px-4 sm:px-6 pb-safe">
         <div
           className={cn(
             "grid grid-cols-3 gap-0.5 rounded-full border border-white/60 bg-white/80 p-1",

@@ -1,21 +1,15 @@
 /**
- * UI strings — one voice only: Moroccan Gen-Z Darija in Latin script (the way
- * girls actually type), generic English where they'd use it anyway, and a
- * pinch of simple French (les notes, Livraison, Vérifié...).
- *
- * Content strings (girls, questions, moods) carry their own { en, ar } pairs
- * next to the data — the `en` half is what the site shows.
- *
- * Voice rule: if it wouldn't sound right in a Casablanca group chat, it does
- * not belong here. No MSA, no Google-Translate Arabic.
+ * UI strings — written in plain English so the site is clean and consistent
+ * across every screen. The `ar` half lives in the data files as legacy
+ * metadata and is never served to the user.
  */
 export type Lang = "en";
 
 export type Dict = Record<string, string>;
 
 const en: Dict = {
-  // ── Nav — short on purpose: the bottom pill must fit every phone ──
-  "nav.home": "Dar",
+  // ── Nav — short and one-word. The bottom pill must fit every phone. ──
+  "nav.home": "Home",
   "nav.findGirl": "Quiz",
   "nav.shop": "Shop",
 
@@ -23,112 +17,112 @@ const en: Dict = {
   "home.eyebrow": "8 las2ila · 60 secondes · bla stress",
   "home.titleLines.0": "Ashmen bent",
   "home.titleLines.1": "nti",
-  "home.titleLines.2": "lyoum?",
+  "home.titleLines.2": "lyoum?", 
   "home.body":
-    "Machi ghir ashmen parfum bghiti — ashmen bent nti daba, had sbah. N9olik chkoun nti, w mn ba3d chnou ri7tha. Yallah.",
-  "home.cta": "Le9a chkoun nti",
+    "Machi ghir ri7a w safi — ashmen vibe nti fiha lyoum? 🌸 Passi l-quiz & discover your personality, w 3arfi l'perfume li kimatchi m3a lvibe dyalek. Yallah, let's go!",
+  "home.cta": "Discover your vibe",
   "home.ctaNote": "Bla inscription, bla email. Ghir 8 taps — 60 secondes w safi.",
   "home.secondaryCta": "Discover lfragrances dyalna 🌸",
   "home.marquee": "SOFT GIRL ERA · GOLDEN GIRL ERA · COCOA GIRL ERA · WACH NTI? · YALLAH 60 SECONDES",
-  "home.todayResult": "Lyoum nti {name} — choufi result dyalek",
+  "home.todayResult": "Today you're {name} — the result is yours",
 
-  "girls.eyebrow": "3 dyal l'banat — nti wa7da fihom",
-  "girls.title": "Khtari l'personnalité, machi l'parfum",
+  "girls.eyebrow": "3 dyal vibes — chkoun nti fihom? 💖.",
+  "girls.title": "Khtari l'personality dyalek, machi l'perfume.",
   "girls.body":
-    "Kol bent 3ndha 3lam kamel — ri7a, couleurs, mood, ritual. Kliki 3la wa7da bach tchoufi ri7tha.",
-  "girls.herScent": "Ri7tha",
+    "Kol bent 3ndha world dyalha — mood, vibe, colors, w lroutine dyalha. Clicki 3la wa7da w discover your match!",
+  "girls.herScent": "Wingwoman",
 
-  "how.eyebrow": "Kifash kaykhdem",
+  "how.eyebrow": "How it works",
   "how.title": "3 khotwat. Safi.",
-  "how.step1.title": "Jawbi 3la 8 dyal las2ila",
+  "how.step1.title": "Answer 8 questions",
   "how.step1.body":
-    "Sbah dyalek, l'boisson dyalek, l'soir dyalek. Makhassek t3refi walo 3la parfum — 7na kans9so 3la NTI.",
-  "how.step2.title": "Le9i l'bent li ntiha lyoum",
+    "Lmorning routine dyalek, ldrink li katshorbi, w lvibe dyal night... Makhassek t3arfi walo 3la lperfume — 7na kansowlo 3lik NTI.",
+  "how.step2.title": "L9ay lbent li ntiya lyoum",
   "how.step2.body":
-    "Wa7da mn 3. M3aha l'energie dyalek, mood dyalek, couleurs, w wa7d l'haja diriha lyoum.",
-  "how.step3.title": "Postiha, w choufi ri7tha",
+    "Wa7da men 3. M3aha l'energy dyalek, mood, colors, w l'activity dyal lyoum.",
+  "how.step3.title": "Shari lcard dyalek w discover l'perfume!",
   "how.step3.body":
-    "Card msawb 3la 9yassek — smitek 3lih. W t7tih, l'parfum dyal Wingwoman li mwjod liha.",
+    "Custom Card msawb 3la 9oblek — b smitek 3liha. W ta7t mnou, l'perfume li kimatchi lvibe dyalek.",
 
-  "scents.eyebrow": "Le trio",
-  "scents.title": "W 3 dyal riya7",
+  "scents.eyebrow": "The trio",
+  "scents.title": "3 dyal lfragrances 🌸",
   "scents.body":
-    "Kol bent 3ndha ri7tha. Ghadi tchoufi dyalek f lekher — mn ba3d ma t3refi chkoun nti. Machi 9bel.",
-  "scents.shopThis": "Chri hada",
+    "Kol bent w l'perfume li katji m3aha. Ghadi tdiscoveri dyalek f lekher — mn ba3d ma t3arfi lvibe dyalek. Machi 9bel!",
+  "scents.shopThis": "Get yours now",
 
-  "final.title": "Hiya katsennak. 60 secondes.",
+  "final.title": "She's waiting for you. Just 60 seconds!",
   "final.body":
-    "Kayn nhar nti l'7louwa, w kayn nhar nti l'charara. 3awdiha ghda — bla ma t7essi, ghatdouhki rassek.",
-  "final.cta": "Le9a chkoun nti",
+    "Kayn nhar katkoni fih sweet, w kayn nhar katkoni spicy 💅",
+  "final.cta": "Discover your vibe",
 
-  "footer.line": "Msawb b l7ob l l'banat li kaybedl l'mood dyalhom kol nhar. W safi, 3adi.",
+  "footer.line": "Made with love lbanat li mood dyalhom ki-tbeddel kol nhar. W totally normal!",
 
   // Quiz
-  "quiz.question": "Question {n} mn {total}",
-  "quiz.backHome": "Rje3 l'dar",
-  "quiz.back": "L'so2al li 9bel",
-  "quiz.footer": "Ma kaynch jawab ghalat hna — bs7, kouni sincere, machi impressive.",
-  "quiz.streak": "Streak {n} iyam",
-  "quiz.cheer.0": "Yallah, nti 9adra 💅",
-  "quiz.cheer.1": "Bs7, kouni sincere — hadi hiya s-sirriya kamla 👑",
-  "quiz.cheer.2": "Nass l'tri9 — las2ila zwina jayin 🔥",
-  "quiz.cheer.3": "9rebiti, habibti — matw9efich daba ✨",
+  "quiz.question": "Question {n} of {total}",
+  "quiz.backHome": "Back home",
+  "quiz.back": "Previous question",
+  "quiz.footer": "Ma kaynch jawab ghalat hna — just be real, don't overthink it.",
+  "quiz.streak": "Streak {n} days",
+  "quiz.cheer.0": "Yallah, nti 9adra 3liha! 💅",
+  "quiz.cheer.1": "Be honest with yourself — hadi hiya magic moment 👑",
+  "quiz.cheer.2": "Nss l'tri9 mchat — the questions are getting juicy! 💖",
+  "quiz.cheer.3": "9rrebti tsali, habibti — matw9efich daba ✨",
 
   // Result
-  "result.todayYoure": "Lyoum nti",
-  "result.oneThing": "Wa7d l'haja diriha lyoum",
-  "result.energy": "L'energie dyalek lyoum",
-  "result.style": "Style dyalha",
-  "result.palette": "Couleurs dyalek lyoum",
-  "result.herScent": "Ri7tha",
-  "result.matchedToYou": "Matched m3ak",
+  "result.todayYoure": "Lyoum ntiya:",
+  "result.oneThing": "Activity dyalek lyoum",
+  "result.energy": "Your energy lyoum",
+  "result.style": "Your style",
+  "result.palette": "Your color palette",
+  "result.herScent": " Your signature scent 🌸",
+  "result.matchedToYou": "Your Perfect Match ✨",
   "result.matchedBody":
-    "Tle3ti {girl} b {mood} energy lyoum — w hadi hiya l'parfum li msawb liha.",
+    "Tl3ti {girl} b {mood} energy lyoum — w hada houwa l'perfume li ki-tmatcha m3ak.",
   "result.order": "Commandi f WhatsApp",
-  "result.orDm": "Wla DM 3la Instagram",
+  "result.orDm": "Wla send a DM on Instagram",
   "result.orderNote":
-    "L'message deja fih chkoun nti — 7na kan3rfo chnou bghiti. Sahel, s7i7?",
-  "result.retake": "3awdi",
-  "result.again": "7ssiti rassek mkhalfa? 3awdi l'quiz",
-  "result.shareCta": "Share l'card dyalek",
-  "result.shopCta": "Wla chriha nichan",
+    "Lmessage déjà msawb fih lprofile dyalek — 7na ghadi nfahmok. Sahl, yaak? 😉",
+  "result.retake": "Retake l'quiz 🔄",
+  "result.again": "7ssiti b l'vibe tbeddlat? Retake the quiz!",
+  "result.shareCta": "Share your card",
+  "result.shopCta": "Wla shop it directly 🛍️",
 
   // Share
-  "share.title": "Ha hiya. Daba khelli l'group chat yghar.",
-  "share.cardTitle": "L'card dyalek",
+  "share.title": "Ha hiya ✨ Daba kheli lgroup chat yghar 🔥",
+  "share.cardTitle": "Your custom card 💖",
   "share.body":
-    "Sejjelha, postiha, siftiha l'group. Kol card kats9ssi l'bent li jaya nefs l'so2al: wach nti?",
-  "share.back": "Rje3 l'résultat",
-  "share.backFull": "Rje3 l'résultat kamel",
-  "share.formatStory": "Story 9:16",
-  "share.formatSquare": "Post 1:1",
+    "Saviha, postiha, wla siftiha l lgroup. Kol card ktkheli lgirls lkhrin isowlo: Wach ntiya hadi?",
+  "share.back": "Rej3i results",
+  "share.backFull": "Rej3i full results",
+  "share.formatStory": "Story format (9:16)",
+  "share.formatSquare": "Square post (1:1)",
   "share.make": "Share my card",
-  "share.making": "Kanwjjed l'card...",
-  "share.save": "Sejjel l'image",
-  "share.copy": "Copy le lien",
-  "share.idle": "Jouj formats wajdin — khtari li 3ejbek, habibti.",
-  "share.shared": "T-postat! L'banat ghadi yseksouk 3liha, promis.",
-  "share.saved": "Tsejjlat f downloads. Yallah, siri chriha.",
-  "share.copied": "L'lien tcopya. Siftih l l'banat.",
-  "share.error": "Ma9dernach nsawbo l'image. Dir screenshot, habibti.",
+  "share.making": "Kanwjd lcard dyalek...",
+  "share.save": "Download",
+  "share.copy": "Copy link",
+  "share.idle": "2 formats wajdin — khtari li 3jbatek, habibti ✨",
+  "share.shared": "T-postat! Lgirls ghadi ysowlok 3liha, promis 💅",
+  "share.saved": "T-sejjlat f lphone dyalek! Yallah, go shop it now 🛍️",
+  "share.copied": "Link tcopya! Siftih lbnat",
+  "share.error": "Ma9drnach nnsawbo l'image. Take a screenshot or try again, habibti!",
 
   // Personalisation
-  "personal.title": "Khelliha b smitek",
-  "personal.subtitle": "Smitek kat3lich nichan f l'card — optional, walakin cuter.",
+  "personal.title": "Make it yours ✨",
+  "personal.subtitle": "Smitek ghadi tban f lcard — optional, walakin cuter 💖",
   "personal.name": "Smitek",
-  "personal.namePlaceholder": "matalan: Sara",
+  "personal.namePlaceholder": "ex: Alae",
   "personal.ig": "Instagram",
   "personal.igPlaceholder": "compte dyalek",
-  "personal.for": "Had l'card",
+  "personal.for": "lchkoun?",
   "personal.forMe": "Liya",
-  "personal.gift": "Cadeau",
+  "personal.gift": "Gift",
   "personal.giftFor": "L chkoun?",
-  "personal.giftPlaceholder": "smiytha, matalan: Lina",
-  "personal.onCard": "F l'card",
+  "personal.giftPlaceholder": "ex: Lina",
+  "personal.onCard": "F l'card ghadi tban:",
 
   // Card
   "card.todayIm": "Lyoum ana",
-  "card.aGiftFor": "Cadeau l",
+  "card.aGiftFor": "Gift To",
 
   // Daily vibe check
   "daily.title": "Daily Vibe Check",
@@ -145,26 +139,26 @@ const en: Dict = {
   "daily.share": "Share l'vibe card dyalek",
   "daily.rendering": "Kanwjjed l'card...",
   "daily.shareNote":
-    "Siftiha l'group — khelli l'banat ya3rfo l'energie dyalek lyoum.",
+    "Siftiha l'group — khelli l'banat ya3rfo lenergie dyalek lyoum.",
   "daily.cardTitle": "Vibe dyal lyoum",
 
   // Shop
   "shop.metaTitle": "Shop",
-  "shop.eyebrow": "Parfum wa7d · 3 dyal l'banat",
-  "shop.title": "Parfum wa7d, 3 bent, 3 vibe",
+  "shop.eyebrow": "1 Perfume · 3 Personalities ✨",
+  "shop.title": "1 Perfume, 3 Vibes 💖",
   "shop.subtitle":
-    "Khtari l'bent li ghadi tchri liha — w l'page katban b les couleurs dyalha. Yallah.",
-  "shop.choose": "Khtari la version dyalha",
-  "shop.includes": "Kol commande ja m3aha",
-  "shop.notes": "Les notes",
+    "Khtari lfragrance li ghadi tchri — w lpage ghadi tbeddel b lcolors dyalha!",
+  "shop.choose": "Khtari lvibe dyalk 🌸",
+  "shop.includes": "Kol order kiji m3ah:",
+  "shop.notes": "Fragrance notes 🧪",
   "shop.order": "Commandi f WhatsApp",
-  "shop.dm": "Wla DM 3la Instagram",
+  "shop.dm": "Wla Send DM f Instagram",
   "shop.reviews": "Chno 9alo l'banat",
-  "shop.trustOriginal": "Original 100%",
-  "shop.trustFast": "Livraison 1-3 iyam",
-  "shop.trustWrap": "Emballage cadeau fabor",
-  "shop.discover": "Mazal ma3rftich chkoun nti? Yallah, jrebbi l'quiz!",
-  "shop.quizCta": "Le9a chkoun nti",
+  "shop.trustOriginal": "100% Original",
+  "shop.trustFast": "Livraison f 1-3 days",
+  "shop.trustWrap": "Emballage cadeau gratuit",
+  "shop.discover": "Mazal ma3rfti lvibe dyalek? Passi l'quiz! 💫",
+  "shop.quizCta": "Discover your vibe",
 };
 
 export const DICT: Record<"en", Dict> = { en };

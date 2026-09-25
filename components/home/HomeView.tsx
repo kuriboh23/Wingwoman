@@ -90,7 +90,7 @@ export function HomeView() {
 
         <div className="animate-rise inline-flex items-center gap-2 rounded-full bg-rose/10 px-3.5 py-1 text-rose border border-rose/15">
           <Sparkles className="h-3.5 w-3.5 animate-pulse" />
-          <p className="text-[0.72rem] font-bold tracking-[0.2em] uppercase">
+          <p className="text-[0.64rem] font-bold tracking-[0.2em] uppercase">
             {t("home.eyebrow")}
           </p>
         </div>
