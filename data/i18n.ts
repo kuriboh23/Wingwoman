@@ -28,9 +28,9 @@ const en: Dict = {
     "Machi ghir ashmen parfum bghiti — ashmen bent nti daba, had sbah. N9olik chkoun nti, w mn ba3d chnou ri7tha. Yallah.",
   "home.cta": "Le9a chkoun nti",
   "home.ctaNote": "Bla inscription, bla email. Ghir 8 taps — 60 secondes w safi.",
-  "home.secondaryCta": "Choufi les parfums",
+  "home.secondaryCta": "Discover lfragrances dyalna 🌸",
   "home.marquee": "SOFT GIRL ERA · GOLDEN GIRL ERA · COCOA GIRL ERA · WACH NTI? · YALLAH 60 SECONDES",
-  "home.todayResult": "Lyoum nti {name} — choufi résultat dyalek",
+  "home.todayResult": "Lyoum nti {name} — choufi result dyalek",
 
   "girls.eyebrow": "3 dyal l'banat — nti wa7da fihom",
   "girls.title": "Khtari l'personnalité, machi l'parfum",
