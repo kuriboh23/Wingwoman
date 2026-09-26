@@ -48,9 +48,9 @@ export const CONFIG = {
     /** WhatsApp order number (Moroccan format, digits only) */
     whatsapp: "212620283725",
     /** Brand Instagram handle (used in links and cards) */
-    instagram: "Wingwoman 8",
+    instagram: "Wingwoman",
     /** Display handle with '@' prefix */
-    instagramHandle: "@wingwoman.8",
+    instagramHandle: "@wingwoman.ma",
     showInstagram: true,
   },
 
